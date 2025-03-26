@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <p>Messages and notification section</p>
+    <div class="main" style="width: 1080px;border: 1px solid red;margin:0 auto;">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

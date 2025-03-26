@@ -47,4 +47,6 @@ msgstr "سبد خرید"
 msgid "Hello"
 msgstr "سلام و خوش آمدید"
 
+msgid "Language"
+msgstr "زبان"
 

@@ -1,28 +1,66 @@
+html[dir="rtl"] {
+  text-align: right;
+  /* Align text to the right */ }
+
+body {
+  margin: 0px;
+  padding: 0px; }
+
+.main {
+  width: 1080px;
+  margin: 0 auto; }
+
 .navbar {
-  padding: 10px 15px;
-  border: 1px solid red; }
+  padding: 10px;
+  border: 1px solid lightgray; }
   .navbar .nav-link-holder {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center; }
-    .navbar .nav-link-holder .logo-holder {
-      border: 1px solid blue; }
-      .navbar .nav-link-holder .logo-holder img {
-        width: 34px;
-        height: 34px; }
+    .navbar .nav-link-holder .logo-holder img {
+      width: 100px;
+      height: 34px; }
     .navbar .nav-link-holder .nav-items {
       display: inline;
       list-style-type: none;
       padding: 0;
       margin: 0; }
-      .navbar .nav-link-holder .nav-items .nav-link {
+      .navbar .nav-link-holder .nav-items .nav-option {
         display: inline;
+        position: relative;
         padding: 0 10px; }
-        .navbar .nav-link-holder .nav-items .nav-link a {
+        .navbar .nav-link-holder .nav-items .nav-option .nav-link {
           text-decoration: none;
           color: inherit; }
-        .navbar .nav-link-holder .nav-items .nav-link:hover {
+        .navbar .nav-link-holder .nav-items .nav-option:hover {
           color: gray; }
+      .navbar .nav-link-holder .nav-items .dropdown-holder {
+        position: relative; }
+        .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-title {
+          cursor: pointer; }
+        .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu {
+          width: fit-content;
+          border: 1px solid lightgray;
+          box-shadow: 0 0 16px lightgray;
+          border-radius: 3px;
+          position: absolute;
+          padding: 10px 0px;
+          top: 100%;
+          left: 0%;
+          z-index: 100;
+          display: none; }
+          .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu .item-list {
+            padding: 5px 20px;
+            margin: 0px; }
+            .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu .item-list a {
+              text-decoration: none;
+              cursor: pointer;
+              color: inherit; }
+            .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu .item-list:hover {
+              background-color: teal;
+              color: white; }
+        .navbar .nav-link-holder .nav-items .dropdown-holder:hover .dropdown-menu {
+          display: block; }
 
 /*# sourceMappingURL=style.css.map */

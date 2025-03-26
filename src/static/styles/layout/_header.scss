@@ -1,15 +1,14 @@
 .navbar{
-    padding: 10px 15px;
-    border: 1px solid red;
+    padding: 10px;
+    border: 1px solid lightgray;
     .nav-link-holder{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         .logo-holder{
-            border: 1px solid blue;
             img{
-                width: 34px;
+                width: 100px;
                 height: 34px;
             }
         }
@@ -18,15 +17,52 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
-            .nav-link{
+            .nav-option{
                 display: inline;
+                position: relative;
                 padding: 0 10px;
-                a{
+                .nav-link{
                     text-decoration: none;
                     color: inherit;
                 }
                 &:hover{
                     color: gray;
+                }
+                
+            }
+            .dropdown-holder{
+                position: relative;
+                .dropdown-title{
+                    cursor: pointer;
+                }
+                .dropdown-menu{
+                    width: fit-content;
+                    border: 1px solid lightgray;
+                    box-shadow: 0 0 16px lightgray;
+                    border-radius: 3px;
+                    position: absolute;
+                    padding: 10px 0px;
+                    top: 100%;
+                    left: 0%;
+                    z-index: 100;
+                    display: none;
+                    .item-list{
+                        padding: 5px 20px;
+                        margin: 0px;
+                        a{
+                            text-decoration: none;
+                            cursor: pointer;
+                            color: inherit;
+                        }
+                        &:hover{
+                            background-color: teal;
+                            color: white;
+                            
+                        }
+                    }
+                }
+                &:hover .dropdown-menu{
+                    display: block;
                 }
             }
         }

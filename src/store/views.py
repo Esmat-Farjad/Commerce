@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils.translation import activate
+from django.conf import settings
 
 # Create your views here.
 def Home(request):
@@ -11,6 +12,13 @@ def Home(request):
 
 
 def switch_language(request, lang_code):
-    activate(lang_code)
-    request.session['django_language'] = lang_code
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    if lang_code in dict(settings.LANGUAGES):  # ✅ Ensure the language is valid
+        activate(lang_code)
+        request.session['django_language'] = lang_code  # ✅ Store in session
+
+        # ✅ Store the language in a cookie
+        response = redirect(request.META.get('HTTP_REFERER', '/'))
+        response.set_cookie('django_language', lang_code, max_age=31536000)  # 1 year
+        return response
+
+    return redirect('/')

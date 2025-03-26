@@ -1,0 +1,28 @@
+.navbar {
+  padding: 10px 15px;
+  border: 1px solid red; }
+  .navbar .nav-link-holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; }
+    .navbar .nav-link-holder .logo-holder {
+      border: 1px solid blue; }
+      .navbar .nav-link-holder .logo-holder img {
+        width: 34px;
+        height: 34px; }
+    .navbar .nav-link-holder .nav-items {
+      display: inline;
+      list-style-type: none;
+      padding: 0;
+      margin: 0; }
+      .navbar .nav-link-holder .nav-items .nav-link {
+        display: inline;
+        padding: 0 10px; }
+        .navbar .nav-link-holder .nav-items .nav-link a {
+          text-decoration: none;
+          color: inherit; }
+        .navbar .nav-link-holder .nav-items .nav-link:hover {
+          color: gray; }
+
+/*# sourceMappingURL=style.css.map */

@@ -1,10 +1,14 @@
 {% load static %}
+{% load sass_tags %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% sass_src './styles/style.scss' %}">
+
     <title>
         {% block title %}
         {% endblock title %}
@@ -12,7 +16,8 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <p>Messages and notification section</p>
+    <p>{% trans "Welcome to my website" %}</p>
+    {% blocktrans %}This is a multi-line translatable text.{% endblocktrans %}
     <div class="main" style="width: 1080px;border: 1px solid red;margin:0 auto;">
         {% block content %}
         {% endblock content %}

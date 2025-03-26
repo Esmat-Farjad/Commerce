@@ -3,21 +3,39 @@
 <div class="navbar">
     <div class="nav-link-holder">
         <div class="logo-holder">
-            <img src="" alt="Logo">
+            <img src="{% static 'image/logo.svg' %}" alt="Logo">
         </div>
         <ul class="nav-items">
-            <li class="nav-link">
-                <a href="#">{% trans 'Home' %}</a>
+            <li class="nav-option">
+                <a class="nav-link" href="#">{% trans 'Home' %}</a>
             </li>
-            <li class="nav-link">
-                <a href="#">{% trans 'Sale' %}</a>
+            <li class="nav-option">
+                <a class="nav-link" href="#">{% trans 'Sale' %}</a>
             </li>
-            <li class="nav-link">
-                <a href="#">{% trans 'Purchase' %}</a>
+            <li class="nav-option">
+                <a class="nav-link" href="#">{% trans 'Purchase' %}</a>
             </li>
-            <li class="nav-link">
-                <a href="#">{% trans 'Cart' %}</a>
+            <li class="nav-option">
+                <a class="nav-link" href="#">{% trans 'Cart' %}</a>
             </li>
+            <li class="nav-option dropdown-holder">
+               <span class="nav-link dropdown-title">
+                {% trans 'Language' %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:18;height:18;vertical-align:middle;">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>
+                  
+               </span>
+               <div class="dropdown-menu">
+                    <p class="item-list">
+                        <a href="{% url 'switch-language' 'fa' %}">{% trans 'Persian' %}</a> 
+                    </p>
+                    <p class="item-list">
+                        <a href="{% url 'switch-language' 'en' %}">{% trans 'English' %}</a>
+                    </p>
+                </div>
+            </li>
+            
         </ul>
     </div>
 </div>

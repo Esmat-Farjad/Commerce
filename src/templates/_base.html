@@ -2,7 +2,7 @@
 {% load sass_tags %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% get_current_language as current_language %}" dir="{% if current_language == 'fa' %}rtl{% else %}ltr{% endif %}">
 <head>
     
     <meta charset="UTF-8">
@@ -15,10 +15,11 @@
     </title>
 </head>
 <body>
-    {% include 'navbar.html' %}
-    <p>{% trans "Welcome to my website" %}</p>
-    {% blocktrans %}This is a multi-line translatable text.{% endblocktrans %}
-    <div class="main" style="width: 1080px;border: 1px solid red;margin:0 auto;">
+    <div class="main">
+        {% include 'navbar.html' %}
+        <p>{% trans "Welcome to my website" %}</p>
+        {% blocktrans %}This is a multi-line translatable text.{% endblocktrans %}
+    
         {% block content %}
         {% endblock content %}
     </div>

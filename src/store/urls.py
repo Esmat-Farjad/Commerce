@@ -7,4 +7,9 @@ urlpatterns = [
         views.switch_language,
         name="switch-language",
         ),
+    path(
+        'auth/sign-in',
+        views.signin,
+        name='sign-in',
+    ),
 ]

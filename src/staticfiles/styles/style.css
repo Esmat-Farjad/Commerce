@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&family=Vazirmatn:wght@100..900&display=swap");
+* {
+  font-family: "Vazirmatn", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal; }
+
+a {
+  text-decoration: none; }
+
 html[dir="rtl"] {
   text-align: right;
   /* Align text to the right */ }
@@ -9,6 +18,28 @@ body {
 .main {
   width: 1080px;
   margin: 0 auto; }
+  .main .message-container {
+    margin: 10px 0px; }
+    .main .message-container .error {
+      color: #c90707;
+      background-color: #f7e9e9;
+      border: 1px solid #c90707; }
+    .main .message-container .success {
+      color: green;
+      background-color: #dafcda;
+      border: 1px solid green; }
+    .main .message-container .message-holder {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 5px;
+      padding: 0px 10px;
+      border-radius: 5px; }
+      .main .message-container .message-holder .message-title {
+        font-weight: bold;
+        text-transform: capitalize; }
+      .main .message-container .message-holder .message-text {
+        font-size: 14px; }
 
 .navbar {
   padding: 10px;
@@ -45,6 +76,7 @@ body {
           box-shadow: 0 0 16px lightgray;
           border-radius: 3px;
           position: absolute;
+          background-color: white;
           padding: 10px 0px;
           top: 100%;
           left: 0%;
@@ -62,5 +94,48 @@ body {
               color: white; }
         .navbar .nav-link-holder .nav-items .dropdown-holder:hover .dropdown-menu {
           display: block; }
+
+.input-field {
+  width: auto;
+  height: 34px;
+  border: 2px solid lightgray;
+  outline: none;
+  border-radius: 5px;
+  padding-left: 5px; }
+  .input-field:focus {
+    border: 2px solid teal; }
+
+.btn {
+  width: auto;
+  height: 34px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px; }
+
+.btn-teal {
+  background-color: teal;
+  color: white;
+  border: 1px solid teal; }
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 30%;
+  margin: 2rem auto; }
+  .login-form .heading {
+    text-align: center;
+    margin: 2rem; }
+    .login-form .heading .title {
+      padding: 0px;
+      margin: 0px; }
+    .login-form .heading .text {
+      padding: 0px;
+      margin: 0px; }
+  .login-form .label-text {
+    margin-top: 5px;
+    font-size: 14px; }
+  .login-form .btn-teal {
+    margin-top: 2rem; }
 
 /*# sourceMappingURL=style.css.map */

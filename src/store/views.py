@@ -5,12 +5,6 @@ from django.utils.translation import activate
 from django.conf import settings
 
 # Create your views here.
-def Home(request):
-    return render(request, 'landing-page.html')
-
-
-
-
 def switch_language(request, lang_code):
     if lang_code in dict(settings.LANGUAGES):  # ✅ Ensure the language is valid
         activate(lang_code)
@@ -22,3 +16,10 @@ def switch_language(request, lang_code):
         return response
 
     return redirect('/')
+
+def Home(request):
+    return render(request, 'landing-page.html')
+
+
+def signin(request):
+    return render(request, 'auth/login.html')

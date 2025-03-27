@@ -1,5 +1,5 @@
-
-
+@import '../component/variable';
+// page layout for language settings
 html[dir="rtl"] {
     text-align: right;  /* Align text to the right */
 }
@@ -9,6 +9,35 @@ body{
 }
 .main{
     width: 1080px;
-    
     margin:0 auto;
+    // django messages 
+    .message-container{
+        margin: 10px 0px;
+        .error{
+            color: $error_color;
+            background-color: rgb(247, 233, 233);
+            border: 1px solid $error_color;
+        }
+        .success{
+            color: $success_color;
+            background-color: rgb(218, 252, 218);
+            border: 1px solid $success_color;
+        }
+        .message-holder{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            padding: 0px 10px;
+            border-radius: 5px;
+            .message-title{
+                font-weight: bold;
+                text-transform: capitalize;
+            }
+            .message-text{
+                font-size: 14px;
+            }
+        }
+    }
 }
+

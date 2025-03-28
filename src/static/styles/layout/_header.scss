@@ -17,6 +17,7 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
+            font-size: 14px;
             .nav-option{
                 display: inline;
                 position: relative;
@@ -26,7 +27,7 @@
                     color: inherit;
                 }
                 &:hover{
-                    color: gray;
+                    color: orange;
                 }
                 
             }

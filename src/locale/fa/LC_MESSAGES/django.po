@@ -79,3 +79,51 @@ msgstr "نام کاربری خود را وارد کنید"
 
 msgid "Enter password"
 msgstr "رمز عبور خود را وارد کنید"
+
+#landing page translation
+msgid "Store Management System"
+msgstr "سیستم مدیریت فروشگاه"
+
+msgid "A Store Management System is a software solution designed to manage and streamline various operations of a retail business. It typically includes features like inventory management, sales and billing, customer management, employee tracking, and reporting. The system helps store owners and managers track stock levels, process transactions efficiently, and generate reports to make informed business decisions"
+msgstr "سیستم مدیریت فروشگاه یک راه‌حل نرم‌افزاری است که برای مدیریت و ساده‌سازی عملیات مختلف یک کسب‌وکار خرده‌فروشی طراحی شده است. این سیستم معمولاً شامل ویژگی‌هایی مانند مدیریت موجودی، فروش و صدور صورت‌حساب، مدیریت مشتریان، پیگیری کارکنان و گزارش‌گیری است. سیستم به صاحبان فروشگاه و مدیران کمک می‌کند تا سطوح موجودی را ردیابی کنند، تراکنش‌ها را به‌طور کارآمد پردازش کنند و گزارش‌هایی را برای تصمیم‌گیری‌های تجاری آگاهانه تولید کنند"
+
+msgid "Inventory"
+msgstr "موجودی"
+msgid "Our platform offers comprehensive Inventory Management, allowing you to track stock levels, manage reorders, and optimize inventory efficiently"
+msgstr "پلتفرم ما مدیریت موجودی کامل را ارائه می‌دهد که به شما امکان می‌دهد سطح موجودی را ردیابی، سفارشات مجدد را مدیریت و موجودی را به‌طور بهینه تنظیم کنید"
+
+msgid "Financial"
+msgstr "مالی"
+msgid "Our platform provides perfect financial management, ensuring seamless tracking of expenses, revenues, and financial reports"
+msgstr "پلتفرم ما مدیریت مالی ایده‌آل را ارائه می‌دهد که ردیابی هزینه‌ها، درآمدها و گزارش‌های مالی را به‌طور یکپارچه انجام می‌دهد"
+
+msgid "Report"
+msgstr "گزارش"
+msgid "Our platform offers perfect report generation with customizable date selection, providing detailed insights based on your needs"
+msgstr "پلتفرم ما تولید گزارش‌ ایده‌آل با انتخاب تاریخ قابل تنظیم را ارائه می‌دهد، که بینش‌های دقیقی بر اساس نیاز شما فراهم می‌کند"
+
+msgid "Daily Dashboard"
+msgstr "داشبورد روزانه"
+msgid "Our platform provides a Daily Dashboard, offering real-time insights into sales, inventory, and key metrics for better decision-making"
+msgstr "پلتفرم ما داشبورد روزانه را ارائه می‌دهد که بینش‌های لحظه‌ای از فروش، موجودی و معیارهای کلیدی برای تصمیم‌گیری بهتر فراهم می‌کند"
+
+msgid "Customers"
+msgstr "مشتریان"
+msgid "Our platform offers customer management, enabling you to track customer details, purchase history, and engagement for personalized services"
+msgstr "پلتفرم ما مدیریت مشتریان را ارائه می‌دهد که به شما امکان می‌دهد جزئیات مشتری، تاریخچه خرید و تعاملات را برای خدمات شخصی‌سازی شده ردیابی کنید"
+
+msgid "Invoice"
+msgstr "فاکتور"
+msgid "Our platform offers seamless invoice generation, allowing easy creation and management of invoices for every transaction"
+msgstr "پلتفرم ما تولید فاکتور بدون دردسر را ارائه می‌دهد که ایجاد و مدیریت فاکتورها برای هر تراکنش را ساده می‌کند"
+
+msgid "Billing"
+msgstr "صورتحساب"
+msgid "Our platform provides efficient billing management, streamlining invoicing, payment tracking, and transaction processing"
+msgstr "پلتفرم ما مدیریت صورتحساب کارآمدی را ارائه می‌دهد که صدور فاکتور، ردیابی پرداخت‌ها و پردازش تراکنش‌ها را ساده می‌کند"
+
+msgid "Contact us"
+msgstr "تماس با ما"
+
+msgid "About us"
+msgstr "در باره ما"

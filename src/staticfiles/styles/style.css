@@ -15,6 +15,9 @@ body {
   margin: 0px;
   padding: 0px; }
 
+hr {
+  border: 1px solid #ededed; }
+
 .main {
   width: 1080px;
   margin: 0 auto; }
@@ -41,6 +44,86 @@ body {
       .main .message-container .message-holder .message-text {
         font-size: 14px; }
 
+.size-4 {
+  width: 24px;
+  height: 24px; }
+
+.landing-page {
+  margin: 2rem 0rem;
+  min-height: 100vh; }
+  .landing-page .heading {
+    text-align: center;
+    padding: 0px;
+    margin: 0px; }
+    .landing-page .heading .title {
+      padding: 0px;
+      margin: 0px; }
+    .landing-page .heading .text {
+      padding: 0px;
+      margin: 0px;
+      font-size: 14px; }
+  .landing-page .flex-three-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5rem 0rem; }
+    .landing-page .flex-three-col .cart {
+      border: 1px solid orange;
+      padding: 0.5rem;
+      text-align: center;
+      border-radius: 5px;
+      margin: 1rem 0rem;
+      height: 10rem;
+      width: calc(20% - 10px); }
+      .landing-page .flex-three-col .cart:nth-child(n+5) {
+        width: calc(25% - 10px); }
+      .landing-page .flex-three-col .cart .cart-header {
+        margin-bottom: 5px; }
+        .landing-page .flex-three-col .cart .cart-header .cart-icon {
+          padding: 5px;
+          margin: 0px; }
+        .landing-page .flex-three-col .cart .cart-header .cart-title {
+          padding: 0px;
+          margin: 0px;
+          font-size: 14px;
+          font-weight: 400; }
+      .landing-page .flex-three-col .cart .cart-body {
+        text-align: center; }
+        .landing-page .flex-three-col .cart .cart-body .paragraph {
+          font-size: 10px; }
+    .landing-page .flex-three-col .middle {
+      border: 2px solid orange; }
+
+.footer-container {
+  border: 1px solid #fcf3e3;
+  padding: 0.5rem 3rem;
+  background-color: #f9f5ec; }
+  .footer-container .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+    .footer-container .content .logo-holder {
+      width: 50px;
+      height: 50px; }
+    .footer-container .content .text {
+      font-size: 12px;
+      color: gray; }
+    .footer-container .content .menu ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0; }
+      .footer-container .content .menu ul li {
+        padding: 5px;
+        margin: 0px; }
+        .footer-container .content .menu ul li a {
+          font-size: 12px;
+          color: black; }
+        .footer-container .content .menu ul li:hover a {
+          color: orange; }
+
 .navbar {
   padding: 10px;
   border: 1px solid lightgray; }
@@ -56,7 +139,8 @@ body {
       display: inline;
       list-style-type: none;
       padding: 0;
-      margin: 0; }
+      margin: 0;
+      font-size: 14px; }
       .navbar .nav-link-holder .nav-items .nav-option {
         display: inline;
         position: relative;
@@ -65,7 +149,7 @@ body {
           text-decoration: none;
           color: inherit; }
         .navbar .nav-link-holder .nav-items .nav-option:hover {
-          color: gray; }
+          color: orange; }
       .navbar .nav-link-holder .nav-items .dropdown-holder {
         position: relative; }
         .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-title {
@@ -98,12 +182,12 @@ body {
 .input-field {
   width: auto;
   height: 34px;
-  border: 2px solid lightgray;
+  border: 1px solid orange;
   outline: none;
   border-radius: 5px;
   padding-left: 5px; }
   .input-field:focus {
-    border: 2px solid teal; }
+    border: 1px solid teal; }
 
 .btn {
   width: auto;
@@ -117,15 +201,24 @@ body {
   color: white;
   border: 1px solid teal; }
 
+.btn-gradient {
+  background-image: linear-gradient(135deg, #FF7E5F, #FF6FB4);
+  color: white;
+  margin: 1rem 0rem; }
+
 .login-form {
+  border: 1px solid orange;
+  border-radius: 5px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 30%;
-  margin: 2rem auto; }
+  width: 32%;
+  margin: 1rem auto; }
   .login-form .heading {
     text-align: center;
-    margin: 2rem; }
+    margin-top: 1rem;
+    margin-bottom: 2rem; }
     .login-form .heading .title {
       padding: 0px;
       margin: 0px; }

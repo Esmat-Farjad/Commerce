@@ -2,7 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.Landing, name='landing'),
+    path('', views.landing, name='landing'),
     path('home/', views.Home, name='home'),
     path(
         'language/switch/<str:lang_code>',

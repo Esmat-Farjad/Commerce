@@ -17,9 +17,12 @@ def switch_language(request, lang_code):
 
     return redirect('/')
 
-def Home(request):
+
+def landing(request):
     return render(request, 'landing-page.html')
 
+def Home(request):
+    return render(request, 'home.html')
 
 def signin(request):
     return render(request, 'auth/login.html')

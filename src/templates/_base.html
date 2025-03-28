@@ -17,9 +17,14 @@
 <body>
     <div class="main">
         {% include 'navbar.html' %}
-        <p>{% trans "Welcome to my website" %}</p>
-        {% blocktrans %}This is a multi-line translatable text.{% endblocktrans %}
-    
+        <div class="message-container">
+            {% for message in messages %}
+                <div class="{{message.tags}} message-holder">
+                    <p class="message-title">{% trans message.tags %}</p>
+                    <p class="message-text">{% trans message %}</p>
+                </div>
+            {% endfor %} 
+        </div>
         {% block content %}
         {% endblock content %}
     </div>

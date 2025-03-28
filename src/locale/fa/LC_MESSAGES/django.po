@@ -24,13 +24,7 @@ msgstr "فارسی"
 msgid "English"
 msgstr "انگلیسی"
 
-#: .\src\templates\_base.html:19
-msgid "Welcome to my website"
-msgstr "به ویبسایت من خوش آمدید "
 
-#: .\src\templates\_base.html:20
-msgid "This is a multi-line translatable text."
-msgstr "این متن ترجمه شده چندین خظ است"
 
 msgid "Purchase"
 msgstr "خرید"
@@ -50,3 +44,38 @@ msgstr "سلام و خوش آمدید"
 msgid "Language"
 msgstr "زبان"
 
+msgid "Error"
+msgstr "خظا"
+
+msgid "Sign In"
+msgstr "ورود"
+
+msgid "Sign Out"
+msgstr "خروج"
+
+msgid "Success"
+msgstr "موفقیت"
+
+msgid "Username"
+msgstr "نام کاربری"
+
+msgid "Password"
+msgstr "گذرواژه"
+
+msgid "To continue to your account, please sign in"
+msgstr "برای ادامه به حساب خود، لطفاً وارد شوید"
+
+msgid "Don' have an account ?"
+msgstr "حساب کاربری ندارید؟"
+
+msgid "Create One"
+msgstr "یک حساب بسازید"
+
+msgid "forgot password?"
+msgstr "رمز عبور خود را فراموش کرده اید؟"
+
+msgid "Enter username"
+msgstr "نام کاربری خود را وارد کنید"
+
+msgid "Enter password"
+msgstr "رمز عبور خود را وارد کنید"

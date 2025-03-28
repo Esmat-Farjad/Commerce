@@ -3,7 +3,9 @@
 <div class="navbar">
     <div class="nav-link-holder">
         <div class="logo-holder">
-            <img src="{% static 'image/logo.svg' %}" alt="Logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'image/logo.svg' %}" alt="Logo">
+            </a>
         </div>
         <ul class="nav-items">
             <li class="nav-option">
@@ -17,6 +19,12 @@
             </li>
             <li class="nav-option">
                 <a class="nav-link" href="#">{% trans 'Cart' %}</a>
+            </li>
+            <li class="nav-option">
+                <a class="nav-link" href="{% url 'sign-in' %}">{% trans 'Sign In' %}</a>
+            </li>
+            <li class="nav-option">
+                <a class="nav-link" href="#">{% trans 'Sign Out' %}</a>
             </li>
             <li class="nav-option dropdown-holder">
                <span class="nav-link dropdown-title">

@@ -5,11 +5,11 @@ from django.utils.translation import activate
 from django.conf import settings
 
 # Create your views here.
-def Home(request):
+def Landing(request):
     return render(request, 'landing-page.html')
 
-
-
+def Home(request):
+    return render(request, 'home.html')
 
 def switch_language(request, lang_code):
     if lang_code in dict(settings.LANGUAGES):  # ✅ Ensure the language is valid

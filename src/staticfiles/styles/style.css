@@ -44,9 +44,13 @@ hr {
       .main .message-container .message-holder .message-text {
         font-size: 14px; }
 
-.size-4 {
+.size-6 {
   width: 24px;
   height: 24px; }
+
+.size-4 {
+  width: 15px;
+  height: 15px; }
 
 .landing-page {
   margin: 2rem 0rem;
@@ -57,11 +61,12 @@ hr {
     margin: 0px; }
     .landing-page .heading .title {
       padding: 0px;
-      margin: 0px; }
+      margin: 0px;
+      font-size: 18px; }
     .landing-page .heading .text {
       padding: 0px;
       margin: 0px;
-      font-size: 14px; }
+      font-size: 12px; }
   .landing-page .flex-three-col {
     display: flex;
     justify-content: center;
@@ -104,6 +109,7 @@ hr {
   .footer-container .content {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between; }
     .footer-container .content .logo-holder {
       width: 50px;

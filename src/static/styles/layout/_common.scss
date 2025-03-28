@@ -43,9 +43,13 @@ hr{
         }
     }
 }
-.size-4{
+.size-6{
     width: 24px;
     height: 24px;
+}
+.size-4{
+    width: 15px;
+    height: 15px;
 }
 
 // landing page styling
@@ -59,11 +63,12 @@ hr{
         .title{
             padding: 0px;
             margin: 0px;
+            font-size: 18px;
         }
         .text{
             padding: 0px;
             margin: 0px;
-            font-size: 14px;
+            font-size: 12px;
         }
     }
     .flex-three-col{

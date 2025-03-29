@@ -11,6 +11,7 @@
             <li class="nav-option">
                 <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %}</a>
             </li>
+            {% if request.user.is_authenticated %}
             <li class="nav-option">
                 <a class="nav-link" href="{% url 'purchase' %}">{% trans 'Purchase' %}</a>
             </li>
@@ -22,11 +23,16 @@
                 <a class="nav-link" href="#">{% trans 'Cart' %}</a>
             </li>
             <li class="nav-option">
-                <a class="nav-link" href="{% url 'sign-in' %}">{% trans 'Sign In' %}</a>
+                <a class="nav-link" href="{% url 'sign-out' %}">{% trans 'Sign Out' %}</a>
+            </li>
+            {% else %}
+            <li class="nav-option">
+                <a class="nav-link" href="{% url 'sign-up' %}">{% trans 'Sign Up' %}</a>
             </li>
             <li class="nav-option">
-                <a class="nav-link" href="#">{% trans 'Sign Out' %}</a>
+                <a class="nav-link" href="{% url 'sign-in' %}">{% trans 'Sign In' %}</a>
             </li>
+            {% endif %}
             <li class="nav-option dropdown-holder">
                <span class="nav-link dropdown-title">
                 {% trans 'Language' %}
@@ -44,6 +50,7 @@
                     </p>
                 </div>
             </li>
+            
             
         </ul>
     </div>

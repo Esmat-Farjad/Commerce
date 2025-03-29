@@ -50,14 +50,17 @@ msgstr "خظا"
 msgid "Sign In"
 msgstr "ورود"
 
+msgid "Sign Up"
+msgstr "ثبت نام"
+
 msgid "Sign Out"
 msgstr "خروج"
 
 msgid "Success"
 msgstr "موفقیت"
 
-msgid "Username"
-msgstr "نام کاربری"
+msgid "Email/Username"
+msgstr "ایمیل/نام کاربری"
 
 msgid "Password"
 msgstr "گذرواژه"
@@ -65,7 +68,7 @@ msgstr "گذرواژه"
 msgid "To continue to your account, please sign in"
 msgstr "برای ادامه به حساب خود، لطفاً وارد شوید"
 
-msgid "Don' have an account ?"
+msgid "Don't have an account ?"
 msgstr "حساب کاربری ندارید؟"
 
 msgid "Create One"
@@ -74,8 +77,8 @@ msgstr "یک حساب بسازید"
 msgid "forgot password?"
 msgstr "رمز عبور خود را فراموش کرده اید؟"
 
-msgid "Enter username"
-msgstr "نام کاربری خود را وارد کنید"
+msgid "Enter email"
+msgstr "ایمیل خود را وارد کنید"
 
 msgid "Enter password"
 msgstr "رمز عبور خود را وارد کنید"
@@ -127,3 +130,31 @@ msgstr "تماس با ما"
 
 msgid "About us"
 msgstr "در باره ما"
+
+#Sign up translation
+msgid "Something went wrong. Please fix the below error"
+msgstr "مشکلی پیش آمده است. لطفاً خطای زیر را برطرف کنید"
+
+msgid "The user has been registered successfully"
+msgstr "کاربر با موفقیت ثبت شد"
+
+msgid "Sign Up to Manage Your Store Efficiently"
+msgstr "ثبت نام کنید تا فروشگاه خود را به صورت کارآمد مدیریت کنید"
+
+msgid "Already have an account ?"
+msgstr "آیا قبلاً حساب کاربری دارید؟"
+
+msgid "First Name"
+msgstr "نام"
+
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+msgid "Confrim Password"
+msgstr "تأیید رمز عبور"
+
+msgid "Invalid username or password"
+msgstr "نام کاربری یا رمز عبور نامعتبر است"
+
+msgid "Welcome !"
+msgstr "خوش آمدید !"

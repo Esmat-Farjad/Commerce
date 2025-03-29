@@ -4,7 +4,9 @@ from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
 from .models import Category, Purchase
-from .forms import PurchaseForm
+from .forms import PurchaseForm, RegistrationForm
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def switch_language(request, lang_code):
@@ -26,7 +28,38 @@ def Home(request):
     return render(request, 'home.html')
 
 def signin(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST.get('password')
+        user = authenticate(request, username=email, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, _("Welcome !"))
+            return redirect('home')
+        else:
+            messages.error(request, _("Invalid username or password"))
     return render(request, 'auth/login.html')
+
+def signup(request):
+    form = RegistrationForm()
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("The user has been registered successfully"))
+            print("user created")
+        else:
+            messages.error(request, _("Something Went wrong. Please fix the below error !"))
+            print("something went wrong")
+    register_form = form
+    context = {
+        'form':register_form
+    }
+    return render(request, 'auth/register.html', context)
+
+def signout(request):
+    logout(request) 
+    return redirect('sign-in') 
 
 def purchase(request):
     purchase_form = PurchaseForm()

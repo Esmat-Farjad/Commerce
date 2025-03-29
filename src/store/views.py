@@ -1,8 +1,10 @@
-
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import activate
 from django.conf import settings
+from django.contrib import messages
+from .models import Category, Purchase
+from .forms import PurchaseForm
 
 # Create your views here.
 def switch_language(request, lang_code):
@@ -17,7 +19,6 @@ def switch_language(request, lang_code):
 
     return redirect('/')
 
-
 def landing(request):
     return render(request, 'landing-page.html')
 
@@ -26,3 +27,53 @@ def Home(request):
 
 def signin(request):
     return render(request, 'auth/login.html')
+
+def purchase(request):
+    purchase_form = PurchaseForm()
+    if request.method == 'POST':
+        purchase_form = PurchaseForm(request.POST, request.FILES)
+        
+        if purchase_form.is_valid():
+            package_purchase_price = purchase_form.cleaned_data['package_purchase_price']
+            package_contain = purchase_form.cleaned_data.get('package_contain')
+            num_of_packages = purchase_form.cleaned_data.get('num_of_packages')
+            total_package_price = purchase_form.cleaned_data.get('total_package_price')
+            package_sale_price = purchase_form.cleaned_data.get('package_sale_price')
+            total_package_price = int(num_of_packages) * int(package_purchase_price)
+            total_items = int(package_contain) * int(num_of_packages)
+            item_sale_price = round((package_sale_price / package_contain), 3) if package_contain else 0
+            print(f"total_price: {total_package_price} || total_items: {total_items} || item_sale_price: {item_sale_price}")
+            purchase = purchase_form.save(commit=False)
+            purchase.total_items = total_items
+            purchase.item_sale_price = item_sale_price
+            purchase.total_package_price= total_package_price
+            purchase.user = request.user
+            purchase.save()
+
+            messages.success(request, "Product added successfully !")
+            # return redirect("product_list")
+        else:
+            messages.error(request, f"Something went wrong. Please fix the below errors.{purchase_form.errors}")
+        
+    purchase = Purchase.objects.all().order_by('-id')
+    #Paginator start
+    p = Paginator(purchase, 14 )
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = p.page(1)
+    except EmptyPage:
+        page_obj = p.page(p.num_pages)
+    #Paginator end
+    number = []
+    for x in range(1, 100,1):
+        number.append(x)
+    cat = Category.objects.all()
+    context = {
+        'category':cat,
+        'page_obj':page_obj,
+        'num':number,
+        'form':purchase_form
+        }
+    return render(request, 'purchase/purchase.html', context)

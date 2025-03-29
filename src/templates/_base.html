@@ -21,7 +21,7 @@
             {% for message in messages %}
                 <div class="{{message.tags}} message-holder">
                     <p class="message-title">{% trans message.tags %}</p>
-                    <p class="message-text">{% trans message %}</p>
+                    <p class="message-text">{% trans message.message %}</p>
                 </div>
             {% endfor %} 
         </div>

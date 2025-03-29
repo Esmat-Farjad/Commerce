@@ -102,15 +102,6 @@ hr {
     .landing-page .flex-three-col .middle {
       border: 2px solid orange; }
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 30px;
-  margin: 30px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
-
 .page-title {
   text-align: center;
   font-size: 28px;
@@ -216,7 +207,8 @@ hr {
   height: 34px;
   background-color: transparent;
   border: none;
-  border-radius: 5px; }
+  border-radius: 5px;
+  cursor: pointer; }
 
 .btn-teal {
   background-color: teal;
@@ -227,6 +219,12 @@ hr {
   background-image: linear-gradient(135deg, #FF7E5F, #FF6FB4);
   color: white;
   margin: 1rem 0rem; }
+
+.field-error-message {
+  padding: 0px;
+  margin: 0px;
+  font-size: 10px;
+  color: #e40e0e; }
 
 .login-form {
   border: 1px solid orange;
@@ -246,12 +244,17 @@ hr {
       margin: 0px; }
     .login-form .heading .text {
       padding: 0px;
-      margin: 0px; }
+      margin: 0px;
+      font-weight: 400;
+      color: gray; }
   .login-form .label-text {
     margin-top: 5px;
     font-size: 14px; }
   .login-form .btn-teal {
     margin-top: 2rem; }
+
+.signup-form {
+  width: 35%; }
 
 .purchase-form {
   background: #fff;

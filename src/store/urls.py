@@ -15,4 +15,14 @@ urlpatterns = [
         views.signin,
         name='sign-in',
     ),
+    path(
+        'auth/sign-up',
+        views.signup,
+        name='sign-up',
+    ),
+    path(
+        'auth/sign-out',
+        views.signout,
+        name="sign-out",
+    ),
 ]

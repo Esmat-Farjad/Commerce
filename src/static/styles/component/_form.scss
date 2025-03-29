@@ -15,6 +15,7 @@
     background-color: transparent;
     border: none;
     border-radius: 5px;
+    cursor:  pointer;
     
 }
 .btn-teal{
@@ -27,6 +28,12 @@
     background-image: linear-gradient(135deg, #FF7E5F, #FF6FB4);
     color: white;
     margin: 1rem 0rem;
+}
+.field-error-message{
+    padding: 0px;
+    margin: 0px;
+    font-size: 10px;
+    color: rgb(228, 14, 14);
 }
 // login form
 .login-form{
@@ -49,6 +56,8 @@
         .text{
             padding:0px;
             margin:0px;
+            font-weight: 400;
+            color: gray;
         }
     }
     .label-text{
@@ -58,6 +67,10 @@
     .btn-teal{
         margin-top: 2rem;
     }
+}
+// signup form
+.signup-form{
+    width: 35%;
 }
 
 // Purchase Form code

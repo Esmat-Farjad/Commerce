@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% trans 'Sign Up' %}
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <form action="{% url 'sign-up' %}" class="login-form signup-form" method="post">
+        {% csrf_token %}
+        <div class="heading">
+            <h1 class="title">{% trans 'Sign Up' %}</h1>
+            <h5 class="text">{% trans 'Sign Up to Manage Your Store Efficiently' %}</h5>
+        </div>
+        {% for field in form %}
+        <label class="label-text" for="{{field.id_for_label}}">{{field.label.title}}</label>
+        {{field}}
+        <p class="field-error-message">{{field.errors}}</p>
+        {% endfor %}
+        <button type="submit" class="btn btn-gradient">{% trans 'Sign Up' %}</button>
+        <div class="">
+            <p style="font-size: 14px;">{% trans "Already have an account ?" %}
+                <a href="#" style="color:#0d6efd">{% trans 'Sign In' %}</a>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock content %}

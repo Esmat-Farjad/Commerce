@@ -20,8 +20,14 @@
         <div class="message-container">
             {% for message in messages %}
                 <div class="{{message.tags}} message-holder">
-                    <p class="message-title">{% trans message.tags %}</p>
-                    <p class="message-text">{% trans message.message %}</p>
+                    <p class="message-title">
+                        {% if message.tags == "success" %}
+                            {% trans "Success" %}
+                        {% elif message.tags == "error" %}
+                            {% trans "Error" %}
+                        {% endif %}
+                    </p>
+                    <p class="message-text">{{message}}</p>
                 </div>
             {% endfor %} 
         </div>

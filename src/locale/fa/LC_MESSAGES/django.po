@@ -56,6 +56,13 @@ msgstr "ثبت نام"
 msgid "Sign Out"
 msgstr "خروج"
 
+msgid "Admin Dashboard"
+msgstr "پنل مدیریت"
+
+msgid "My Profile"
+msgstr "پروفایل من"
+
+
 msgid "Success"
 msgstr "موفقیت"
 

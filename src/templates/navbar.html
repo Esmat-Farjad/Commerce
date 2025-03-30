@@ -8,9 +8,6 @@
             </a>
         </div>
         <ul class="nav-items">
-            <li class="nav-option">
-                <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %}</a>
-            </li>
             {% if request.user.is_authenticated %}
             <li class="nav-option">
                 <a class="nav-link" href="{% url 'purchase' %}">{% trans 'Purchase' %}</a>
@@ -22,8 +19,29 @@
             <li class="nav-option">
                 <a class="nav-link" href="#">{% trans 'Cart' %}</a>
             </li>
-            <li class="nav-option">
-                <a class="nav-link" href="{% url 'sign-out' %}">{% trans 'Sign Out' %}</a>
+            <li class="nav-option menu-handler">
+                <span class="nav-link">
+                    {{request.user.username}}
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 20 20" 
+                    fill="currentColor" 
+                    style="width:18;height:18;vertical-align:middle;">
+                        <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <ul class="menu">
+                    {% if request.user.is_superuser %}
+                    <li class="menu-item">
+                        <a href="http://127.0.0.1:8000/admin">{% trans 'Admin Dashboard'%}</a>
+                    </li>
+                    {% endif %}
+                    <li class="menu-item">
+                        <a href="#">{% trans 'My Profile' %}</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="nav-link" href="{% url 'sign-out' %}">{% trans 'Sign Out' %}</a>
+                    </li>
+                </ul>
             </li>
             {% else %}
             <li class="nav-option">
@@ -33,22 +51,21 @@
                 <a class="nav-link" href="{% url 'sign-in' %}">{% trans 'Sign In' %}</a>
             </li>
             {% endif %}
-            <li class="nav-option dropdown-holder">
-               <span class="nav-link dropdown-title">
+            <li class="nav-option menu-handler">
+               <span class="nav-link">
                 {% trans 'Language' %}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:18;height:18;vertical-align:middle;">
                     <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                   </svg>
-                  
                </span>
-               <div class="dropdown-menu">
-                    <p class="item-list">
-                        <a href="{% url 'switch-language' 'fa' %}">{% trans 'Persian' %}</a> 
-                    </p>
-                    <p class="item-list">
-                        <a href="{% url 'switch-language' 'en' %}">{% trans 'English' %}</a>
-                    </p>
-                </div>
+               <ul class="menu">
+                <li class="menu-item">
+                    <a href="{% url 'switch-language' 'fa' %}">{% trans 'Persian' %}</a> 
+                </li>
+                <li class="menu-item">
+                    <a href="{% url 'switch-language' 'en' %}">{% trans 'English' %}</a>
+                </li>
+               </ul>
             </li>
             
             

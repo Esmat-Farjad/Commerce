@@ -25,7 +25,7 @@ hr {
     margin: 10px 0px; }
     .main .message-container .error {
       color: #c90707;
-      background-color: #f7e9e9;
+      background-color: #ffe6e6;
       border: 1px solid #c90707; }
     .main .message-container .success {
       color: green;
@@ -35,14 +35,18 @@ hr {
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: center;
       gap: 5px;
-      padding: 0px 10px;
-      border-radius: 5px; }
+      padding: 5px 10px;
+      font-size: 12px; }
       .main .message-container .message-holder .message-title {
         font-weight: bold;
-        text-transform: capitalize; }
+        text-transform: capitalize;
+        padding: 0px;
+        margin: 0px; }
       .main .message-container .message-holder .message-text {
-        font-size: 14px; }
+        padding: 0px;
+        margin: 0px; }
 
 .size-6 {
   width: 24px;
@@ -160,37 +164,36 @@ hr {
         padding: 0 10px; }
         .navbar .nav-link-holder .nav-items .nav-option .nav-link {
           text-decoration: none;
-          color: inherit; }
+          color: inherit;
+          cursor: pointer; }
         .navbar .nav-link-holder .nav-items .nav-option:hover {
           color: orange; }
-      .navbar .nav-link-holder .nav-items .dropdown-holder {
-        position: relative; }
-        .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-title {
-          cursor: pointer; }
-        .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu {
-          width: fit-content;
-          border: 1px solid lightgray;
-          box-shadow: 0 0 16px lightgray;
-          border-radius: 3px;
-          position: absolute;
-          background-color: white;
-          padding: 10px 0px;
-          top: 100%;
-          left: 0%;
-          z-index: 100;
-          display: none; }
-          .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu .item-list {
-            padding: 5px 20px;
-            margin: 0px; }
-            .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu .item-list a {
-              text-decoration: none;
-              cursor: pointer;
-              color: inherit; }
-            .navbar .nav-link-holder .nav-items .dropdown-holder .dropdown-menu .item-list:hover {
-              background-color: teal;
-              color: white; }
-        .navbar .nav-link-holder .nav-items .dropdown-holder:hover .dropdown-menu {
-          display: block; }
+
+.menu-handler {
+  position: relative; }
+  .menu-handler .menu {
+    position: absolute;
+    top: 100;
+    left: 0;
+    border: 1px solid lightgray;
+    list-style-type: none;
+    padding: 10px 0px;
+    width: 8rem;
+    display: none;
+    background-color: white;
+    box-shadow: 3px 3px 16px #ececec; }
+    .menu-handler .menu .menu-item {
+      padding: 2px 5px;
+      font-size: 12px;
+      cursor: pointer; }
+      .menu-handler .menu .menu-item a {
+        color: inherit; }
+      .menu-handler .menu .menu-item:hover {
+        background-color: teal; }
+        .menu-handler .menu .menu-item:hover a {
+          color: white; }
+  .menu-handler:hover .menu {
+    display: block; }
 
 .input-field {
   width: auto;

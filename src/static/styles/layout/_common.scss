@@ -18,7 +18,7 @@ hr{
         margin: 10px 0px;
         .error{
             color: $error_color;
-            background-color: rgb(247, 233, 233);
+            background-color: #ffe6e6;
             border: 1px solid $error_color;
         }
         .success{
@@ -30,15 +30,19 @@ hr{
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: center;
             gap: 5px;
-            padding: 0px 10px;
-            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
             .message-title{
                 font-weight: bold;
                 text-transform: capitalize;
+                padding: 0px;
+                margin: 0px;
             }
             .message-text{
-                font-size: 14px;
+                padding: 0px;
+                margin: 0px;
             }
         }
     }

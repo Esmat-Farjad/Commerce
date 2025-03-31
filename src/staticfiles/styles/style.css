@@ -113,6 +113,70 @@ hr {
   margin-bottom: 25px;
   color: #333; }
 
+.container .heading {
+  margin: 1rem 0rem; }
+  .container .heading .title {
+    padding: 0px;
+    margin: 0px;
+    font-size: 24px;
+    font-weight: bold; }
+  .container .heading .text {
+    padding: 0px;
+    margin: 0px;
+    color: gray;
+    font-weight: 400;
+    font-size: 12px; }
+
+.container .block-content .search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px; }
+  .container .block-content .search-box .search-input {
+    width: 50%;
+    height: 40%;
+    border: 1px solid orange;
+    border-radius: 5px;
+    outline: none;
+    padding-left: 10px; }
+    .container .block-content .search-box .search-input:focus {
+      border: 1px solid teal; }
+
+.container .block-content .table-holder {
+  margin-bottom: 2rem; }
+
+.table-hover {
+  width: 100%;
+  background-color: #F8F8F8;
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+  .table-hover thead {
+    font-size: 14px;
+    border-bottom: 2px solid lightgray; }
+    .table-hover thead th {
+      padding: 10px; }
+  .table-hover tbody {
+    font-size: 12px; }
+    .table-hover tbody tr {
+      height: 60px;
+      border-bottom: 1px solid lightgray; }
+      .table-hover tbody tr td {
+        padding: 5px; }
+        .table-hover tbody tr td .table-input {
+          width: fit-content;
+          outline: none;
+          padding: 5px;
+          width: fit-content;
+          border: 1px solid lightgray; }
+          .table-hover tbody tr td .table-input:focus {
+            border: 1px solid teal; }
+        .table-hover tbody tr td .tr-image {
+          width: 100px;
+          height: 100px;
+          border-radius: 50px;
+          border: 1px solid red; }
+
 .footer-container {
   border: 1px solid #fcf3e3;
   padding: 0.5rem 3rem;

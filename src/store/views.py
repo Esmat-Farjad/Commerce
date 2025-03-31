@@ -110,3 +110,12 @@ def purchase(request):
         'form':purchase_form
         }
     return render(request, 'purchase/purchase.html', context)
+
+
+
+def products_view(request):
+    products = Purchase.objects.all()
+    context ={
+        'products':products
+    }
+    return render(request, 'sale/product_view.html',context)

@@ -1,0 +1,53 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    Store - Landing Page 
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="heading">
+        <p class="title">{% trans 'Products' %}</p>
+        <p class="text">{% trans 'list of available products' %}</p>
+    </div>
+    <div class="block-content">
+        <div class="search-box">
+            <input 
+            type="search" 
+            class="search-input"
+            placeholder="{% trans 'Search the products...' %}">
+        </div>
+        <div class="table-holder">
+            <table class="table-hover">
+                <thead>
+                    <th>{% trans 'Image' %}</th>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Quantity' %}</th>
+                    <th>{% trans 'Package' %}</th>
+                    <th>{% trans 'Item Price' %}</th>
+                    <th>{% trans 'Package Price' %}</th>
+                    <th>{% trans 'Total Price' %}</th>
+                    <th>{% trans 'Action' %}</th>
+                </thead>
+                <tbody>
+                    {% for item in products %}
+                    <tr>
+                        <td>
+                            <img src="{{item.image.url}}" alt="image" class="tr-image">
+                        </td>
+                        <td>{{item.name}}</td>
+                        <td><input type="number" class="table-input"></td>
+                        <td><input type="number" class="table-input"></td>
+                        <td><input type="number" class="table-input"value={{ item.item_sale_price|default:"" }}></td>
+                        <td><input type="number" class="table-input"value={{item.package_sale_price|default:""}}></td>
+                        <td>984,523</td>
+                        <td><button class="btn btn-teal">{% trans 'ADD' %}</button></td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content%}

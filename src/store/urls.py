@@ -25,4 +25,10 @@ urlpatterns = [
         views.signout,
         name="sign-out",
     ),
+    # sale page
+    path(
+        'products/sale',
+        views.products_view,
+        name='products-view'
+    ),
 ]

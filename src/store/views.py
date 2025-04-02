@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
-from .models import Category, Purchase
+from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
@@ -88,7 +88,7 @@ def purchase(request):
         else:
             messages.error(request, f"Something went wrong. Please fix the below errors.{purchase_form.errors}")
         
-    purchase = Purchase.objects.all().order_by('-id')
+    purchase = Products.objects.all().order_by('-id')
     #Paginator start
     p = Paginator(purchase, 14 )
     page_number = request.GET.get('page')

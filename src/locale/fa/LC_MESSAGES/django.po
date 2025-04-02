@@ -165,3 +165,44 @@ msgstr "نام کاربری یا رمز عبور نامعتبر است"
 
 msgid "Welcome !"
 msgstr "خوش آمدید !"
+
+#product view page
+
+msgid "Products"
+msgstr "محصولات"
+
+msgid "This page showcases all available products for sale"
+msgstr "این صفحه تمامی محصولات موجود برای فروش را نمایش می‌دهد"
+
+msgid "category"
+msgstr "دسته بندی"
+
+msgid "Quantity"
+msgstr "تعداد"
+
+msgid "Package"
+msgstr "بسته"
+
+msgid "Item Price"
+msgstr "قیمت فی دانه"
+
+msgid "Package Price"
+msgstr "قیمت فی بسته"
+
+msgid "ADD"
+msgstr "اضافه"
+
+msgid "--select--"
+msgstr "--انتخاب کردن--"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Search the products"
+msgstr "محصول خود را جستجو کنید"
+
+msgid "ALL"
+msgstr "همه"
+
+msgid "admin"
+msgstr "مدیر"

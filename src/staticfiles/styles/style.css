@@ -371,4 +371,26 @@ hr {
   .btn-submit:hover {
     background: #0056b3; }
 
+.category-filter {
+  padding: 10px; }
+  .category-filter .btn-link {
+    border: 1px solid lightgray;
+    padding: 3px 10px;
+    background-color: #F8F8F8;
+    border-radius: 50px;
+    margin: 2px;
+    font-size: 12px;
+    color: inherit; }
+    .category-filter .btn-link:hover {
+      color: teal; }
+
+.select-input {
+  width: 100px;
+  height: 34px;
+  border: 1px solid lightgray;
+  outline: none;
+  padding-left: 5px; }
+  .select-input:focus {
+    border: 1px solid teal; }
+
 /*# sourceMappingURL=style.css.map */

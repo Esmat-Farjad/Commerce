@@ -115,7 +115,11 @@ def purchase(request):
 
 def products_view(request):
     products = Purchase.objects.all()
+    categories = Category.objects.all()
+
+    
     context ={
-        'products':products
+        'products':products,
+        'categories':categories
     }
     return render(request, 'sale/product_view.html',context)

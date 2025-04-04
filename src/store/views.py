@@ -114,7 +114,7 @@ def purchase(request):
 
 
 def products_view(request):
-    products = Purchase.objects.all()
+    products = Products.objects.all()
     context ={
         'products':products
     }

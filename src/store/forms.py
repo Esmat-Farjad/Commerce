@@ -1,12 +1,12 @@
 from django import forms
-from .models import Purchase
+from .models import Products
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
 class PurchaseForm(forms.ModelForm):
     class Meta:
-        model = Purchase
+        model = Products
         fields = "__all__"
         exclude = ['user','total_items','total_package_price', 'item_sale_price']
         

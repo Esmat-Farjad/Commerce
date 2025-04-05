@@ -17,7 +17,12 @@
             </li>
             
             <li class="nav-option">
-                <a class="nav-link" href="#">{% trans 'Cart' %}</a>
+                <a class="nav-link" href="#">
+                    {% trans 'Cart' %}
+                    {% if cart_length %}
+                    <span class="badge-number">{{cart_length}}</span>
+                    {% endif %}
+                </a>
             </li>
             <li class="nav-option menu-handler">
                 <span class="nav-link">

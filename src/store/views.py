@@ -3,10 +3,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
-from .models import Category, Purchase
+from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
+
+import json
+from django.http import JsonResponse
 
 # Create your views here.
 def switch_language(request, lang_code):
@@ -88,7 +91,7 @@ def purchase(request):
         else:
             messages.error(request, f"Something went wrong. Please fix the below errors.{purchase_form.errors}")
         
-    purchase = Purchase.objects.all().order_by('-id')
+    purchase = Products.objects.all().order_by('-id')
     #Paginator start
     p = Paginator(purchase, 14 )
     page_number = request.GET.get('page')
@@ -114,7 +117,7 @@ def purchase(request):
 
 
 def products_view(request):
-    products = Purchase.objects.all()
+    products = Products.objects.all()
     categories = Category.objects.all()
 
     
@@ -123,3 +126,39 @@ def products_view(request):
         'categories':categories
     }
     return render(request, 'sale/product_view.html',context)
+
+# add to cart
+def add_to_cart(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        product_id = data.get('product_id')
+        item_quantity = data.get('item_quantity')
+        package_quantity = data.get('package_quantity')
+        item_price = data.get('item_price')
+        package_price = data.get('package_price')
+
+        try:
+            product = Products.objects.get(id=product_id)
+        except Products.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+        
+        cart = request.session.get('cart', {})
+        item_key = f"{product_id}_item"
+        if item_key in cart:
+            cart[item_key]['item_quantity'] = item_quantity
+            cart[item_key]['package_quantity'] = package_quantity
+            cart[item_key]['item_price'] = item_price
+            cart[item_key]['package_price'] = package_price
+        else:
+            cart[item_key] = {
+                'product_id':product_id,
+                'item_quantity':item_quantity,
+                'package_quantity':package_quantity,
+                'item_price':item_price,
+                'package_price':package_price
+            }
+        request.session['cart'] = cart  # Save cart back into session
+        number_of_added_item = len(request.session['cart'])
+
+        return JsonResponse({'status':200, 'message':'success','added_item':number_of_added_item})
+    return JsonResponse({'error': 'Invalid request'}, status=400)

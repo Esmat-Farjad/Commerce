@@ -11,7 +11,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Purchase(models.Model):
+class Products(models.Model):
     NUMBER_CHOICES = [(i, str(i)) for i in range(1,201)]
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     code = models.IntegerField(null=True, default=0)

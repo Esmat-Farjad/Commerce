@@ -207,7 +207,9 @@ hr {
 
 .navbar {
   padding: 10px;
-  border: 1px solid lightgray; }
+  border: 1px solid #2e4256;
+  background-color: #2e4256;
+  color: white; }
   .navbar .nav-link-holder {
     display: flex;
     flex-direction: row;
@@ -239,13 +241,13 @@ hr {
     position: absolute;
     top: 100;
     left: 0;
-    border: 1px solid lightgray;
+    border: 1px solid #39546d;
     list-style-type: none;
     padding: 10px 0px;
     width: 8rem;
     display: none;
-    background-color: white;
-    box-shadow: 3px 3px 16px #ececec; }
+    background-color: #2e4256;
+    box-shadow: 3px 3px 16px #1e2c39; }
     .menu-handler .menu .menu-item {
       padding: 2px 5px;
       font-size: 12px;
@@ -258,6 +260,15 @@ hr {
           color: white; }
   .menu-handler:hover .menu {
     display: block; }
+
+.badge-number {
+  padding: 3px 5px;
+  font-size: 8px;
+  background-color: red;
+  color: white;
+  border-radius: 50px;
+  margin: 0px 2px;
+  vertical-align: top; }
 
 .input-field {
   width: auto;

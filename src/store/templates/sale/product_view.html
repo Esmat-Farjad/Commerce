@@ -26,7 +26,7 @@
                 <a href="#" class="btn btn-link">{{category.name}}</a>
                 {% endfor %}
             </div>
-            <table class="table-hover">
+            <table class="table-hover" id="product-table">
                 <thead>
                     <th>{% trans 'Image' %}</th>
                     <th style="width:200px">{% trans 'Name' %}</th>
@@ -38,13 +38,13 @@
                 </thead>
                 <tbody>
                     {% for item in products %}
-                    <tr>
+                    <tr data-product-id={{item.id}}>
                         <td>
                             <img src="{{item.image.url}}" alt="image" class="tr-image">
                         </td>
                         <td style="width:200px">{{item.name}}</td>
                         <td>
-                            <select name="quantity" class="select-input">
+                            <select name="quantity" class="select-input item-quantity">
                                 <option value="" selected>{% trans '--select--' %}</option>
                                 {% for i in item.package_contain|range_filter %}
                                     <option value="{{ i }}">{{ i }}</option>
@@ -52,17 +52,17 @@
                             </select>
                         </td>
                         <td>
-                            <select name="package" class="select-input">
+                            <select name="package" class="select-input package-quantity">
                                 <option value="" selected>{% trans '--select--' %}</option>
                                 {% for i in item.package_contain|range_filter %}
                                     <option value="{{ i }}">{{ i }}</option>
                                 {% endfor %}
                             </select>
                         </td>
-                        <td><input type="number" class="table-input"value={{ item.item_sale_price|default:"" }}></td>
-                        <td><input type="number" class="table-input"value={{item.package_sale_price|default:""}}></td>
+                        <td><input type="number" class="table-input item-price"value={{ item.item_sale_price|default:"" }}></td>
+                        <td><input type="number" class="table-input package-price"value={{item.package_sale_price|default:""}}></td>
                        
-                        <td><button class="btn btn-teal">{% trans 'ADD' %}</button></td>
+                        <td><button class="btn btn-teal add-btn">{% trans 'ADD' %}</button></td>
                     </tr>
                     {% endfor %}
                     
@@ -71,4 +71,43 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const table = document.getElementById("product-table");
+        table.addEventListener("click", function(e) {
+            if (e.target && e.target.classList.contains("add-btn")) {
+                const row = e.target.closest("tr");
+                let product_id = row.dataset.productId;
+                let item_quantity = row.querySelector(".item-quantity").value;
+                let package_quantity = row.querySelector(".package-quantity").value;
+                let package_price = row.querySelector(".package-price").value;
+                let item_price = row.querySelector(".item-price").value;
+                
+                const data = {
+                    product_id,
+                    item_quantity,
+                    package_quantity,
+                    item_price,
+                    package_price,
+                }
+                fetch("{% url 'add-to-cart' %}",
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "applicaton/json",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    body: JSON.stringify(data) 
+                }).then(res => res.json())
+                .then(response =>{
+                    console.log(response.added_item);
+                    alert("Product Added.");
+                }).catch(error =>{
+                    console.log(`Server Error: ${error}`);
+                    alert("Failed to Add the Product.");
+                })
+            }
+        });
+    });
+</script>
 {% endblock content%}

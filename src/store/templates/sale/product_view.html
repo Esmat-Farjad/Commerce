@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% load custom_filters %}
 {% block title %}
     Store - Landing Page 
@@ -100,8 +101,8 @@
                     body: JSON.stringify(data) 
                 }).then(res => res.json())
                 .then(response =>{
-                    console.log(response.added_item);
-                    alert("Product Added.");
+                    console.log(`${response.cart_length} Product added`);
+                    document.getElementById("cart_length").innerText = response.cart_length;
                 }).catch(error =>{
                     console.log(`Server Error: ${error}`);
                     alert("Failed to Add the Product.");

@@ -1,0 +1,99 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %}
+    Store - Customer Cart 
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="heading">
+        <p class="title">{% trans 'Customer Cart' %}</p>
+        <p class="text">{% trans 'Make sure everything looks right before completing your order' %}</p>
+    </div>
+    <div class="block-content">
+        <div class="customer-field">
+            <div>
+                <label for="name">{% trans 'Customer Name' %}</label>
+                <input type="text" name="name" id="name" class="input-field">
+            </div>
+            <div>
+                <label for="phone">{% trans 'Phone' %}</label>
+                <input type="number" name="phone" id="phone" class="input-field">
+            </div>
+            <div>
+                <label for="address">{% trans 'Address' %}</label>
+                <input type="text" name="address" id="address" class="input-field">
+            </div>
+            <div>
+                <label for="bill-number">{% trans 'Bill Number' %}: </label>
+                <span id="bill-number"style="color:red;font-weight:bold;">&nbsp;1098</span>
+            </div>
+        </div>
+        <div class="table-holder">
+            <table class="table-hover" id="product-table">
+                <thead>
+                    <th>{% trans 'Image' %}</th>
+                    <th style="width:200px">{% trans 'Name' %}</th>
+                    <th>{% trans 'Quantity' %}</th>
+                    <th>{% trans 'Package' %}</th>
+                    <th>{% trans 'Item Price' %}</th>
+                    <th>{% trans 'Package Price' %}</th>
+                    <th>{% trans 'Total' %}</th>
+                    <th>{% trans 'Action' %}</th>
+                </thead>
+                <tbody>
+                    {% for item in cart_details %}
+                    <tr data-product-id={{item.product.id}}>
+                        <td>
+                            <img src="{{item.product.image.url}}" alt="image" class="tr-image">
+                        </td>
+                        <td style="width:200px">{{item.product.name}}</td>
+                        <td>
+                            <select name="quantity" class="select-input item-quantity">
+                                <option value="" selected>{% trans '--select--' %}</option>
+                                {% for i in item.product.package_contain|range_filter %}
+                                    <option value="{{ i }}" {% if i|stringformat:"s" == item.item_quantity %} selected {% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="package" class="select-input package-quantity">
+                                <option value="" selected>{% trans '--select--' %}</option>
+                                {% for i in item.product.package_contain|range_filter %}
+                                    <option value="{{ i }}" {% if i|stringformat:"s" == item.package_quantity %}selected{% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td><input type="number" class="table-input item-price"value={{ item.item_price|default:item.product.item_sale_price }}></td>
+                        <td><input type="number" class="table-input package-price"value={{item.package_price|default:item.product.package_sale_price}}></td>
+                       
+                        <td>{{item.sub_total|intcomma}}</td>
+                        <td>
+                            <a href="#" style="color:red">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                fill="none" viewBox="0 0 24 24" 
+                                stroke-width="1.5" stroke="currentColor" 
+                                class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr style="font-weight:bold;">
+                        <td>Grand Total</td>
+                        <td colspan="6">{{grand_total|intcomma}} {% trans 'AFN' %}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <div class="btn-holder" style="margin:2rem;text-align:center;">
+                <button style="width:50%" class="btn btn-teal">{% trans 'Sale' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}

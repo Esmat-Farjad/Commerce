@@ -127,6 +127,16 @@ hr {
     font-weight: 400;
     font-size: 12px; }
 
+.container .block-content .customer-field {
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  align-items: center;
+  margin: 2rem 0rem 0.5rem 0rem;
+  padding: 5px;
+  border: 1px solid lightgray;
+  background-color: #F8F8F8; }
+
 .container .block-content .search-box {
   display: flex;
   justify-content: center;

@@ -150,6 +150,16 @@ hr{
         }
     }
     .block-content{
+        .customer-field{
+            display: flex;
+            justify-content: space-around;
+            font-size: 12px;
+            align-items: center;
+            margin: 2rem 0rem 0.5rem 0rem;
+            padding: 5px;
+            border: 1px solid lightgray;
+            background-color: #F8F8F8;
+        }
         .search-box{
             display: flex;
             justify-content: center;

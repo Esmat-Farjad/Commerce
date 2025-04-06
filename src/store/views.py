@@ -16,15 +16,13 @@ def switch_language(request, lang_code):
     if lang_code in dict(settings.LANGUAGES):  # ✅ Ensure the language is valid
         activate(lang_code)
         request.session['django_language'] = lang_code  # ✅ Store in session
-
         # ✅ Store the language in a cookie
         response = redirect(request.META.get('HTTP_REFERER', '/'))
         response.set_cookie('django_language', lang_code, max_age=31536000)  # 1 year
         return response
-
     return redirect('/')
 
-def landing(request):
+def landing(request):    
     return render(request, 'landing-page.html')
 
 def Home(request):
@@ -87,7 +85,6 @@ def purchase(request):
             purchase.save()
 
             messages.success(request, "Product added successfully !")
-            purchase_form = PurchaseForm()
             # return redirect("product_list")
         else:
             messages.error(request, f"Something went wrong. Please fix the below errors.{purchase_form.errors}")
@@ -120,11 +117,12 @@ def purchase(request):
 def products_view(request):
     products = Products.objects.all()
     categories = Category.objects.all()
-
+    
     
     context ={
         'products':products,
-        'categories':categories
+        'categories':categories,
+        
     }
     return render(request, 'sale/product_view.html',context)
 
@@ -137,7 +135,7 @@ def add_to_cart(request):
         package_quantity = data.get('package_quantity')
         item_price = data.get('item_price')
         package_price = data.get('package_price')
-
+        
         try:
             product = Products.objects.get(id=product_id)
         except Products.DoesNotExist:
@@ -152,7 +150,7 @@ def add_to_cart(request):
             cart[item_key]['package_price'] = package_price
         else:
             cart[item_key] = {
-                'product_id':product_id,
+                'product_id':product.id,
                 'item_quantity':item_quantity,
                 'package_quantity':package_quantity,
                 'item_price':item_price,
@@ -161,5 +159,34 @@ def add_to_cart(request):
         request.session['cart'] = cart  # Save cart back into session
         number_of_added_item = len(request.session['cart'])
 
-        return JsonResponse({'status':200, 'message':'success','added_item':number_of_added_item})
+        return JsonResponse({'status':200, 'message':'success','cart_length':number_of_added_item})
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+def cart_view(request):
+    cart = request.session['cart']
+    cart_details = []
+    grand_total = 0
+    for key, item in cart.items():
+        product = get_object_or_404(Products, pk=item['product_id'])
+        item_quantity = int(item.get('item_quantity') or 0)
+        package_quantity = int(item.get('package_quantity') or 0)
+        item_price = int(item.get('item_price') or 0)
+        package_price = int(item.get('package_price') or 0)
+
+        sub_total = (item_quantity * item_price) + (package_quantity * package_price)
+        grand_total = grand_total + sub_total
+        print(f"subtotal: {sub_total} adn Grand total: {grand_total}")
+        cart_details.append({
+            'product': product,
+            'item_quantity': item['item_quantity'],
+            'package_quantity': item['package_quantity'],
+            'item_price': item['item_price'],
+            'package_price': item['package_price'],
+            'sub_total':sub_total,
+        })
+    context = {
+        'cart_details':cart_details,
+        'grand_total':grand_total
+    }
+    return render(request, 'sale/cart_view.html', context)

@@ -17,10 +17,13 @@
             </li>
             
             <li class="nav-option">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'cart-view' %}">
                     {% trans 'Cart' %}
                     {% if cart_length %}
-                    <span class="badge-number">{{cart_length}}</span>
+                    <span class="badge-number" id="cart_length">{{cart_length}}</span>
+                    {% else %}
+                    <span class="badge-number" id="cart_length">0</span>
+
                     {% endif %}
                 </a>
             </li>

@@ -84,6 +84,7 @@ def purchase(request):
             purchase.save()
 
             messages.success(request, "Product added successfully !")
+            purchase_form = PurchaseForm()
             # return redirect("product_list")
         else:
             messages.error(request, f"Something went wrong. Please fix the below errors.{purchase_form.errors}")

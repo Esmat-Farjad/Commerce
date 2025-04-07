@@ -42,4 +42,9 @@ urlpatterns = [
         views.cart_view,
         name='cart-view',
     ),
+    path(
+        'sale/cart/delete/<str:pid>',
+        views.remove_cart_item,
+        name='remove-cart-item',
+    ),
 ]

@@ -291,3 +291,36 @@ hr{
         }
     }
 }
+
+// empty cart
+.empty-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem 0rem;
+    .icon{
+        width: 15%;
+        height: 15%;
+    }
+    .title{
+        font-size: 24px;
+        font-weight: bold;
+        color: lightgray;
+        padding: 0px;
+        margin: 0px;
+    }
+    .text{
+        padding: 0px;
+        margin: 0px;
+        font-size: 14px;
+        color: gray;
+        a{
+            color: $primary;
+            font-size: 14px;
+            &:hover{
+                color: orange;
+            }
+        }
+    }
+}

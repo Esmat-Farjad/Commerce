@@ -233,6 +233,32 @@ hr {
       margin-bottom: 1.5rem;
       color: #333; }
 
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 0rem; }
+  .empty-content .icon {
+    width: 15%;
+    height: 15%; }
+  .empty-content .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: lightgray;
+    padding: 0px;
+    margin: 0px; }
+  .empty-content .text {
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+    color: gray; }
+    .empty-content .text a {
+      color: #0d6efd;
+      font-size: 14px; }
+      .empty-content .text a:hover {
+        color: orange; }
+
 .footer-container {
   border: 1px solid #fcf3e3;
   padding: 0.5rem 3rem;

@@ -203,3 +203,21 @@ def cart_view(request):
         'grand_total':grand_total
     }
     return render(request, 'sale/cart_view.html', context)
+
+def remove_cart_item(request, pid):
+    cart = request.session.get('cart', {})
+    # Find the key of the item with the specified product_id
+    item_key_to_remove = None
+    for item_key, item in cart.items():
+        if str(item['product_id']) == pid:
+            item_key_to_remove = item_key
+            print(f"item to remove: {item_key_to_remove}")
+            break
+
+    # Remove the item from the cart if found
+    if item_key_to_remove:
+        del cart[item_key_to_remove]
+
+        # Update the session
+        request.session['cart'] = cart
+    return redirect('cart-view')

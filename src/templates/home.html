@@ -2,12 +2,63 @@
 {% load i18n %}
 {% load static %}
 {% block title %}
-    Store - Home
+    {% trans 'Home' %}
 {% endblock title %}
 {% block content %}
-<div class="container">
-    <h1 style="text-align: center;">{% trans 'Home Page' %}</h1>
-    
-    
+<div class="home-dashboard container">
+    <div class="dashboard-header">
+        <h2 class="dashboard-title">{% trans 'Store Management System' %}</h2>
+        <p class="dashboard-subtext">{% trans 'Overview of today’s sales and metrics' %}</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Stat Cards -->
+        <div class="dashboard-card">
+            <p class="card-label">{% trans "Today's Sales" %}</p>
+            <p class="card-value">{{ today_sales|default:"0" }} {{ currency_symbol|default:"$" }}</p>
+        </div>
+        <div class="dashboard-card">
+            <p class="card-label">{% trans "Products Sold Today" %}</p>
+            <p class="card-value">{{ today_products_sold|default:"0" }}</p>
+        </div>
+        <div class="dashboard-card">
+            <p class="card-label">{% trans "Agreements Provided" %}</p>
+            <p class="card-value">{{ today_agreements|default:"0" }}</p>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-container">
+        <h4>{% trans "Sales Trend (Last 7 Days)" %}</h4>
+        <canvas id="salesChart" height="100"></canvas>
+    </div>
 </div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salesChart');
+    const salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ last_7_days|safe }}, // Expects a list like ['Mon', 'Tue', ...]
+            datasets: [{
+                label: "Sales",
+                data: {{ last_7_day_sales|safe }}, // Expects a list like [120, 90, 70, ...]
+                fill: true,
+                borderColor: "teal",
+                backgroundColor: "rgba(0, 128, 128, 0.1)",
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>
 {% endblock content %}

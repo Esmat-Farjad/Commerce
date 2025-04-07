@@ -7,7 +7,9 @@ from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
-
+from datetime import datetime, timedelta
+from django.utils import timezone
+import random
 import json
 from django.http import JsonResponse
 
@@ -26,7 +28,18 @@ def landing(request):
     return render(request, 'landing-page.html')
 
 def Home(request):
-    return render(request, 'home.html')
+    today = timezone.now().date()
+    last_7_days = [(today - timedelta(days=i)).strftime('%a') for i in range(6, -1, -1)]
+    last_7_day_sales = [random.randint(50, 300) for _ in range(7)] 
+
+    context = {
+        'today_sales': 500,
+        'today_products_sold': 120,
+        'today_agreements': 18,
+        'last_7_days': last_7_days,
+        'last_7_day_sales': last_7_day_sales,
+    }
+    return render(request, 'home.html', context)
 
 def signin(request):
     if request.method == 'POST':
@@ -164,7 +177,7 @@ def add_to_cart(request):
 
 
 def cart_view(request):
-    cart = request.session['cart']
+    cart = request.session.get('cart', {})
     cart_details = []
     grand_total = 0
     for key, item in cart.items():

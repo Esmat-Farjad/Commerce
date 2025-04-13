@@ -226,6 +226,24 @@ hr{
     }
 }
 
+.icon-edit {
+    color: dodgerblue;
+    transition: color 0.3s;
+
+    &:hover {
+        color: royalblue;
+    }
+}
+
+.icon-delete {
+    color: crimson;
+    transition: color 0.3s;
+
+    &:hover {
+        color: darkred;
+    }
+}
+
 // Home Page code
 .home-dashboard {
     margin-top: 10vh;

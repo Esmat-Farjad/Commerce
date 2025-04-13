@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %}
+    Store - Product Page 
+{% endblock title %}
+{% block content %}
+<div class="main-page-container">
+    <div class="heading-holder">
+        <div class="text-holder">
+            <h2 class="text-title">All Available Products</h2>
+            <p class="subtitle">The list below display all the available products details</p>
+        </div>
+        <div class="action-button">
+            <a href="{% url 'purchase' %}" class="btn btn-teal add-btn"><i class="fa-solid fa-plus"></i> Purchase</a>
+            <a href="#" class="btn btn-teal add-btn">Stock</a>
+        </div>
+    </div>
+    {% include 'partials/product_list.html' %}
+</div>
+{% endblock %}

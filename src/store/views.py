@@ -125,12 +125,24 @@ def purchase(request):
         }
     return render(request, 'purchase/purchase.html', context)
 
+def products_display(request):
+    product = Products.objects.all().order_by('-id')
+    p = Paginator(product, 14)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = p.page(1)
+    except EmptyPage:
+        page_obj = p.page(p.num_pages)
+    # paginator end
+    context = {'page_obj':page_obj,'flag':'list'}
+    return render(request, 'purchase/product.html', context)
 
 
 def products_view(request):
     products = Products.objects.all()
     categories = Category.objects.all()
-    
     
     context ={
         'products':products,

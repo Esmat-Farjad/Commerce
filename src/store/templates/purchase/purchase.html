@@ -12,6 +12,9 @@
         <p class="title">{% trans 'Purchase Page' %}</p>
         <p class="text">{% trans 'Please add your product details' %}</p>
     </div>
+    <div class="action-button">
+        <a href="{% url 'products_display' %}" class="btn btn-teal add-btn"></i> Available Products</a>
+    </div>
     <form action="{% url 'purchase' %}" method="POST" enctype="multipart/form-data" class="purchase-form">
         {% csrf_token %}
         <div class="form-row">

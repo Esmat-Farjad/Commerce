@@ -47,4 +47,9 @@ urlpatterns = [
         views.remove_cart_item,
         name='remove-cart-item',
     ),
+    path(
+        'product/list', 
+        views.products_display,
+        name='products_display'
+    )
 ]

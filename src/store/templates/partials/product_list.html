@@ -1,0 +1,70 @@
+{% if page_obj.object_list %}
+<div class="product-table-container">
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Category</th>
+                <th>Package Contain</th>
+                <th>Purchase Total Price</th>
+                <th>Package Sale Price</th>
+                <th>Item Sales Price</th>
+                <th>Total Items</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page_obj.object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <img src="{{ item.image.url }}" alt="Product Image" class="table-image">
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.code }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.package_contain }}</td>
+                <td>{{ item.total_package_price }}</td>
+                <td>{{ item.package_sale_price }}</td>
+                <td>{{ item.item_sale_price }}</td>
+                <td>{{ item.total_items }}</td>
+                <td class="action-icons">
+                    <a href="" title="Edit">
+                        <i class="fa-solid fa-pen icon-edit"></i>
+                    </a>
+                    <a href="" title="Delete"
+                       onclick="return confirm('Are you sure you want to delete {{ item.name }}?')">
+                       <i class="fa-solid fa-trash icon-delete"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="paginator">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="nav-btn">
+            <i class="fa-solid fa-pen icon-edit"></i>
+        </a>
+        {% endif %}
+
+        <span>Page <strong>{{ page_obj.number }}</strong> of <strong>{{ page_obj.paginator.num_pages }}</strong></span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="nav-btn">
+            <i class="fa-solid fa-trash icon-delete"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div class="empty-record">
+    <h1 class="title">No Product Found</h1>
+    <a href="{% url 'store:purchase' %}" class="active-link">Let's Purchase Some</a>
+</div>
+{% endif %}

@@ -75,7 +75,6 @@
     width: 35%;
 }
 
-
 // Purchase form code
 .purchase-form {
     background-color: #F8F8F8;
@@ -146,6 +145,57 @@
     &:active {
         transform: translateY(0);
     }
+}
+// .image-preview {
+//     margin-top: 10px;
+
+//     p {
+//         font-size: 14px;
+//         color: #444;
+//         margin-bottom: 6px;
+//     }
+
+//     img {
+//         width: 180px;
+//         height: 180px;
+//         object-fit: cover;
+//         border: 1px solid #ccc;
+//         border-radius: 10px;
+//         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+//     }
+// }
+.image-preview {
+    margin-top: 10px;
+
+    p {
+        margin-bottom: 8px;
+        font-size: 0.95em;
+        color: #555;
+        font-weight: 500;
+    }
+
+    img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.form-group input[type="file"] {
+    margin-top: 8px;
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
 }
 
 // category filter

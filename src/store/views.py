@@ -4,7 +4,7 @@ from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
 from .models import Category, Products
-from .forms import PurchaseForm, RegistrationForm
+from .forms import PurchaseForm, RegistrationForm, UpdateProductForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime, timedelta
@@ -139,6 +139,44 @@ def products_display(request):
     context = {'page_obj':page_obj,'flag':'list'}
     return render(request, 'purchase/product.html', context)
 
+def manage_product(request, action, pid):
+    product = get_object_or_404(Products, pk=pid)
+    
+    if action == 'edit':
+        form = UpdateProductForm(instance=product)
+        if request.method == 'POST':
+            form = UpdateProductForm(request.POST, request.FILES, instance=product)
+            if form.is_valid():
+                package_purchase_price = form.cleaned_data['package_purchase_price']
+                package_contain = form.cleaned_data.get('package_contain')
+                num_of_packages = form.cleaned_data.get('num_of_packages')
+                package_sale_price = form.cleaned_data.get('package_sale_price')
+
+                total_package_price = int(num_of_packages) * int(package_purchase_price)
+                total_items = int(package_contain) * int(num_of_packages)
+                item_sale_price = round((package_sale_price / package_contain), 3) if package_contain else 0
+
+                product = form.save(commit=False)
+                product.total_items = total_items
+                product.item_sale_price = item_sale_price
+                product.total_package_price = total_package_price
+                product.save()
+
+                messages.success(request, "Product updated successfully.")
+                return redirect("products_display")
+            else:
+                messages.error(request, f"Form has error: {form.errors}")
+
+        context = {
+            'product': product,
+            'form': form
+        }
+        return render(request, 'purchase/product_update.html', context)
+    
+    elif action == 'delete':
+        product.delete() 
+        messages.success(request, "Product deleted successfully.")
+        return redirect("products_display")
 
 def products_view(request):
     products = Products.objects.all()

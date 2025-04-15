@@ -538,6 +538,33 @@ hr {
   .btn-submit:active {
     transform: translateY(0); }
 
+.image-preview {
+  margin-top: 10px; }
+  .image-preview p {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: #555;
+    font-weight: 500; }
+  .image-preview img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
+
+.form-group input[type="file"] {
+  margin-top: 8px;
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff; }
+
+textarea {
+  min-height: 80px;
+  resize: vertical; }
+
 .category-filter {
   padding: 10px; }
   .category-filter .btn-link {

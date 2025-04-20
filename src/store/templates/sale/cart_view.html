@@ -16,24 +16,12 @@
     <div class="block-content">
         {% if cart_details %}
         <div class="customer-field">
-            <div>
-                <label for="name">{% trans 'Customer Name' %}</label>
-                <input type="text" name="name" id="name" class="input-field">
-            </div>
-            <div>
-                <label for="phone">{% trans 'Phone' %}</label>
-                <input type="number" name="phone" id="phone" class="input-field">
-            </div>
-            <div>
-                <label for="address">{% trans 'Address' %}</label>
-                <input type="text" name="address" id="address" class="input-field">
-            </div>
-            <div>
-                <label for="bill-number">{% trans 'Invoice Number' %}: </label>
-                <span id="bill-number"style="color:red;font-weight:bold;">&nbsp;1098</span>
-            </div>
+            <div class=""><strong>{% trans 'Customer Name' %}: </strong>{{customer.name}}</div>
+            <div class=""><strong>{% trans 'Customer Phone' %}: </strong>{{customer.phone}}</div>
+            <div class=""><strong>{% trans 'Customer Address' %}: </strong>{{customer.address}}</div>
         </div>
         <div class="table-holder">
+            
             <table class="table-hover" id="product-table">
                 <thead>
                     <th>{% trans 'Image' %}</th>
@@ -48,7 +36,8 @@
                 <tbody>
                     {% for item in cart_details %}
                     <tr 
-                    data-product-id={{item.product.id}}>
+                    data-product-id={{item.product.id}}
+                    data-end-point-url={% url 'add-to-cart' %}>
                         <td>
                             <img src="{{item.product.image.url}}" alt="image" class="tr-image">
                         </td>
@@ -57,7 +46,7 @@
                             <select name="quantity" class="select-input item-quantity">
                                 <option value="" selected>{% trans '--select--' %}</option>
                                 {% for i in item.product.package_contain|range_filter %}
-                                    <option value="{{ i }}" {% if i|stringformat:"s" == item.item_quantity %} selected {% endif %}>{{ i }}</option>
+                                    <option value="{{ i }}" {% if i == item.item_quantity %} selected {% endif %}>{{ i }}</option>
                                 {% endfor %}
                             </select>
                         </td>
@@ -65,7 +54,7 @@
                             <select name="package" class="select-input package-quantity">
                                 <option value="" selected>{% trans '--select--' %}</option>
                                 {% for i in item.product.package_contain|range_filter %}
-                                    <option value="{{ i }}" {% if i|stringformat:"s" == item.package_quantity %}selected{% endif %}>{{ i }}</option>
+                                    <option value="{{ i }}" {% if i == item.package_quantity %}selected{% endif %}>{{ i }}</option>
                                 {% endfor %}
                             </select>
                         </td>
@@ -89,8 +78,17 @@
                     
                 </tbody>
             </table>
-            <div class="btn-holder" style="margin:2rem;text-align:center;">
-                <button style="width:50%" class="btn btn-teal">{% trans 'Sale' %}</button>
+            <div class="customer-form-holder">
+                <form action="{% url 'cart-view' %}" method="post">
+                    {% csrf_token %}
+                    <div style="margin-bottom:2rem;padding:1rem;">
+                        <label for="paid">{% trans 'Paid Amount' %}</label>
+                        <input type="number" class="input-field" id="paid" name="paid">
+                        <label for="unpaid">{% trans 'Unpaid Amount' %}</label>
+                        <input type="number" class="input-field" name="unpaid" id="unpaid">
+                    </div>
+                    <button type="submit" class="btn btn-link">{% trans 'Sale' %}</button>
+                </form>
             </div>
         </div>
         {% else %}
@@ -104,5 +102,13 @@
         {% endif %}
     </div>
 </div>
-
+<script src="{% static 'js/cart.js' %}"></script>
+<script>
+    document.querySelector('#paid').addEventListener("input", (e)=>{
+        let paid = e.target.value;
+        let total = {{grand_total}};
+        let unpaid = total - paid;
+        document.getElementById('unpaid').value=unpaid;
+    });
+</script>
 {% endblock content%}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'store',
     'sass_processor',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Products
+from .models import Products, Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -8,12 +8,12 @@ class PurchaseForm(forms.ModelForm):
     class Meta:
         model = Products
         fields = "__all__"
-        exclude = ['user','total_items','total_package_price', 'item_sale_price']
+        exclude = ['stock','total_package_price', 'item_sale_price']
         
     def __init__(self, *args, **kwargs):
         super(PurchaseForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class']="form-input"
+            visible.field.widget.attrs['class']="form-input-field"
             visible.field.widget.attrs['placeholder']=visible.field.label
 
 class RegistrationForm(UserCreationForm):
@@ -57,4 +57,11 @@ class RegistrationForm(UserCreationForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'input-field'
 
-    
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = "__all__"
+    def __init__(self, *args, **kwargs):
+        super(CustomerForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'input-field'

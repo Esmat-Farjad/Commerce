@@ -53,4 +53,9 @@ urlpatterns = [
         views.products_display,
         name='products_display'
     ),
+    path (
+        'product/<str:action>/<int:pid>',
+        views.manage_product,
+        name = 'manage_product'
+    ),
 ]

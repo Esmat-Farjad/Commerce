@@ -36,10 +36,10 @@
                 <td>{{ item.num_items }}</td>
                 <td>{{ item.stock }}</td>
                 <td class="action-icons">
-                    <a href="" title="Edit">
+                    <a href="{% url 'manage_product' 'edit' item.id %}" title="Edit">
                         <i class="fa-solid fa-pen icon-edit"></i>
                     </a>
-                    <a href="" title="Delete"
+                    <a href="{% url 'manage_product' 'delete' item.id %}" title="Delete"
                        onclick="return confirm('Are you sure you want to delete {{ item.name }}?')">
                        <i class="fa-solid fa-trash icon-delete"></i>
                     </a>

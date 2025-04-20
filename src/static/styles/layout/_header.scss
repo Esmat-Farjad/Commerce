@@ -38,11 +38,12 @@
     }
 }
 
-.menu-handler{
+.menu-handler {
     position: relative;
-    .menu{
+
+    .menu {
         position: absolute;
-        top: 100;
+        top: 100%; // Use 100% to align directly below the handler
         left: 0;
         border: 1px solid #39546d;
         list-style-type: none;
@@ -51,24 +52,28 @@
         display: none;
         background-color: #2e4256;
         box-shadow: 3px 3px 16px #1e2c39;
+        z-index: 1000; // Ensure it stays above other elements
         
-        .menu-item{
+        .menu-item {
             padding: 2px 5px;
             font-size: 12px;
             cursor: pointer;
-            a{
+
+            a {
                 color: inherit;
             }
-            &:hover{
+
+            &:hover {
                 background-color: teal;
-                a{
+
+                a {
                     color: white;
                 }
             }
-            
         }
     }
-    &:hover .menu{
+
+    &:hover .menu {
         display: block;
     }
 }

@@ -12,7 +12,9 @@
                 <th>Purchase Total Price</th>
                 <th>Package Sale Price</th>
                 <th>Item Sales Price</th>
-                <th>Total Items</th>
+                <th>No.of Packages</th>
+                <th>No.of items</th>
+                <th>stock</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,7 +32,9 @@
                 <td>{{ item.total_package_price }}</td>
                 <td>{{ item.package_sale_price }}</td>
                 <td>{{ item.item_sale_price }}</td>
-                <td>{{ item.total_items }}</td>
+                <td>{{ item.num_of_packages }}</td>
+                <td>{{ item.num_items }}</td>
+                <td>{{ item.stock }}</td>
                 <td class="action-icons">
                     <a href="{% url 'manage_product' 'edit' item.id %}" title="Edit">
                         <i class="fa-solid fa-pen icon-edit"></i>
@@ -65,6 +69,6 @@
 {% else %}
 <div class="empty-record">
     <h1 class="title">No Product Found</h1>
-    <a href="{% url 'store:purchase' %}" class="active-link">Let's Purchase Some</a>
+    <a href="{% url 'purchase' %}" class="active-link">Let's Purchase Some</a>
 </div>
 {% endif %}

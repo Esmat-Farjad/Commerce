@@ -10,8 +10,13 @@ body{
 hr{
     border: 1px solid rgb(237, 237, 237);
 }
-.main{
-    width: 1080px;
+
+.container{
+    margin: 0rem 8rem;
+    position: relative;
+}
+.main-page{
+    width: 100%;
     margin:0 auto;
     // django messages 
     .message-container{
@@ -58,7 +63,8 @@ hr{
 
 // landing page styling
 .landing-page{
-    margin: 2rem 0rem;
+    margin: 2rem 8rem;
+    position: relative;
     min-height: 100vh;
     .heading{
         text-align: center;
@@ -338,6 +344,40 @@ hr{
             font-size: 14px;
             &:hover{
                 color: orange;
+            }
+        }
+    }
+}
+.modal-container{
+    background-color: rgba(0,0,0, 0.7);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    .modal{
+        background-color: white;
+        border-radius: 5px;
+        width: 60%;
+        height: 250px;
+        margin: 10rem auto;
+        padding: 1rem;
+        .modal-header{
+            text-align: center;
+            .title{
+                padding: 0px;
+                margin: 0px;
+            }
+            .text{
+                padding: 0px;
+                margin: 0px;
+            }
+        }
+        .modal-body{
+            margin: 2rem 0rem;
+            text-align: center;
+            button{
+                margin-top: 2rem;
             }
         }
     }

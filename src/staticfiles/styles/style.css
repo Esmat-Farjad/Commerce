@@ -18,6 +18,24 @@ body {
 hr {
   border: 1px solid #ededed; }
 
+.active {
+  display: block; }
+
+.not-active {
+  display: none; }
+
+.sticky-notification {
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  right: 40%;
+  background-color: green;
+  color: white;
+  padding: 5px;
+  box-shadow: 0 0 16px lightgray; }
+  .sticky-notification span {
+    font-size: 10px; }
+
 .container {
   margin: 0rem 8rem;
   position: relative; }
@@ -543,55 +561,6 @@ hr {
   border-radius: 5px;
   padding-left: 5px; }
   .form-input-field:focus {
-    border: 1px solid teal; }
-
-.image-preview {
-  margin-top: 10px; }
-  .image-preview p {
-    margin-bottom: 8px;
-    font-size: 0.95em;
-    color: #555;
-    font-weight: 500; }
-  .image-preview img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
-
-.form-group input[type="file"] {
-  margin-top: 8px;
-  font-size: 14px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff; }
-
-textarea {
-  min-height: 80px;
-  resize: vertical; }
-
-.category-filter {
-  padding: 10px; }
-  .category-filter .btn-link {
-    border: 1px solid lightgray;
-    padding: 3px 10px;
-    background-color: #F8F8F8;
-    border-radius: 50px;
-    margin: 2px;
-    font-size: 12px;
-    color: inherit; }
-    .category-filter .btn-link:hover {
-      color: teal; }
-
-.select-input {
-  width: 100px;
-  height: 34px;
-  border: 1px solid lightgray;
-  outline: none;
-  padding-left: 5px; }
-  .select-input:focus {
     border: 1px solid teal; }
 
 /*# sourceMappingURL=style.css.map */

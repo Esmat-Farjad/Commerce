@@ -10,7 +10,26 @@ body{
 hr{
     border: 1px solid rgb(237, 237, 237);
 }
-
+.active{
+    display: block;
+}
+.not-active{
+    display: none;
+}
+.sticky-notification{
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    right: 40%;
+    background-color: green;
+    color: white;
+    padding: 5px;
+    box-shadow:  0 0 16px lightgray;
+   
+    span{
+        font-size: 10px;
+    }
+}
 .container{
     margin: 0rem 8rem;
     position: relative;

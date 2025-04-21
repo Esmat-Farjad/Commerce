@@ -21,7 +21,7 @@
         </div>
         <div class="table-holder">
             <div class="category-filter">
-                <p>{{customer}}'s Customer Cart</p>
+                <p>{% trans 'Cart' %}: {{customer}}</p>
                 <span>{% trans 'category' %}:</span>
                 <a href="{{request.path}}" class="btn btn-link">{% trans 'ALL' %}</a>
                 {% for category in categories %}
@@ -84,17 +84,21 @@
         <form action="{% url 'products-view' %}" method='post'>
             {% csrf_token %}
         <div class="modal-body">
-            <label for="{{form.name.id_for_label}}">{{form.name.label_tag}}</label>
+            <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
             {{form.name}}
-            <label for="{{form.phone.id_for_label}}">{{form.phone.label_tag}}</label>
+            <label for="{{form.phone.id_for_label}}">{% trans 'Phone' %}</label>
             {{form.phone}}
-            <label for="{{form.address.id_for_label}}">{{form.address.label_tag}}</label>
+            <label for="{{form.address.id_for_label}}">{% trans 'Adress' %}</label>
             {{form.address}}
-            <button type="submit" class="btn btn-teal">{% trans 'Go to Sale' %}</button>
+            <button type="submit" class="btn btn-teal">{% trans 'Proceed to Sale' %}</button>
         </div>
         </form>
     </div>
 </div>
 {% endif %}
+<div class="sticky-notification not-active" id="sticky-notification">
+    <strong id="notification">{{cart_length}}</strong>&nbsp;
+    <span>{% trans 'Items added to Customer Cart' %}</span>
+</div>
 <script src="{% static 'js/cart.js' %}"></script>
 {% endblock content%}

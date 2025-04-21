@@ -33,10 +33,10 @@ def root_view(request):
     if request.user.is_authenticated:  # Check if the user is authenticated
         return redirect('home')  # Redirect to the 'home' page
     else:
-        return redirect('landing')
-    
+        return redirect("landing")
+
 def landing(request):    
-    return render(request, 'landing-page.html')
+    return render(request, "landing-page.html")
 
 def Home(request):
     today = timezone.now().date()
@@ -398,9 +398,9 @@ def add_to_cart(request):
         }
         request.session['cart'] = cart  # Save updated cart back into session
 
-        return JsonResponse({'status': 200, 'message': 'success', 'cart_length': len(cart)})
+        return JsonResponse({"status": 200, "message": "success", "cart_length": len(cart)})
     
-    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
 
 def safe_int(value, default=0):
     try:

@@ -39,7 +39,19 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+class BillNumberTracker(models.Model):
+    current_number = models.PositiveIntegerField(default=1001)
+
+    @classmethod
+    def get_next_bill_number(cls):
+        # Get or create the tracker instance
+        tracker, created = cls.objects.get_or_create(id=1)
+        # Increment the counter
+        next_number = tracker.current_number
+        tracker.current_number += 1
+        tracker.save()
+        return next_number   
 
 
 class SalesDetails(models.Model):
@@ -50,23 +62,11 @@ class SalesDetails(models.Model):
     unpaid_amount = models.CharField(max_length=200,null=True, blank=True, default="0")
     created_at = models.DateTimeField(auto_now_add=True)
 
-    _bill_counter = 1000  # Class-level counter for generating bill numbers
-
     def save(self, *args, **kwargs):
         # Generate a unique bill number if not already set
         if not self.bill_number:
-            # Increment the counter
-            self.bill_number = self.generate_bill_number()
+            self.bill_number = str(BillNumberTracker.get_next_bill_number())
         super().save(*args, **kwargs)
-
-    @classmethod
-    def generate_bill_number(cls):
-        # Increment the counter
-        if cls._bill_counter > 999999:  # Reset to 4 digits when exceeding 6 digits
-            cls._bill_counter = 1000
-        bill_number = cls._bill_counter
-        cls._bill_counter += 1
-        return str(bill_number)
 
     def __str__(self):
         return self.bill_number

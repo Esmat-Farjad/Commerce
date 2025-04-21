@@ -1,0 +1,71 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %}
+    Store - sold
+{% endblock title %}
+{% block content %}
+    <div class="sold-products container">
+        <div class="block-content">
+            <div class="detail-panel">
+                <div class="heading">
+                    <h1 class="title">{% trans 'Sold Products' %}</h1>
+                    <p class="text">{% trans 'Products Sales Details' %}</p>
+                </div>
+            </div>
+            <div class="block-content">
+            <div class="search-form">
+                
+                <form action="{% url 'sold-products-view' %}" method="post">
+                    {% csrf_token %}
+                    <input type="search" class="input-field" name="bill-number" id="bill-number" placeholder="{% trans 'Enter bill number' %}">
+                    <button type"submit" class="btn-teal">{% trans 'Search' %}</button>
+                </form>
+            </div>  
+        </div>
+        <div class="table-holder">
+            <table class='table'>
+                <thead>
+                    <th>{% trans 'Bill Number' %}</th>
+                    <th>{% trans 'Full Name' %}</th>
+                    <th>{% trans 'Total Amount' %}</th>
+                    <th>{% trans 'Paid Amount' %}</th>
+                    <th>{% trans 'Unpaid Amount' %}</th>
+                    <th>{% trans 'Date' %}</th>
+                </thead>
+                <tbody>
+                    {% if sold_products %}
+                    {% for data in sold_products %}
+                    <tr>
+                        <td><a href="{% url 'sold-product-detail' data.id %}" class="nav-item">{{data.bill_number}}</a></td>
+                        <td>{{data.customer.name}}</td>
+                        <td>{{data.total_amount}}</td>
+                        <td>{{data.paid_amount}}</td>
+                        <td>{{data.unpaid_amount}}</td>
+                        <td>{{data.created_at}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-content">
+                                <img class="icon" src="{% static 'image/empty.jpg' %}" alt="">
+                                <p class="title">{% trans 'Your Cart is Empty' %}</p>
+                                <p class="text">
+                                    <a href="{% url 'sold-products-view' %}">
+                                        {% trans "Go back" %}
+                                    </a>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock content%}

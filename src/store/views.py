@@ -4,6 +4,8 @@ from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
+from django.db.models import Prefetch
+
 
 from store.filters import ProductsFilter
 from .models import Category, Customer, Products, SalesDetails, SalesProducts
@@ -42,7 +44,7 @@ def Home(request):
     today = timezone.now().date()
     last_7_days = [(today - timedelta(days=i)).strftime('%a') for i in range(6, -1, -1)]
     last_7_day_sales = [random.randint(50, 300) for _ in range(7)] 
-
+    
     context = {
         'today_sales': 500,
         'today_products_sold': 120,
@@ -508,3 +510,28 @@ def cart_view(request):
         'customer': customer_instance,
     }
     return render(request, 'sale/cart_view.html', context)
+
+def sold_products_view(request):
+    sales_details = SalesDetails.objects.select_related("customer").prefetch_related(
+       "sale_detail"
+    )
+    if request.method == 'POST':
+        bill_number = request.POST.get('bill-number')
+        if bill_number:
+            sales_details=sales_details.filter(bill_number=bill_number)
+
+    context = {
+        'sold_products':sales_details
+    }
+    return render(request, 'sale/sold_products_view.html', context)
+
+def sold_product_detail(request, pk):
+    sales_id = get_object_or_404(SalesDetails, pk=pk)
+   
+    sales_products = SalesProducts.objects.filter(sale_detail=pk).select_related('product')
+    print(sales_products)
+    context = {
+        'sales_products':sales_products,
+        'sales_info':sales_id,
+    }
+    return render(request, 'sale/sold_products_detail.html', context)

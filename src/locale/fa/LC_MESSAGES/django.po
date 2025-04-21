@@ -265,3 +265,12 @@ msgstr "مشتری با موفقیت اضافه شد"
 
 msgid "Items added to Customer Cart"
 msgstr "مورد به سبد خرید مشتری اضافه شد"
+
+msgid "Paid Amount"
+msgstr "مبلغ پرداخت شده"
+
+msgid "Unpaid Amount"
+msgstr "مبلغ باقی مانده"
+
+msgid "Sold Products"
+msgstr "فروش شده"

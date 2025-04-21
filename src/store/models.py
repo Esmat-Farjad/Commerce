@@ -50,14 +50,26 @@ class SalesDetails(models.Model):
     unpaid_amount = models.CharField(max_length=200,null=True, blank=True, default="0")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    _bill_counter = 1000  # Class-level counter for generating bill numbers
+
     def save(self, *args, **kwargs):
         # Generate a unique bill number if not already set
         if not self.bill_number:
-            self.bill_number = f"BILL-{uuid.uuid4().hex[:8].upper()}"
+            # Increment the counter
+            self.bill_number = self.generate_bill_number()
         super().save(*args, **kwargs)
 
+    @classmethod
+    def generate_bill_number(cls):
+        # Increment the counter
+        if cls._bill_counter > 999999:  # Reset to 4 digits when exceeding 6 digits
+            cls._bill_counter = 1000
+        bill_number = cls._bill_counter
+        cls._bill_counter += 1
+        return str(bill_number)
+
     def __str__(self):
-        return f"{self.customer.name}_{self.bill_number}"
+        return self.bill_number
 
 class SalesProducts(models.Model):
     sale_detail = models.ForeignKey(SalesDetails, related_name='sale_detail',on_delete=models.CASCADE)
@@ -69,4 +81,4 @@ class SalesProducts(models.Model):
     total_price = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
-        return f"Sale_{self.sale_detail}"
+        return f"bill number {self.sale_detail}"

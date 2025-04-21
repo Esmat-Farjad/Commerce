@@ -401,3 +401,40 @@ hr{
         }
     }
 }
+.sold-products{
+    display: flex;
+    flex-direction: column;
+    .block-content{
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid lightgray;
+        padding: 10px 0px;
+        .action-panel{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-top: 1px solid lightgray;
+            border-bottom: 1px solid lightgray;
+            padding: 3px;
+            align-items: center;
+        }
+        .detail-panel{
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap into multiple rows */
+            justify-content: start; /* Spaces items evenly */
+            gap: 1rem; /* Adds spacing between items (optional) */
+            .text-read-only{
+                color: gray;
+                font-weight: 600;
+                font-size: 12px;
+                flex-basis: 15rem;
+            }
+        }
+        .search-form{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

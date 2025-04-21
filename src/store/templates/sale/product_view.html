@@ -21,10 +21,11 @@
         </div>
         <div class="table-holder">
             <div class="category-filter">
+                <p>{% trans 'Cart' %}: {{customer}}</p>
                 <span>{% trans 'category' %}:</span>
-                <a href="#" class="btn btn-link">{% trans 'ALL' %}</a>
+                <a href="{{request.path}}" class="btn btn-link">{% trans 'ALL' %}</a>
                 {% for category in categories %}
-                <a href="#" class="btn btn-link">{{category.name}}</a>
+                <a href="{{request.path}}?category={{category.name}}" class="btn btn-link">{{category.name}}</a>
                 {% endfor %}
             </div>
             <table class="table-hover" id="product-table">
@@ -56,7 +57,7 @@
                         <td>
                             <select name="package" class="select-input package-quantity">
                                 <option value="" selected>{% trans '--select--' %}</option>
-                                {% for i in item.package_contain|range_filter %}
+                                {% for i in item.num_of_packages|range_filter %}
                                     <option value="{{ i }}">{{ i }}</option>
                                 {% endfor %}
                             </select>
@@ -72,6 +73,32 @@
             </table>
         </div>
     </div>
+</div>
+{% if customer|length < 1 %}
+<div class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="title">{% trans 'Customer Details' %}</h2>
+            <h5 class="text">{% trans 'Please enter the customer details' %}</h5>
+        </div>
+        <form action="{% url 'products-view' %}" method='post'>
+            {% csrf_token %}
+        <div class="modal-body">
+            <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
+            {{form.name}}
+            <label for="{{form.phone.id_for_label}}">{% trans 'Phone' %}</label>
+            {{form.phone}}
+            <label for="{{form.address.id_for_label}}">{% trans 'Adress' %}</label>
+            {{form.address}}
+            <button type="submit" class="btn btn-teal">{% trans 'Proceed to Sale' %}</button>
+        </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+<div class="sticky-notification not-active" id="sticky-notification">
+    <strong id="notification">{{cart_length}}</strong>&nbsp;
+    <span>{% trans 'Items added to Customer Cart' %}</span>
 </div>
 <script src="{% static 'js/cart.js' %}"></script>
 {% endblock content%}

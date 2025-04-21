@@ -243,3 +243,25 @@ msgstr "قیمت مجموعه قابل پرداخت"
 
 msgid "AFN"
 msgstr "افغانی"
+
+#cusotmer detisl for sale page
+msgid "Customer Details"
+msgstr "جزئیات مشتری"
+
+msgid "Please enter the customer details"
+msgstr "لطفاً جزئیات مشتری را وارد کنید"
+
+msgid "Full Name"
+msgstr "نام و تخلص"
+
+msgid "Adress"
+msgstr "آدرس"
+
+msgid "Proceed to Sale"
+msgstr "برو به بخش فروش"
+
+msgid "Customer has been added successfuly"
+msgstr "مشتری با موفقیت اضافه شد"
+
+msgid "Items added to Customer Cart"
+msgstr "مورد به سبد خرید مشتری اضافه شد"

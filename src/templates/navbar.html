@@ -3,7 +3,7 @@
 <div class="navbar">
     <div class="nav-link-holder">
         <div class="logo-holder">
-            <a href="{% url 'home' %}">
+            <a href="{% url 'root-view' %}">
                 <img src="{% static 'image/logo.svg' %}" alt="Logo">
             </a>
         </div>
@@ -41,17 +41,17 @@
                     </svg>
                 </span>
                 <ul class="menu">
-                    {% if request.user.is_superuser %}
-                    <li class="menu-item">
-                        <a href="http://127.0.0.1:8000/admin">{% trans 'Admin Dashboard'%}</a>
-                    </li>
-                    {% endif %}
                     <li class="menu-item">
                         <a href="#">{% trans 'My Profile' %}</a>
                     </li>
                     <li class="menu-item">
                         <a class="nav-link" href="{% url 'sign-out' %}">{% trans 'Sign Out' %}</a>
                     </li>
+                    {% if request.user.is_superuser %}
+                    <li class="menu-item">
+                        <a href="http://127.0.0.1:8000/admin">{% trans 'Admin Dashboard'%}</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </li>
             {% else %}
@@ -70,12 +70,12 @@
                   </svg>
                </span>
                <ul class="menu">
-                <li class="menu-item">
-                    <a href="{% url 'switch-language' 'fa' %}">{% trans 'Persian' %}</a> 
-                </li>
-                <li class="menu-item">
-                    <a href="{% url 'switch-language' 'en' %}">{% trans 'English' %}</a>
-                </li>
+                    <li class="menu-item">
+                        <a href="{% url 'switch-language' 'fa' %}">{% trans 'Persian' %}</a> 
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'switch-language' 'en' %}">{% trans 'English' %}</a>
+                    </li>
                </ul>
             </li>
             

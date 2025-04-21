@@ -1,0 +1,77 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% trans 'Update Product' %}
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="heading">
+        <p class="title">{% trans 'Update Product' %}</p>
+        <p class="text">{% trans 'Edit your product details below' %}</p>
+        <h4>The design is not finalized</h4>
+    </div>
+
+    <div class="action-button">
+        <a href="{% url 'products_display' %}" class="btn btn-teal add-btn">{% trans "Available Products" %}</a>
+    </div>
+
+    <form action="{% url 'manage_product' 'edit' product.id %}" method="POST" enctype="multipart/form-data" class="purchase-form">
+        {% csrf_token %}
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="id_category">{% trans 'Category' %}</label>
+                {{ form.category }}
+            </div>
+            <div class="form-group">
+                <label for="id_code">{% trans 'Code' %}</label>
+                {{ form.code }}
+            </div>
+            <div class="form-group">
+                <label for="id_name">{% trans 'Name' %}</label>
+                {{ form.name }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="id_package_contain">{% trans 'Package Contain' %}</label>
+                {{ form.package_contain }}
+            </div>
+            <div class="form-group">
+                <label for="id_package_purchase_price">{% trans 'Package Purchase Price' %}</label>
+                {{ form.package_purchase_price }}
+            </div>
+            <div class="form-group">
+                <label for="id_num_of_packages">{% trans 'Number of Packages' %}</label>
+                {{ form.num_of_packages }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="id_package_sale_price">{% trans 'Package Sale Price' %}</label>
+                {{ form.package_sale_price }}
+            </div>
+            <div class="form-group">
+                <label for="id_image">{% trans 'Update Image' %}</label>
+                {{ form.image }}
+                {% if product.image %}
+                <div class="image-preview">
+                    <p>Current Image:</p>
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_description">{% trans 'Description' %}</label>
+                {{ form.description }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">{% trans 'Update Product' %}</button>
+    </form>
+</div>
+{% endblock content %}

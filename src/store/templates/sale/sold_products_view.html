@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load humanize %}
+{% load jalali_tags %}
 {% load custom_filters %}
 {% block title %}
     Store - sold
@@ -44,7 +45,7 @@
                         <td>{{data.total_amount}}</td>
                         <td>{{data.paid_amount}}</td>
                         <td>{{data.unpaid_amount}}</td>
-                        <td>{{data.created_at}}</td>
+                        <td>{{data.created_at|jalali}}</td>
                     </tr>
                     {% endfor %}
                     {% else %}

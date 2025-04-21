@@ -44,7 +44,6 @@ def Home(request):
     today = timezone.now().date()
     last_7_days = [(today - timedelta(days=i)).strftime('%a') for i in range(6, -1, -1)]
     last_7_day_sales = [random.randint(50, 300) for _ in range(7)] 
-    
     context = {
         'today_sales': 500,
         'today_products_sold': 120,
@@ -498,6 +497,7 @@ def cart_view(request):
 
             # Clear cart after successful sale
             request.session['cart'] = {}
+            request.session['customer'] = {}
             messages.success(request, "Products have been sold successfully!")
             return redirect("home")
         except Exception as e:

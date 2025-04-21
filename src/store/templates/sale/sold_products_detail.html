@@ -1,0 +1,103 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %}
+    Store - sold
+{% endblock title %}
+{% block content %}
+    <div class="sold-products container">
+        <div class="block-content">
+            <div class="action-panel">
+                <p>Bill Number Products Information</p>
+                <a href="#" class="nav-btn">Print</a>
+            </div>
+            <div class="detail-panel">
+                <p class="text-read-only">
+                    <strong>{% trans 'Bill Number' %} :</strong>
+                    <span>{{sales_info.bill_number}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Full Name' %} :</strong>
+                    <span>{{sales_info.customer.name}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Address' %} :</strong>
+                    <span>{{sales_info.customer.address}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Phone' %} :</strong>
+                    <span>{{sales_info.customer.phone}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Date' %} :</strong>
+                    <span>{{sales_info.created_at}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Total Amount' %} :</strong>
+                    <span>{{sales_info.total_amount}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Paid Amount' %} :</strong>
+                    <span>{{sales_info.paid_amount}}</span>
+                </p>
+                <p class="text-read-only">
+                    <strong>{% trans 'Unpaid Amount' %} :</strong>
+                    <span>{{sales_info.unpaid_amount}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="table-holder">
+            <table class='table'>
+                <thead>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Item price' %}</th>
+                    <th>{% trans 'Package price' %}</th>
+                    <th>{% trans 'Item quantity' %}</th>
+                    <th>{% trans 'Package quantity' %}</th>
+                    <th>{% trans 'Total Price' %}</th>
+                    <th>{% trans 'Action' %}</th>
+                </thead>
+                <tbody>
+                    {% if sales_products %}
+                    {% for data in sales_products %}
+                    <tr>
+                        <td>{{data.product.name}}</td>
+                        <td>{{data.item_price}}</td>
+                        <td>{{data.package_price}}</td>
+                        <td>{{data.item_qty}}</td>
+                        <td>{{data.package_qty}}</td>
+                        <td>{{data.total_price}}</td>
+                        <td><a href="#" class="nav-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" 
+                            fill="none" viewBox="0 0 24 24" 
+                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                              </svg>
+                              
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-content">
+                                <img class="icon" src="{% static 'image/empty.jpg' %}" alt="">
+                                <p class="title">{% trans 'Your Cart is Empty' %}</p>
+                                <p class="text">
+                                    <a href="{% url 'sold-products-view' %}">
+                                        {% trans "Go back" %}
+                                    </a>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock content%}

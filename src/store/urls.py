@@ -58,4 +58,14 @@ urlpatterns = [
         views.manage_product,
         name = 'manage_product'
     ),
+    path(
+        'product/sold',
+        views.sold_products_view,
+        name="sold-products-view",
+    ),
+    path(
+        'product/sold/detail/<str:pk>',
+        views.sold_product_detail,
+        name='sold-product-detail',
+    ),
 ]

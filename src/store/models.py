@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import uuid
 # Create your models here.
 
@@ -55,6 +56,7 @@ class BillNumberTracker(models.Model):
 
 
 class SalesDetails(models.Model):
+    user = models.ForeignKey(User, related_name='user',null=True, blank=True, on_delete=models.SET_NULL)
     bill_number = models.CharField(max_length=100, unique=True, editable=False, default="")
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="customer")
     total_amount = models.CharField(max_length=200,null=True, blank=True)

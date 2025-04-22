@@ -10,21 +10,53 @@
         <h2 class="dashboard-title">{% trans 'Store Management System' %}</h2>
         <p class="dashboard-subtext">{% trans 'Overview of today’s sales and metrics' %}</p>
     </div>
-
     <div class="dashboard-grid">
         <!-- Stat Cards -->
         <div class="dashboard-card">
-            <p class="card-label">{% trans "Today's Sales" %}</p>
-            <p class="card-value">{{ today_sales|default:"0" }} {{ currency_symbol|default:"$" }}</p>
+            <p class="card-label">{% trans "Today's Sales Amount" %}</p>
+            <p class="card-value">{{ sales_details.total_sale|default:"0" }} {% trans 'AFN' %}</p>
+        </div>
+        <div class="dashboard-card emphasis">
+            <p class="card-label">{% trans "Total Paid Amount" %}</p>
+            <p class="card-value">{{ sales_details.total_paid|default:"0" }} {% trans 'AFN' %}</p>
         </div>
         <div class="dashboard-card">
-            <p class="card-label">{% trans "Products Sold Today" %}</p>
-            <p class="card-value">{{ today_products_sold|default:"0" }}</p>
+            <p class="card-label">{% trans "Total Unpaid Amount" %}</p>
+            <p class="card-value">{{ sales_details.total_unpaid|default:"0" }} {% trans 'AFN' %}</p>
         </div>
         <div class="dashboard-card">
-            <p class="card-label">{% trans "Agreements Provided" %}</p>
-            <p class="card-value">{{ today_agreements|default:"0" }}</p>
+            <p class="card-label">{% trans "Today's Customers Count" %}</p>
+            <p class="card-value">{{ sales_details.total_customer|default:"0" }}</p>
         </div>
+    </div>
+    <div class="border-less-table-holder">
+        <p class="title">
+            {% trans 'Ten Best-Selling Products' %}
+        </p>
+        <p class="subtitle">
+            {% trans 'An Overview of the Most Popular Products' %}
+        </p>
+        <div class="border-less-table">
+            <table>
+                <thead>
+                    <th>#</th>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Category' %}</th>
+                    <th>{% trans 'Total Units Sold' %}</th>
+                </thead>
+                <tbody>
+                    {% for data in top_packages %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{data.product__name}}</td>
+                        <td>{{data.product__category__name}}</td>
+                        <td>{{data.total_package_qty}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 
     <!-- Chart Section -->
@@ -32,6 +64,8 @@
         <h4>{% trans "Sales Trend (Last 7 Days)" %}</h4>
         <canvas id="salesChart" height="100"></canvas>
     </div>
+    
+    
 </div>
 
 <!-- Chart.js CDN -->

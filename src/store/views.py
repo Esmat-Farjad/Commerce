@@ -90,10 +90,10 @@ def signup(request):
         if form.is_valid():
             form.save()
             messages.success(request, _("The user has been registered successfully"))
-            print("user created")
+            
         else:
             messages.error(request, _("Something Went wrong. Please fix the below error !"))
-            print("something went wrong")
+           
     register_form = form
     context = {
         'form':register_form
@@ -118,7 +118,7 @@ def purchase(request):
             total_package_price = int(num_of_packages) * int(package_purchase_price)
             stock = int(package_contain) * int(num_of_packages)
             item_sale_price = round((package_sale_price / package_contain), 3) if package_contain else 0
-            print(f"total_price: {total_package_price} || total_items: {stock} || item_sale_price: {item_sale_price}")
+            # print(f"total_price: {total_package_price} || total_items: {stock} || item_sale_price: {item_sale_price}")
             purchase = form.save(commit=False)
             purchase.stock = stock
             purchase.item_sale_price = item_sale_price
@@ -374,7 +374,6 @@ def remove_cart_item(request, pid):
     for item_key, item in cart.items():
         if str(item['product_id']) == pid:
             item_key_to_remove = item_key
-            print(f"item to remove: {item_key_to_remove}")
             break
 
     # Remove the item from the cart if found
@@ -425,7 +424,23 @@ def safe_int(value, default=0):
         return int(value)
     except (ValueError, TypeError):
         return default
-    
+
+def print_invoice(request, sales_id):
+    sales_details = get_object_or_404(SalesDetails, bill_number=sales_id)
+    print(sales_id)
+    print(f"SALES DETAILS: {sales_details}")
+    sales_product = SalesProducts.objects.filter(sale_detail=sales_details)
+    print(f"SALES PRODUCTS: {sales_product}")
+    calculate = sales_product.aggregate(
+        total_amount=Sum('total_price')
+    )
+    context = {
+        'sales_details':sales_details,
+        'sales_products':sales_product,
+        'calculate':calculate
+    }
+    return render(request, 'partials/_print_invoice.html', context)
+
 def cart_view(request):
     # Retrieve cart and customer from session
     cart = request.session.get('cart', {})
@@ -517,7 +532,7 @@ def cart_view(request):
             request.session['cart'] = {}
             request.session['customer'] = {}
             messages.success(request, "Products have been sold successfully!")
-            return redirect("home")
+            return redirect("print-invoice",sales_details.id)
         except Exception as e:
             # Roll back the transaction and handle the error gracefully
             messages.error(request, f"An error occurred: {str(e)}")
@@ -547,7 +562,7 @@ def sold_product_detail(request, pk):
     sales_id = get_object_or_404(SalesDetails, pk=pk)
    
     sales_products = SalesProducts.objects.filter(sale_detail=pk).select_related('product')
-    print(sales_products)
+
     context = {
         'sales_products':sales_products,
         'sales_info':sales_id,

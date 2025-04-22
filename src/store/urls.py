@@ -68,4 +68,9 @@ urlpatterns = [
         views.sold_product_detail,
         name='sold-product-detail',
     ),
+    path(
+        'sale/invoice/print/<str:sales_id>',
+        views.print_invoice,
+        name='print-invoice',
+    ),
 ]

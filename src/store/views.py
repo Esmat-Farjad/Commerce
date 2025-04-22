@@ -4,7 +4,7 @@ from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
-from django.db.models import Prefetch
+from django.db.models import Sum, Count
 
 
 from store.filters import ProductsFilter
@@ -14,8 +14,9 @@ from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm, UpdateProductForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 from django.utils import timezone
+
 import random
 import json
 from django.http import JsonResponse
@@ -41,15 +42,31 @@ def landing(request):
     return render(request, "landing-page.html")
 
 def Home(request):
-    today = timezone.now().date()
+    today = timezone.now()
     last_7_days = [(today - timedelta(days=i)).strftime('%a') for i in range(6, -1, -1)]
     last_7_day_sales = [random.randint(50, 300) for _ in range(7)] 
+    today_date = date.today()
+    sales_details = (
+        SalesDetails.objects
+        .filter(user=request.user, created_at__date=today_date)
+        .aggregate(
+            total_sale=Sum('total_amount'),
+            total_paid=Sum('paid_amount'),
+            total_unpaid=Sum('unpaid_amount'),
+            total_customer=Count('customer', distinct=True)  # Ensure distinct customers are counted
+        )
+    )
+    
+    top_packages = (
+        SalesProducts.objects
+        .filter(sale_detail__user=request.user, sale_detail__created_at__date=today_date)
+        .values('product__name','product__category__name')  # Group by product name
+        .annotate(total_package_qty=Sum('package_qty'))  # Calculate total package quantity for each product
+        .order_by('-total_package_qty')[:10]  # Order by total package quantity in descending order
+    )
     context = {
-        'today_sales': 500,
-        'today_products_sold': 120,
-        'today_agreements': 18,
-        'last_7_days': last_7_days,
-        'last_7_day_sales': last_7_day_sales,
+        'top_packages':top_packages,
+        'sales_details':sales_details
     }
     return render(request, 'home.html', context)
 
@@ -472,6 +489,7 @@ def cart_view(request):
             # Create SalesDetails instance
             with transaction.atomic():
                 sales_details = SalesDetails.objects.create(
+                    user = request.user,
                     customer=customer_instance,
                     total_amount=grand_total,
                     paid_amount=paid_amount,

@@ -274,3 +274,31 @@ msgstr "مبلغ باقی مانده"
 
 msgid "Sold Products"
 msgstr "فروش شده"
+
+#Home page translateion
+ msgid "Overview of today’s sales and metrics"
+ msgstr "مروری بر فروش و معیارهای امروز"
+
+ msgid "Today's Sales Amount"
+ msgstr "میزان فروش امروز"
+
+ msgid "Total Paid Amount"
+ msgstr "مجموع مبلغ پرداخت‌شده"
+
+ msgid "Total Unpaid Amount"
+ msgstr "مجموع مبلغ پرداخت‌ نشده"
+
+ msgid "Today's Customers Count"
+ msgstr "تعداد مشتریان امروز"
+
+ msgid "Ten Best-Selling Products"
+ msgstr "ده پرفروش‌ترین محصولات"
+
+ msgid "An Overview of the Most Popular Products"
+ msgstr "مروری بر پرفروش‌ترین محصولات"
+
+ msgid "Total Units Sold"
+ msgstr "مجموع بسته‌های فروخته‌شده"
+
+ msgid "Category"
+ msgstr "دسته بندی"

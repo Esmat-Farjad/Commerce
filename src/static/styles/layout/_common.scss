@@ -403,7 +403,7 @@ hr{
         }
     }
 }
-.sold-products{
+.sales-summary{
     display: flex;
     flex-direction: column;
     .block-content{
@@ -419,6 +419,10 @@ hr{
             border-bottom: 1px solid lightgray;
             padding: 3px;
             align-items: center;
+            h2{
+                padding: 0px;
+                margin: 0px;
+            }
         }
         .detail-panel{
             display: flex;

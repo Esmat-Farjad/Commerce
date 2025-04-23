@@ -2,16 +2,17 @@
 {% load i18n %}
 {% load static %}
 {% load humanize %}
+{% load jalali_tags %}
 {% load custom_filters %}
 {% block title %}
-    Store - sold
+    {% trans "Sales Summary" %}
 {% endblock title %}
 {% block content %}
-    <div class="sold-products container">
+    <div class="sales-summary container">
         <div class="block-content">
             <div class="action-panel">
-                <p>Bill Number Products Information</p>
-                <a href="#" class="nav-btn">Print</a>
+                <h2>{% trans 'Sales Summary' %}</h2>
+                <a href="{% url 'print-invoice' sales_info.bill_number %}" class="nav-btn">{% trans 'Print' %}</a>
             </div>
             <div class="detail-panel">
                 <p class="text-read-only">
@@ -32,7 +33,7 @@
                 </p>
                 <p class="text-read-only">
                     <strong>{% trans 'Date' %} :</strong>
-                    <span>{{sales_info.created_at}}</span>
+                    <span>{{sales_info.created_at|jalali}}</span>
                 </p>
                 <p class="text-read-only">
                     <strong>{% trans 'Total Amount' %} :</strong>
@@ -56,7 +57,7 @@
                     <th>{% trans 'Package price' %}</th>
                     <th>{% trans 'Item quantity' %}</th>
                     <th>{% trans 'Package quantity' %}</th>
-                    <th>{% trans 'Total Price' %}</th>
+                    <th>{% trans 'Total price' %}</th>
                     <th>{% trans 'Action' %}</th>
                 </thead>
                 <tbody>

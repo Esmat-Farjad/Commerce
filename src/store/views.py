@@ -42,9 +42,7 @@ def landing(request):
     return render(request, "landing-page.html")
 
 def Home(request):
-    today = timezone.now()
-    last_7_days = [(today - timedelta(days=i)).strftime('%a') for i in range(6, -1, -1)]
-    last_7_day_sales = [random.randint(50, 300) for _ in range(7)] 
+    order_products = Products.objects.filter(num_of_packages__lt=10)
     today_date = date.today()
     sales_details = (
         SalesDetails.objects
@@ -66,7 +64,8 @@ def Home(request):
     )
     context = {
         'top_packages':top_packages,
-        'sales_details':sales_details
+        'sales_details':sales_details,
+        'order_products':order_products
     }
     return render(request, 'home.html', context)
 
@@ -532,7 +531,7 @@ def cart_view(request):
             request.session['cart'] = {}
             request.session['customer'] = {}
             messages.success(request, "Products have been sold successfully!")
-            return redirect("print-invoice",sales_details.id)
+            return redirect("print-invoice",sales_details)
         except Exception as e:
             # Roll back the transaction and handle the error gracefully
             messages.error(request, f"An error occurred: {str(e)}")

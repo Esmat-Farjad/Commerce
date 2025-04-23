@@ -132,7 +132,9 @@
                     {% endfor %}
                     
                     <tr>
-                        <td colspan="6">جمله پول شد: {{calculate.total_amount}} {% trans 'AFN' %}</td>
+                        <td colspan="2">جمله پول شد: {{calculate.total_amount}} {% trans 'AFN' %}</td>
+                        <td colspan="2">مبلغ پرداخت شده:  {{sales_details.paid_amount}} {% trans 'AFN' %}</td>
+                        <td colspan="2">مبلغ باقی مانده:  {{sales_details.unpaid_amount}} {% trans 'AFN' %}</td>
                     </tr>
                 </tbody>
             </table>
@@ -145,11 +147,5 @@
             <a class="btn" href="{% url 'home' %}">{% trans 'Go Back' %}</a>
         </div>
     </div>
-    <script>
-        window.onload = function(){
-            window.print();
-        }
-    </script>
-    
 </body>
 </html>

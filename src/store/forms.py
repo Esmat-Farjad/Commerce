@@ -14,7 +14,7 @@ class PurchaseForm(forms.ModelForm):
         super(PurchaseForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class']="form-input-field"
-            visible.field.widget.attrs['placeholder']=visible.field.label
+            visible.field.widget.attrs['placeholder']=_(visible.field.label)
 
 class RegistrationForm(UserCreationForm):
     class Meta:

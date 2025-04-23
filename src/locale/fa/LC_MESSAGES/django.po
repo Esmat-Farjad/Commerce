@@ -302,3 +302,62 @@ msgstr "فروش شده"
 
  msgid "Category"
  msgstr "دسته بندی"
+
+ msgid "Inventory Shortage"
+ msgstr "کمبود موجودی"
+
+ msgid "The following products have fallen below the minimum stock level and require immediate restocking to prevent supply disruptions."
+ msgstr "محصولات زیر از سطح حداقل موجودی پایین‌تر آمده‌اند و نیاز به تأمین فوری دارند تا از اختلال در عرضه جلوگیری شود."
+
+ msgid "Number of Remaining Packages"
+ msgstr "تعداد بسته های باقی مانده"
+
+#Purchase page translation
+msgid "Purchase Page"
+msgstr "صفحه خرید"
+
+msgid "Please use the form below to accurately enter the details of your purchased inventory items"
+msgstr "لطفاً از فورم زیر برای درج دقیق جزئیات اجناس خریداری‌شده استفاده نمایید."
+
+msgid "Available Products"
+msgstr "محصولات موجود"
+
+msgid "Code"
+msgstr "بار کد"
+
+msgid "Number of Items"
+msgstr "تعداد اقلام"
+
+msgid "Number of Packages"
+msgstr "تعداد بسته ها"
+
+msgid "Package Contain"
+msgstr "محتویات بسته"
+
+msgid "Package Purchase Price"
+msgstr "قیمت خرید بسته"
+
+msgid "Package Sale Price"
+msgstr "قیمت فروش بسته"
+
+msgid "Image"
+msgstr "تصویر"
+
+msgid "Description"
+msgstr "توضیحات"
+
+#products list translation
+msgid "Available Products List"
+msgstr "لیست محصولات موجود"
+
+msgid "Browse through the complete list of products available for purchase. You can view details, pricing, and availability for each item."
+msgstr "از طریق لیست کامل محصولات موجود برای خرید مرور کنید. شما می‌توانید جزئیات، قیمت‌ها و موجودیت هر کالا را مشاهده کنید."
+
+msgid "Total Purchase Price"
+msgstr "قیمت کل خرید"
+
+msgid "Item Sales Price"
+msgstr "قیمت فروش کالا"
+
+msgid "Stock"
+msgstr "موجودی"

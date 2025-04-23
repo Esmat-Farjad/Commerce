@@ -25,7 +25,7 @@ class Products(models.Model):
     item_sale_price = models.IntegerField( null=True ,default=0)
     num_items = models.IntegerField(null=True,default=0)
     stock = models.IntegerField()
-    image = models.ImageField(default='default.svg', upload_to='item_images')
+    image = models.ImageField(default='default.png', upload_to='item_images')
     description = models.TextField(max_length=200,null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)

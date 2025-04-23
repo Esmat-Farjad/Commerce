@@ -58,41 +58,34 @@
         </div>
         
     </div>
-
-    <!-- Chart Section -->
-    <div class="chart-container">
-        <h4>{% trans "Sales Trend (Last 7 Days)" %}</h4>
-        <canvas id="salesChart" height="100"></canvas>
+    <div class="border-less-table-holder">
+        <p class="title">
+            {% trans 'Inventory Shortage' %}
+        </p>
+        <p class="subtitle">
+            {% trans 'The following products have fallen below the minimum stock level and require immediate restocking to prevent supply disruptions.' %}
+        </p>
+        <div class="border-less-table">
+            <table>
+                <thead>
+                    <th>#</th>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Category' %}</th>
+                    <th>{% trans 'Number of Remaining Packages' %}</th>
+                </thead>
+                <tbody>
+                    {% for data in order_products %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.category}}</td>
+                        <td>{{data.num_of_packages}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
     </div>
-    
-    
 </div>
-
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('salesChart');
-    const salesChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {{ last_7_days|safe }}, // Expects a list like ['Mon', 'Tue', ...]
-            datasets: [{
-                label: "Sales",
-                data: {{ last_7_day_sales|safe }}, // Expects a list like [120, 90, 70, ...]
-                fill: true,
-                borderColor: "teal",
-                backgroundColor: "rgba(0, 128, 128, 0.1)",
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-</script>
 {% endblock content %}

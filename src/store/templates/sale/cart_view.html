@@ -22,7 +22,7 @@
         </div>
         <div class="table-holder">
             
-            <table class="table-hover" id="product-table">
+            <table class="table-hover" id="product-cart-table">
                 <thead>
                     <th>{% trans 'Image' %}</th>
                     <th style="width:200px">{% trans 'Name' %}</th>
@@ -53,7 +53,7 @@
                         <td>
                             <select name="package" class="select-input package-quantity">
                                 <option value="" selected>{% trans '--select--' %}</option>
-                                {% for i in item.product.package_contain|range_filter %}
+                                {% for i in item.product.num_of_packages|range_filter %}
                                     <option value="{{ i }}" {% if i == item.package_quantity %}selected{% endif %}>{{ i }}</option>
                                 {% endfor %}
                             </select>

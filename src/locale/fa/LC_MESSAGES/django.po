@@ -361,3 +361,44 @@ msgstr "قیمت فروش کالا"
 
 msgid "Stock"
 msgstr "موجودی"
+
+#sales summary page translation
+
+msgid "Sales Summary"
+msgstr "خلاصهٔ فروش"
+
+msgid "Bill Number"
+msgstr "نمبربل"
+
+msgid "Total Amount"
+msgstr "مجموع مبلغ"
+
+msgid "Item quantity"
+msgstr "تعداد جنس"
+
+msgid "Package quantity"
+msgstr "تعداد بسته"
+
+msgid "Total price"
+msgstr "قیمت مجموعی"
+
+msgid "Package price"
+msgstr "قیمت بسته"
+
+msgid "Item price"
+msgstr "قیمت جنس"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Print"
+msgstr "چاپ"
+
+msgid "Products Sales Details"
+msgstr "جزئیات فروش محصولات"
+
+msgid "View detailed information about each product's sales, including quantities sold, total sales value, and customer details."
+msgstr "مشاهدهٔ اطلاعات دقیق در مورد فروش هر محصول، شامل تعداد فروش رفته، ارزش کل فروش، و جزئیات مشتری."
+
+msgid "Enter your bill number"
+msgstr "بل نمبر خود را وارد کنید"

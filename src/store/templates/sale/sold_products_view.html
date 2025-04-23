@@ -5,23 +5,22 @@
 {% load jalali_tags %}
 {% load custom_filters %}
 {% block title %}
-    Store - sold
+    {% trans "Sales Summary" %}
 {% endblock title %}
 {% block content %}
-    <div class="sold-products container">
+    <div class="sales-summary container">
         <div class="block-content">
             <div class="detail-panel">
                 <div class="heading">
-                    <h1 class="title">{% trans 'Sold Products' %}</h1>
-                    <p class="text">{% trans 'Products Sales Details' %}</p>
+                    <h1 class="title">{% trans 'Products Sales Details' %}</h1>
+                    <p class="text">{% trans "View detailed information about each product's sales, including quantities sold, total sales value, and customer details." %}</p>
                 </div>
             </div>
             <div class="block-content">
             <div class="search-form">
-                
                 <form action="{% url 'sold-products-view' %}" method="post">
                     {% csrf_token %}
-                    <input type="search" class="input-field" name="bill-number" id="bill-number" placeholder="{% trans 'Enter bill number' %}">
+                    <input type="search" class="input-field" name="bill-number" id="bill-number" placeholder="{% trans 'Enter your bill number' %}">
                     <button type"submit" class="btn-teal">{% trans 'Search' %}</button>
                 </form>
             </div>  

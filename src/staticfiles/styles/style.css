@@ -324,15 +324,15 @@ hr {
       .modal-container .modal .modal-body button {
         margin-top: 2rem; }
 
-.sold-products {
+.sales-summary {
   display: flex;
   flex-direction: column; }
-  .sold-products .block-content {
+  .sales-summary .block-content {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid lightgray;
     padding: 10px 0px; }
-    .sold-products .block-content .action-panel {
+    .sales-summary .block-content .action-panel {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -340,7 +340,10 @@ hr {
       border-bottom: 1px solid lightgray;
       padding: 3px;
       align-items: center; }
-    .sold-products .block-content .detail-panel {
+      .sales-summary .block-content .action-panel h2 {
+        padding: 0px;
+        margin: 0px; }
+    .sales-summary .block-content .detail-panel {
       display: flex;
       flex-wrap: wrap;
       /* Allows items to wrap into multiple rows */
@@ -348,12 +351,12 @@ hr {
       /* Spaces items evenly */
       gap: 1rem;
       /* Adds spacing between items (optional) */ }
-      .sold-products .block-content .detail-panel .text-read-only {
+      .sales-summary .block-content .detail-panel .text-read-only {
         color: gray;
         font-weight: 600;
         font-size: 12px;
         flex-basis: 15rem; }
-    .sold-products .block-content .search-form {
+    .sales-summary .block-content .search-form {
       display: flex;
       flex-direction: row;
       justify-content: center;

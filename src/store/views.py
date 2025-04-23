@@ -426,10 +426,9 @@ def safe_int(value, default=0):
 
 def print_invoice(request, sales_id):
     sales_details = get_object_or_404(SalesDetails, bill_number=sales_id)
-    print(sales_id)
-    print(f"SALES DETAILS: {sales_details}")
+    
     sales_product = SalesProducts.objects.filter(sale_detail=sales_details)
-    print(f"SALES PRODUCTS: {sales_product}")
+
     calculate = sales_product.aggregate(
         total_amount=Sum('total_price')
     )

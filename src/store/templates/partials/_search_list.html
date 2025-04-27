@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load static %}
+{% load custom_filters %}
+{% for item in products %}
+    <tr data-product-id={{item.id}}
+    data-end-point-url={% url 'add-to-cart' %}>
+        <td>
+            <img src="{{item.image.url}}" alt="image" class="tr-image">
+        </td>
+        <td style="width:200px">{{item.name}}</td>
+        <td>
+            <select name="quantity" {% if item.num_of_packages <= 0 %}disabled{% endif %} class="select-input item-quantity">
+                <option value="" selected>{% trans '--select--' %}</option>
+                {% for i in item.package_contain|range_filter %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td>
+            <select name="package" {% if item.num_of_packages <= 0 %}disabled{% endif %} class="select-input package-quantity">
+                <option value="" selected>{% trans '--select--' %}</option>
+                {% for i in item.num_of_packages|range_filter %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" class="table-input item-price"value={{ item.item_sale_price|default:"" }}></td>
+        <td><input type="number" class="table-input package-price"value={{item.package_sale_price|default:""}}></td>
+        
+        <td><button {% if item.num_of_packages <= 0 %}disabled{% endif %} class="btn btn-teal add-btn">{% trans 'ADD' %}</button></td>
+    </tr>
+    {% endfor %}

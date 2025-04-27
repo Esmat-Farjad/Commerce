@@ -13,12 +13,21 @@
         <p class="text">{% trans 'This page showcases all available products for sale' %}</p>
     </div>
     <div class="block-content">
-        <div class="search-box">
-            <input 
-            type="search" 
-            class="search-input"
-            placeholder="{% trans 'Search the products' %}">
-        </div>
+        <form action="{% url 'search-products' %}" method="get" >
+            {% csrf_token %}
+            <div class="search-box">
+                <input 
+                    type="search"
+                    name="search"
+                    class="search-input"
+                    placeholder="Search products..."
+                    value="{{ request.GET.search|default_if_none:'' }}"
+                    hx-get="{% url 'search-products' %}" 
+                    hx-trigger="keyup changed delay:300ms" 
+                    hx-target="#search-list"  
+                    >
+            </div>
+        </form>
         <div class="table-holder">
             <div class="category-filter">
                 <p>{% trans 'Cart' %}: {{customer}}</p>
@@ -38,7 +47,7 @@
                     <th>{% trans 'Package Price' %}</th>
                     <th>{% trans 'Action' %}</th>
                 </thead>
-                <tbody>
+                <tbody id="search-list">
                     {% for item in products %}
                     <tr data-product-id={{item.id}}
                     data-end-point-url={% url 'add-to-cart' %}>

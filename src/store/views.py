@@ -210,30 +210,58 @@ def products_view(request):
     categories = Category.objects.all()
     customer = request.session.get('customer', {})
     customer_list = []
+    products_queryset = Products.objects.select_related('category')
+
     products_filter = ProductsFilter(
         request.GET,
         request=request,
-        queryset = Products.objects.select_related('category')
+        queryset=products_queryset
     )
+
+    # Handle customer form
     customer_form = CustomerForm()
     if request.method == 'POST':
         customer_form = CustomerForm(request.POST)
         if customer_form.is_valid():
-            new_customer = customer_form.save()
-            customer[new_customer.id] = new_customer.name
-            request.session['customer'] = customer
-            messages.success(request, _("Customer has been added successfuly"))
+            phone = customer_form.cleaned_data.get('phone')
+            customer_exist = Customer.objects.get(phone=phone)
+            if customer_exist:
+                customer[customer_exist.id] = customer_exist.name
+                request.session['customer'] = customer
+                messages.success(request, _("Customer already exists"))
+            else:
+                new_customer = customer_form.save()
+                customer[new_customer.id] = new_customer.name
+                request.session['customer'] = customer
+                messages.success(request, _("Customer has been added successfully"))
+
+    # Handle session customer data
     if customer:  
         customer_list = list(customer.values())[0]
-    context ={
-        'products':products_filter.qs,
-        'categories':categories,
-        'filter_form':products_filter,
-        'form':customer_form,
-        'customer':customer_list
-    }
-    return render(request, 'sale/product_view.html',context)
 
+    # # Pagination
+    # paginator = Paginator(products_filter.qs, 10)  # Show 10 products per page
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
+    context = {
+        'products': products_filter.qs,
+        'categories': categories,
+        'filter_form': products_filter,
+        'form': customer_form,
+        'customer': customer_list
+    }
+    return render(request, 'sale/product_view.html', context)
+
+def search_products(request):
+    search = request.GET.get('search')
+    products = Products.objects.select_related('category')
+    product_list = (
+        products.filter(category__name__istartswith=search) | products.filter(name__istartswith=search)
+    )
+    context = {
+        'products':product_list
+    }
+    return render(request, 'partials/_search_list.html', context)
 # add to cart
 # def add_to_cart(request):
 #     if request.method == 'POST':
@@ -566,3 +594,21 @@ def sold_product_detail(request, pk):
         'sales_info':sales_id,
     }
     return render(request, 'sale/sold_products_detail.html', context)
+
+
+def sales_dashboard(request):
+    return render(request, 'dashboard/dashboard-view.html')
+
+# dashboard contaner view
+def income(request):
+    return render(request, 'partials/management/_income-view.html')
+
+def expense(request):
+    return render(request, 'partials/management/_expense-view.html')
+
+def summary(request):
+    return render(request, 'partials/management/_summary-view.html')
+def returned(request):
+    return render(request, 'partials/management/_return-view.html')
+def customer(request):
+    return render(request, 'partials/management/_customer-view.html')

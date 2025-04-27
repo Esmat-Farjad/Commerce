@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 item_price,
                 package_price,
             }
+            if( item_quantity || package_quantity){
             fetch(endPointUrl,
             {
                 method: 'POST',
@@ -41,19 +42,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify(data) 
             }).then(res => res.json())
             .then(response =>{
+                document.querySelector(".sticky-notification").classList.remove("not-active");
+                document.querySelector(".sticky-notification").classList.add("active");
+                document.getElementById("notification").innerText = response.cart_length;
                 console.log(`${response.cart_length} Product added`);
                 document.getElementById("cart_length").innerText = response.cart_length;
             }).catch(error =>{
+                row.classList.add("border-error");
                 console.log(`Server Error: ${error}`);
                 alert("Failed to Add the Product.");
-            })
+            });
+            }
         }
     });
 });
 
 // update cart
 document.addEventListener("DOMContentLoaded", function () {
-    const table = document.getElementById("product-table");
+    const table = document.getElementById("product-car-table");
     table.addEventListener("change", function(e) {
             const row = e.target.closest("tr");
             let product_id = row.dataset.productId;

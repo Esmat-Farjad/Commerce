@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %}
+    Store - Landing Page 
+{% endblock title %}
+{% block content %}
+<div class="dashboard">
+    <div class="sidebar" id="sidebar">
+        {% include "partials/_list.html" %}
+    </div>
+    <div class="main" id="main">
+        <button class="btn btn-teal toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+        {% block dashboard %}
+        {% endblock dashboard %}
+    </div>
+</div>
+<script>
+    
+    // Get the elements
+    const toggleButton = document.querySelector('.toggle-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main');
+
+    // Sidebar is open by default, so we don't need to do anything to open it initially
+
+    // Toggle the active class when the button is clicked
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('active'); // Add or remove the 'active' class
+        mainContent.classList.toggle('active'); // Adjust the main content margin
+    });
+
+  </script>
+{% endblock content %}

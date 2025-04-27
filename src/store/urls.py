@@ -73,4 +73,34 @@ urlpatterns = [
         views.print_invoice,
         name='print-invoice',
     ),
+    path(
+        'sales/dashboard',
+        views.sales_dashboard,
+        name='sales-dashboard',
+    ),
+    path(
+        'dashboard/income',
+        views.income,
+        name='income',
+    ),
+    path(
+        'dashboard/expense',
+        views.expense,
+        name='expense',
+    ),
+    path(
+        'dashboard/summary',
+        views.summary,
+        name='summary',
+    ),
+    path(
+        'dashboard/returned',
+        views.returned,
+        name='returned',
+    ),
+    path(
+        'dashboard/customer',
+        views.customer,
+        name='customer',
+    ),
 ]

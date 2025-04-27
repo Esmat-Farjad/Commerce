@@ -566,3 +566,21 @@ def sold_product_detail(request, pk):
         'sales_info':sales_id,
     }
     return render(request, 'sale/sold_products_detail.html', context)
+
+
+def sales_dashboard(request):
+    return render(request, 'dashboard/dashboard-view.html')
+
+# dashboard contaner view
+def income(request):
+    return render(request, 'partials/management/_income-view.html')
+
+def expense(request):
+    return render(request, 'partials/management/_expense-view.html')
+
+def summary(request):
+    return render(request, 'partials/management/_summary-view.html')
+def returned(request):
+    return render(request, 'partials/management/_return-view.html')
+def customer(request):
+    return render(request, 'partials/management/_customer-view.html')

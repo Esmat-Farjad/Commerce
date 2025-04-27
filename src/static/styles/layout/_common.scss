@@ -156,24 +156,24 @@ hr{
     color: #333;
 }
 
-// product_view.html styling
-.container{
-    .heading{
-        margin: 1rem 0rem;
-        .title{
-            padding: 0px;
-            margin: 0px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .text{
-            padding: 0px;
-            margin: 0px;
-            color: gray;
-            font-weight: 400;
-            font-size: 12px;
-        }
+
+.heading{
+    margin: 1rem 0rem;
+    .title{
+        padding: 0px;
+        margin: 0px;
+        font-size: 24px;
+        font-weight: bold;
     }
+    .text{
+        padding: 0px;
+        margin: 0px;
+        color: gray;
+        font-weight: 400;
+        font-size: 12px;
+    }
+}
+.container{
     .block-content{
         .customer-field{
             display: flex;
@@ -444,3 +444,76 @@ hr{
         }
     }
 }
+.dashboard {
+    margin: 0;
+    padding: 0;
+
+    .sidebar {
+        width: 250px;
+        height: 100%;
+        position: fixed;
+        top: 60px;
+        left: 0; /* Sidebar is open by default */
+        background-color: #2c3e50;
+        color: white;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    .main {
+        padding: 20px;
+        margin-left: 250px;
+        transition: margin-left 0.3s ease;
+        position: relative; /* Ensure main content stays behind the toggle button */
+        .toggle-btn{
+            position: absolute;
+            top: 30px;
+            left: 20px;
+        }
+    }
+    /* When the sidebar is active (will be used to hide the sidebar) */
+    .sidebar.active {
+        left: -250px; /* Sidebar moves off-screen */
+    }
+    /* When the sidebar is active (will be used to adjust main content) */
+    .main.active {
+        margin-left: 0; /* Main content takes up the whole screen */
+    }
+}
+.list-holder{
+    margin-top: 1rem;
+    padding: 10px;
+    .heading{
+        text-align: start;
+        border-bottom: 1px solid orange;
+        padding: 1rem 0rem;
+        .title,.text{
+            padding: 0px;
+            margin: 0px;
+        }
+        .text{
+            font-size: 13px;
+        }
+    }
+    .unorder-list{
+        padding: 0px;
+        list-style-type: none;
+        .active{
+            background-color: teal;
+        }
+        .list-item{
+            a{
+                color: #F8F8F8;
+                padding: 10px;
+                font-size: 14px;
+                cursor: pointer;
+                display: block;
+            }
+            &:hover{
+                background-color: teal;
+            }
+        }
+
+    }
+}
+

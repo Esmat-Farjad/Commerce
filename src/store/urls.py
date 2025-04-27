@@ -103,4 +103,9 @@ urlpatterns = [
         views.customer,
         name='customer',
     ),
+    path(
+        'products/search',
+        views.search_products,
+        name='search-products',
+    ),
 ]

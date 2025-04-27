@@ -84,3 +84,23 @@ class SalesProducts(models.Model):
     
     def __str__(self):
         return f"bill number {self.sale_detail}"
+    
+
+
+class OtherIncome(models.Model):
+    date_created = models.DateField()
+    source = models.CharField(max_length=255)  # like 'Commission', 'Asset Sale'
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.source
+
+class Expense(models.Model):
+    date_created = models.DateField()
+    category = models.CharField(max_length=255)  # like 'Rent', 'Salaries', 'Car Fare'
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.category

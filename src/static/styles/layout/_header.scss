@@ -2,7 +2,13 @@
     padding: 10px;
     border: 1px solid #2e4256;
     background-color: #2e4256;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     color: white;
+    z-index: 1000;
     .nav-link-holder{
         display: flex;
         flex-direction: row;

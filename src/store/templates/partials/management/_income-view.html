@@ -2,11 +2,82 @@
 {% load i18n %}
 {% load static %}
 {% load custom_filters %}
+{% load jalali_tags %}
 {% block dashboard %}
 <div class="sub-container">
     <div class="sub-heading">
         <h1 class="title">{% trans "Income Page" %}</h1>
         <p class="text">{% trans "Welcome to the Income Page" %}</p>
     </div>
+    <div class="content">
+        <form action="{% url 'income' %}" method="post" class="purchase-form">
+            {% csrf_token %}
+            <div class="input-container">
+                <div class="form-group">
+                    <label for="date_created">{% trans "Date" %}</label>
+                    {{form.date_created}}
+                </div>
+                <div class="form-group">
+                    <label for="source">{% trans "Source" %}</label>
+                    {{form.source}}
+                </div>
+                <div class="form-group">
+                    <label for="Amount">{% trans "Amount" %}</label>
+                    {{form.amount}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description">{% trans "Description" %}</label>
+                {{form.description}}
+            </div>
+            <div class="button-holder" style="text-align:center;">
+                <button type="submit" class="btn btn-teal">{% trans "Save" %}</button>
+            </div>
+            
+        </form>
+        <div class="border-less-table-holder">
+            <p class="title">
+                {% trans 'Other Income Records' %}
+            </p>
+            <p class="subtitle">
+                {% trans 'An Overview of the Other Income records' %}
+            </p>
+            <div class="border-less-table">
+                <table>
+                    <thead>
+                        <th>{% trans 'Date' %}</th>
+                        <th>{% trans 'Source' %}</th>
+                        <th>{% trans 'Amount' %}</th>
+                        <th>{% trans 'Description' %}</th>
+                    </thead>
+                    <tbody>
+                        {% for data in other_income %}
+                        <tr>
+                            <td>{{data.date_created}}</td>
+                            <td>{{data.source}}</td>
+                            <td>{{data.amount}}</td>
+                            <td>{{data.description}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $(".jalali-date-picker").pDatepicker({
+            format: 'YYYY-MM-DD',  // Set the desired date format
+            calendar: {
+                persian: {
+                    locale: 'fa'  // Set locale to Persian
+                }
+            },
+            autoClose: true,  // Automatically close when a date is selected
+            initialValue: false  // Don't set an initial value
+        });
+    });
+</script>
 {% endblock dashboard %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Products, Customer
+from .models import OtherIncome, Products, Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -77,4 +77,30 @@ class UpdateProductForm(forms.ModelForm):
         super(UpdateProductForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = "form-input"
-            visible.field.widget.attrs['placeholder'] = visible.field.label
+            visible.field.widget.attrs['placeholder'] = _(visible.field.label)
+
+
+class OtherIncomeForm(forms.ModelForm):
+    class Meta:
+        model = OtherIncome
+        field = "__all__"
+        exclude = ()
+
+        
+    def __init__(self, *args, **kwargs):
+        super(OtherIncomeForm, self).__init__(*args, **kwargs)
+        self.fields['date_created'].widget = forms.DateInput(
+                attrs={
+                    'type': 'date',  # HTML5 date input type
+                    'class': 'date-picker',  # Additional class for styling
+                }
+            )
+        # Add the 'jalali-date-picker' class to the date_created field
+        if 'date_created' in self.fields:
+            self.fields['date_created'].widget.attrs.update({
+                'class': 'jalali-date-picker input-field',
+                'autocomplete': 'off',  # Disable browser autocomplete
+            })
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = "input-field"
+            visible.field.widget.attrs['placeholder'] = _(visible.field.label)

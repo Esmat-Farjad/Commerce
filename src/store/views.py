@@ -8,8 +8,8 @@ from django.db.models import Sum, Count
 
 
 from store.filters import ProductsFilter
-from .models import Category, Customer, Products, SalesDetails, SalesProducts
-from .forms import CustomerForm, PurchaseForm, RegistrationForm
+from .models import Category, Customer, OtherIncome, Products, SalesDetails, SalesProducts
+from .forms import CustomerForm, OtherIncomeForm, PurchaseForm, RegistrationForm
 from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm, UpdateProductForm
 from django.utils.translation import gettext_lazy as _
@@ -596,12 +596,25 @@ def sold_product_detail(request, pk):
     return render(request, 'sale/sold_products_detail.html', context)
 
 
-def sales_dashboard(request):
-    return render(request, 'dashboard/dashboard-view.html')
+
 
 # dashboard contaner view
 def income(request):
-    return render(request, 'partials/management/_income-view.html')
+    form = OtherIncomeForm()
+    today_date = date.today()
+    other_income = OtherIncome.objects.filter(date_created=today_date)
+    if request.method == 'POST':
+        form = OtherIncomeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Income has been added successfully"))
+        else:
+            messages.error(request, _("Something went wrong. Please try again"))
+    context = {
+        'form':form,
+        'other_income':other_income
+    }
+    return render(request, 'partials/management/_income-view.html', context)
 
 def expense(request):
     return render(request, 'partials/management/_expense-view.html')
@@ -612,3 +625,7 @@ def returned(request):
     return render(request, 'partials/management/_return-view.html')
 def customer(request):
     return render(request, 'partials/management/_customer-view.html')
+
+def sales_dashboard(request):
+    return redirect('summary')
+    # return render(request, 'dashboard/dashboard-view.html')

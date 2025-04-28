@@ -78,16 +78,20 @@
                     
                 </tbody>
             </table>
-            <div class="customer-form-holder">
+            <div class="customer-form">
                 <form action="{% url 'cart-view' %}" method="post">
                     {% csrf_token %}
-                    <div style="margin-bottom:2rem;padding:1rem;">
-                        <label for="paid">{% trans 'Paid Amount' %}</label>
-                        <input type="number" class="input-field" id="paid" name="paid">
-                        <label for="unpaid">{% trans 'Unpaid Amount' %}</label>
-                        <input type="number" class="input-field" name="unpaid" id="unpaid">
+                    <div class="horizontal-form" style="margin:2rem 0rem;">
+                        <div>
+                            <label for="paid">{% trans 'Paid Amount' %}</label>
+                            <input type="number" class="input-field" id="paid" name="paid">
+                        </div>
+                        <div>
+                            <label for="unpaid">{% trans 'Unpaid Amount' %}</label>
+                            <input type="number" class="input-field" name="unpaid" id="unpaid">
+                        </div>
+                        <button type="submit" class="btn btn-link" >{% trans 'Sale' %}</button>
                     </div>
-                    <button type="submit" class="btn btn-link">{% trans 'Sale' %}</button>
                 </form>
             </div>
         </div>

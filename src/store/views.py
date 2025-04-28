@@ -224,16 +224,31 @@ def products_view(request):
         customer_form = CustomerForm(request.POST)
         if customer_form.is_valid():
             phone = customer_form.cleaned_data.get('phone')
-            customer_exist = Customer.objects.get(phone=phone)
-            if customer_exist:
-                customer[customer_exist.id] = customer_exist.name
-                request.session['customer'] = customer
-                messages.success(request, _("Customer already exists"))
+
+            # Check if customer already exists
+            existing_customer = Customer.objects.filter(phone=phone).first()
+            if existing_customer:
+                # Initialize session dictionary if it doesn't exist
+                customer_session = request.session.get('customer', {})
+                customer_session[existing_customer.id] = existing_customer.name
+                request.session['customer'] = customer_session
+
+                # Notify user
+                messages.info(request, _("Customer already exists."))
             else:
+                # Create a new customer
                 new_customer = customer_form.save()
-                customer[new_customer.id] = new_customer.name
-                request.session['customer'] = customer
-                messages.success(request, _("Customer has been added successfully"))
+
+                # Add to session
+                customer_session = request.session.get('customer', {})
+                customer_session[new_customer.id] = new_customer.name
+                request.session['customer'] = customer_session
+
+                # Notify user
+                messages.success(request, _("Customer has been added successfully."))
+        else:
+            # If form is not valid, return appropriate error message
+            messages.error(request, _("There was an error in the form. Please fix the errors and try again."))
 
     # Handle session customer data
     if customer:  
@@ -512,8 +527,29 @@ def summary(request):
     return render(request, 'partials/management/_summary-view.html')
 def returned(request):
     return render(request, 'partials/management/_return-view.html')
+
 def customer(request):
-    return render(request, 'partials/management/_customer-view.html')
+    customers = Customer.objects.all()
+    # Add customer sales details (paid, unpaid, bill count) for each customer
+    customer_data = []
+    for customer in customers:
+        sales_data = SalesDetails.objects.filter(customer=customer).aggregate(
+            total_amount=Sum('total_amount'),
+            total_paid=Sum('paid_amount'),
+            total_unpaid=Sum('unpaid_amount'),
+            bill_count=Count('bill_number')
+        )
+        customer_data.append({
+            'customer': customer,
+            'total_amount':sales_data['total_amount'] or 0, 
+            'total_paid': sales_data['total_paid'] or 0,  # Default to 0 if None
+            'total_unpaid': sales_data['total_unpaid'] or 0,  # Default to 0 if None
+            'bill_count': sales_data['bill_count'],
+        })
+    context = {
+        'customer_data':customer_data
+    }
+    return render(request, 'partials/management/_customer-view.html', context)
 
 def sales_dashboard(request):
     return redirect('summary')

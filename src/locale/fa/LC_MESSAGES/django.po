@@ -424,3 +424,9 @@ msgstr "بازگشت کالاها"
 
 msgid "Expense"
 msgstr "هزینه"
+
+msgid "Number of Bills"
+msgstr "تعداد بل‌ها"
+
+msgid "View detailed insights into your customers' purchases and activities."
+msgstr "نمایی دقیق از خریدها و فعالیت‌های مشتریان خود را مشاهده کنید."

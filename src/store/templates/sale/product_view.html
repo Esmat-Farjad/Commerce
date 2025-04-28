@@ -92,15 +92,21 @@
         </div>
         <form action="{% url 'products-view' %}" method='post'>
             {% csrf_token %}
-        <div class="modal-body">
-            <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
-            {{form.name}}
-            <label for="{{form.phone.id_for_label}}">{% trans 'Phone' %}</label>
-            {{form.phone}}
-            <label for="{{form.address.id_for_label}}">{% trans 'Adress' %}</label>
-            {{form.address}}
-            <button type="submit" class="btn btn-teal">{% trans 'Proceed to Sale' %}</button>
-        </div>
+            <div class="horizontal-form modal-body">
+                <div>
+                    <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
+                    {{form.name}}
+                </div>
+                <div>
+                    <label for="{{form.phone.id_for_label}}">{% trans 'Phone' %}</label>
+                    {{form.phone}}
+                </div>
+                <div>
+                    <label for="{{form.address.id_for_label}}">{% trans 'Adress' %}</label>
+                    {{form.address}}
+                </div>
+                <button type="submit" class="btn btn-teal">{% trans 'Proceed to Sale' %}</button>
+            </div>
         </form>
     </div>
 </div>

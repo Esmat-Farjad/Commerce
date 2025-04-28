@@ -5,8 +5,39 @@
 {% block dashboard %}
 <div class="sub-container">
     <div class="sub-heading">
-        <h1 class="title">{% trans "Customer Page" %}</h1>
-        <p class="text">{% trans "Welcome to the Customer Page" %}</p>
+        <h1 class="title">{% trans "Customer Overview" %}</h1>
+        <p class="text">{% trans "View detailed insights into your customers' purchases and activities." %}</p>
+    </div>
+    <div class="content">
+        <div class="form-holder">
+
+        </div>
+        <div class="table-holder">
+            <table class="table">
+                <thead>
+                    <th>{% trans "Full Name" %}</th>
+                    <th>{% trans "Phone" %}</th>
+                    <th>{% trans "Address" %}</th>
+                    <th>{% trans "Number of Bills" %}</th>
+                    <th>{% trans "Total Amount" %}</th>
+                    <th>{% trans "Total Paid Amount" %}</th>
+                    <th>{% trans "Total Unpaid Amount" %}</th>
+                </thead>
+                <tbody>
+                    {% for data in customer_data  %}
+                    <tr>
+                        <td>{{data.customer.name}}</td>
+                        <td>{{data.customer.phone}}</td>
+                        <td>{{data.customer.address}}</td>
+                        <td>{{data.bill_count}}</td>
+                        <td>{{data.total_amount}}</td>
+                        <td>{{data.total_paid}}</td>
+                        <td>{{data.total_unpaid}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock dashboard %}

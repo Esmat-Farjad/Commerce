@@ -97,6 +97,7 @@
     tbody {
         tr {
             border-bottom: 1px solid #eee;
+            transition: opacity 0.3s ease;
 
             &:nth-child(even) {
                 background-color: #fafafa;

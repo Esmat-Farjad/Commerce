@@ -12,7 +12,7 @@
         {% include "partials/_list.html" %}
     </div>
     <div class="main" id="main">
-        <button class="btn btn-teal toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+        <button class="btn btn-teal toggle-btn" onclick="toggleSidebar()">☰ {% trans "Menu" %}</button>
         {% block dashboard %}
         {% endblock dashboard %}
     </div>

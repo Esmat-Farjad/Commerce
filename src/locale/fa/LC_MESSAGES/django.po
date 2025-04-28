@@ -402,3 +402,25 @@ msgstr "مشاهدهٔ اطلاعات دقیق در مورد فروش هر مح�
 
 msgid "Enter your bill number"
 msgstr "بل نمبر خود را وارد کنید"
+
+msgid "Return"
+msgstr "برگشت"
+
+#dashbaord translation
+msgid "Menu"
+msgstr "منو"
+
+msgid "Sales Overview"
+msgstr "مروری بر فروش"
+
+msgid "Income"
+msgstr "درآمد"
+
+msgid "Customer Overview"
+msgstr "مروری بر مشتریان"
+
+msgid "Return Items"
+msgstr "بازگشت کالاها"
+
+msgid "Expense"
+msgstr "هزینه"

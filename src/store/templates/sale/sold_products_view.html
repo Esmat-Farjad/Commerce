@@ -21,7 +21,7 @@
                 <form action="{% url 'sold-products-view' %}" method="post">
                     {% csrf_token %}
                     <input type="search" class="input-field" name="bill-number" id="bill-number" placeholder="{% trans 'Enter your bill number' %}">
-                    <button type"submit" class="btn-teal">{% trans 'Search' %}</button>
+                    <button type"submit" class="btn-teal absolute-btn">{% trans 'Search' %}</button>
                 </form>
             </div>  
         </div>

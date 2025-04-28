@@ -108,4 +108,9 @@ urlpatterns = [
         views.search_products,
         name='search-products',
     ),
+    path(
+        'products/return/<str:pk>',
+        views.return_items,
+        name='return-items',
+    ),
 ]

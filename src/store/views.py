@@ -19,7 +19,7 @@ from django.utils import timezone
 
 import random
 import json
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 def switch_language(request, lang_code):
@@ -262,137 +262,7 @@ def search_products(request):
         'products':product_list
     }
     return render(request, 'partials/_search_list.html', context)
-# add to cart
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         product_id = data.get('product_id')
-#         item_quantity = data.get('item_quantity')
-#         package_quantity = data.get('package_quantity')
-#         item_price = data.get('item_price')
-#         package_price = data.get('package_price')
-        
-#         try:
-#             product = Products.objects.get(id=product_id)
-#         except Products.DoesNotExist:
-#             return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
-        
-#         cart = request.session.get('cart', {})
-#         item_key = str(product_id)
-#         if item_key in cart:
-#             cart[item_key]['item_quantity'] = item_quantity
-#             cart[item_key]['package_quantity'] = package_quantity
-#             cart[item_key]['item_price'] = item_price
-#             cart[item_key]['package_price'] = package_price
-#         else:
-#             cart[item_key] = {
-#                 'product_id':product_id,
-#                 'item_quantity':item_quantity,
-#                 'package_quantity':package_quantity,
-#                 'item_price':item_price,
-#                 'package_price':package_price
-#             }
-#         request.session['cart'] = cart  # Save cart back into session
-#         number_of_added_item = len(request.session['cart'])
 
-#         return JsonResponse({'status':200, 'message':'success','cart_length':number_of_added_item})
-#     return JsonResponse({'error': 'Invalid request'}, status=400)
-
-
-# def cart_view(request):
-#     cart = request.session.get('cart', {})
-#     customer = request.session.get('customer',{})
-#     cart_details = []
-#     grand_total = 0
-#     sold_stock = 0
-#     product_update_stock = []
-#     # Fetch all products in a single query to optimize performance
-#     product_ids = [item['product_id'] for key, item in cart.items()]
-#     products = Products.objects.filter(pk__in=product_ids)
-#     product_mapping = {product.id: product for product in products}
-#     print(product_mapping)
-#     for key, item in cart.items():
-
-#         product = get_object_or_404(Products, pk=item['product_id'])
-#         item_quantity = int(item.get('item_quantity') or 0)
-#         package_quantity = int(item.get('package_quantity') or 0)
-#         item_price = int(item.get('item_price') or 0)
-#         package_price = int(item.get('package_price') or 0)
-
-#         # Calculations of new stock
-#         sold_stock = (int(package_quantity) * int(product.package_contain)) + int(item_quantity)
-#         new_stock = product.stock - sold_stock
-
-#         # Prepare records for bulk update
-#         product.stock = new_stock
-#         product.num_of_packages = int(new_stock) // int(product.package_contain)
-#         product.num_items = int(new_stock) % int(product.package_contain)
-#         product_update_stock.append(product)
-
-#         # Calculate subtotal and append to cart details
-#         sub_total = (item_quantity * item_price) + (package_quantity * package_price)
-#         grand_total += sub_total
-#         cart_details.append({
-#             'product': product,
-#             'item_quantity': item_quantity,
-#             'package_quantity': package_quantity,
-#             'item_price': item_price,
-#             'package_price': package_price,
-#             'sub_total': sub_total,
-#         })
-#     customer_instance = None
-#     if customer:
-#         customer_pk= list(customer.keys())[0]
-#         customer_instance = get_object_or_404(Customer, pk=customer_pk)
-#     if request.method == 'POST':
-#         unpaid_amount = grand_total
-#         paid_amount =request.POST.get('paid')
-#         if paid_amount:
-#             unpaid_amount = int(grand_total) - int(paid_amount)
-#         # Create a SalesDetails instance
-#         sales_details = SalesDetails.objects.create(
-#             customer=customer_instance,
-#             total_amount=grand_total, 
-#             paid_amount=paid_amount,    
-#             unpaid_amount=unpaid_amount,  
-#         )
-#         # Use atomic transaction for bulk operations
-#         with transaction.atomic():
-#             # Perform bulk update
-#             Products.objects.bulk_update(product_update_stock, ['stock', 'num_of_packages', 'num_items'])
-
-#             # If you want to bulk create cart details in another model, e.g., SalesProducts
-#             sales_products = []
-
-#             for item in cart_details:
-#                 sales_product = SalesProducts(
-#                     sale_detail=sales_details,  # Replace with actual instance
-#                     item_price=item['item_price'],
-#                     package_price=item['package_price'],
-#                     item_qty=item['item_quantity'],
-#                     package_qty=item['package_quantity'],
-#                     total_price=item['sub_total'],
-#                 )
-#                 sales_products.append(sales_product)
-
-#             # Bulk create the SalesProducts
-#             created_sales_products = SalesProducts.objects.bulk_create(sales_products)
-
-#             # Associate products with the created SalesProducts
-#             for item, sales_product in zip(cart_details, created_sales_products):
-#                 print("THIS IS THE ITEM", item)
-#                 product_instance = product_mapping[item['product'].id]
-#                 sales_product.product.set([product_instance])  # Use set() to assign ManyToManyField
-#             messages.success(request, "Product has been sold")
-
-
-#     print(f"THIS IS THE CART DETAILS: {cart_details}")
-#     context = {
-#         'cart_details':cart_details,
-#         'grand_total':grand_total,
-#         'customer':customer_instance
-#     }
-#     return render(request, 'sale/cart_view.html', context)
 
 def remove_cart_item(request, pid):
     cart = request.session.get('cart', {})
@@ -595,6 +465,25 @@ def sold_product_detail(request, pk):
     }
     return render(request, 'sale/sold_products_detail.html', context)
 
+def return_items(request, pk):
+    # Get the returned product or raise 404
+    returned_product = get_object_or_404(SalesProducts, id=pk)
+    
+    # Calculate new quantities
+    returned_pkg = safe_int(returned_product.package_qty)
+    returned_item = safe_int(returned_product.item_qty)
+    product = returned_product.product  # Get the related product
+    
+    # Use atomic transaction to prevent race conditions
+    with transaction.atomic():
+        # Update product quantities
+        product.num_of_packages = safe_int(product.num_of_packages) + returned_pkg
+        product.num_items = safe_int(product.num_items) + returned_item
+        product.save() 
+        returned_product.delete()
+        return HttpResponse('', headers={'HX-Trigger': 'returnSuccess'})
+
+    
 
 
 

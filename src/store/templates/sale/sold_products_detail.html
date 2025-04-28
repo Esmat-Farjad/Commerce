@@ -70,14 +70,22 @@
                         <td>{{data.item_qty}}</td>
                         <td>{{data.package_qty}}</td>
                         <td>{{data.total_price}}</td>
-                        <td><a href="#" class="nav-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" viewBox="0 0 24 24" 
-                            stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                              </svg>
-                              
-                        </a></td>
+                        <td>
+                            <a style="cursor:pointer;"
+                            hx-get="{% url 'return-items' data.id %}" 
+                            hx-target="closest tr" 
+                            hx-swap="outerHTML swap:0.3s"
+                            hx-confirm="{% trans 'Are you sure you want to return this item?' %}"
+                            hx-on="returnSuccess: showSuccess()" 
+                            class="nav-btn">
+                                <span style="font-size:small;">{% trans "Return" %}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                fill="none" viewBox="0 0 24 24" 
+                                stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                                </svg>
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                     {% else %}
@@ -100,5 +108,9 @@
             </table>
         </div>
     </div>
-    
+    <script>
+        function showSuccess() {
+            alert('Return processed successfully!');
+        }
+    </script>
 {% endblock content%}

@@ -351,6 +351,20 @@ hr {
       flex-direction: row;
       justify-content: center;
       align-items: center; }
+      .sales-summary .block-content .search-form form {
+        position: relative;
+        width: 50%; }
+        .sales-summary .block-content .search-form form input {
+          padding-right: 10px;
+          padding-left: 10px; }
+        .sales-summary .block-content .search-form form .absolute-btn {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          right: -48px;
+          height: 33px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px; }
 
 .dashboard {
   margin: 0;
@@ -588,7 +602,8 @@ hr {
       font-size: 13px;
       font-weight: bold; }
   .table tbody tr {
-    border-bottom: 1px solid #eee; }
+    border-bottom: 1px solid #eee;
+    transition: opacity 0.3s ease; }
     .table tbody tr:nth-child(even) {
       background-color: #fafafa; }
     .table tbody tr:hover {

@@ -425,6 +425,23 @@ hr{
             flex-direction: row;
             justify-content: center;
             align-items: center;
+            form{
+                position: relative;
+                width: 50%;
+                input{
+                    padding-right: 10px;
+                    padding-left: 10px
+                }
+                .absolute-btn{
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    right: -48px;
+                    height: 33px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+            }
         }
     }
 }

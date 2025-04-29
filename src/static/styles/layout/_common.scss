@@ -425,28 +425,29 @@ hr{
                 flex-basis: 15rem;
             }
         }
-        .search-form{
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            form{
-                position: relative;
-                width: 50%;
-                input{
-                    padding-right: 10px;
-                    padding-left: 10px
-                }
-                .absolute-btn{
-                    position: absolute;
-                    cursor: pointer;
-                    top: 0;
-                    right: -48px;
-                    height: 33px;
-                    border-top-right-radius: 5px;
-                    border-bottom-right-radius: 5px;
-                }
-            }
+        
+    }
+}
+.search-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    form{
+        position: relative;
+        width: 50%;
+        input{
+            padding-right: 10px;
+            padding-left: 10px
+        }
+        .absolute-btn{
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            right: -48px;
+            height: 33px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
         }
     }
 }
@@ -460,8 +461,8 @@ hr{
         position: fixed;
         top: 60px;
         left: 0; /* Sidebar is open by default */
-        background-color: #2c3e50;
-        color: white;
+        background-color: #e8eaec;
+        color: black;
         transition: left 0.3s ease;
         z-index: 500;
     }
@@ -509,7 +510,7 @@ hr{
         }
         .list-item{
             a{
-                color: #F8F8F8;
+                color: black;
                 padding: 10px;
                 font-size: 14px;
                 cursor: pointer;

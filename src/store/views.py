@@ -531,6 +531,9 @@ def returned(request):
 def customer(request):
     customers = Customer.objects.all()
     # Add customer sales details (paid, unpaid, bill count) for each customer
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
+        customers = customers.filter(phone=phone)
     customer_data = []
     for customer in customers:
         sales_data = SalesDetails.objects.filter(customer=customer).aggregate(
@@ -546,6 +549,8 @@ def customer(request):
             'total_unpaid': sales_data['total_unpaid'] or 0,  # Default to 0 if None
             'bill_count': sales_data['bill_count'],
         })
+    
+
     context = {
         'customer_data':customer_data
     }
@@ -553,4 +558,7 @@ def customer(request):
 
 def sales_dashboard(request):
     return redirect('summary')
-    # return render(request, 'dashboard/dashboard-view.html')
+
+def create_payment(request, cid):
+    customer = get_object_or_404(Customer, pk=cid)
+    pass

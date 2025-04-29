@@ -430,3 +430,34 @@ msgstr "تعداد بل‌ها"
 
 msgid "View detailed insights into your customers' purchases and activities."
 msgstr "نمایی دقیق از خریدها و فعالیت‌های مشتریان خود را مشاهده کنید."
+
+msgid "Pay"
+msgstr "پرداخت"
+
+msgid "Paid"
+msgstr "پرداخت شده"
+
+msgid "Customers Billing Overview"
+msgstr "بررسی صورتحساب مشتری"
+
+msgid "Review customer purchases, payment status, and outstanding balances."
+msgstr "بررسی خریدهای مشتری، وضعیت پرداخت و مبالغ باقی‌مانده."
+
+msgid "Paid Category"
+msgstr "دسته بندی پرداخت شده ها"
+
+msgid "Unpaid Category"
+msgstr "دسته‌ بندی پرداخت‌ نشده ها"
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Management Page"
+msgstr "صفحه مدیریت"
+
+msgid "Enter your customer phone number"
+msgstr "شماره تلفن مشتری خود را وارد کنید"
+
+msgid "Go Back"
+msgstr "برگشت"
+

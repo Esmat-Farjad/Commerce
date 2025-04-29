@@ -351,25 +351,26 @@ hr {
         font-weight: 600;
         font-size: 12px;
         flex-basis: 15rem; }
-    .sales-summary .block-content .search-form {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center; }
-      .sales-summary .block-content .search-form form {
-        position: relative;
-        width: 50%; }
-        .sales-summary .block-content .search-form form input {
-          padding-right: 10px;
-          padding-left: 10px; }
-        .sales-summary .block-content .search-form form .absolute-btn {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          right: -48px;
-          height: 33px;
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px; }
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+  .search-form form {
+    position: relative;
+    width: 50%; }
+    .search-form form input {
+      padding-right: 10px;
+      padding-left: 10px; }
+    .search-form form .absolute-btn {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      right: -48px;
+      height: 33px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px; }
 
 .dashboard {
   margin: 0;
@@ -383,8 +384,8 @@ hr {
     top: 60px;
     left: 0;
     /* Sidebar is open by default */
-    background-color: #2c3e50;
-    color: white;
+    background-color: #e8eaec;
+    color: black;
     transition: left 0.3s ease;
     z-index: 500; }
   .dashboard .main {
@@ -422,7 +423,7 @@ hr {
     .list-holder .unorder-list .active {
       background-color: teal; }
     .list-holder .unorder-list .list-item a {
-      color: #F8F8F8;
+      color: black;
       padding: 10px;
       font-size: 14px;
       cursor: pointer;
@@ -640,6 +641,8 @@ hr {
       text-align: center;
       width: 100%;
       margin: 2rem 0rem; }
+      .border-less-table-holder .border-less-table table .text-sm {
+        font-size: 12px; }
       .border-less-table-holder .border-less-table table thead {
         padding: 10px;
         background-color: #e6e6e6; }
@@ -654,7 +657,16 @@ hr {
       .border-less-table-holder .border-less-table table tbody tr {
         border: 1px solid white; }
       .border-less-table-holder .border-less-table table tbody tr, .border-less-table-holder .border-less-table table tbody td {
-        padding: 5px 0px; }
+        padding: 5px 0px;
+        border: 1px solid lightgray; }
+  .border-less-table-holder .dashboard-table-width {
+    width: 98%; }
+
+.text-gray {
+  color: gray; }
+
+.my-2 {
+  margin: 2rem 0rem; }
 
 .input-field {
   width: 100%;

@@ -113,4 +113,9 @@ urlpatterns = [
         views.return_items,
         name='return-items',
     ),
+    path(
+        'customer/payment/<str:cid>',
+        views.create_payment,
+        name='create-payment',
+    ),
 ]

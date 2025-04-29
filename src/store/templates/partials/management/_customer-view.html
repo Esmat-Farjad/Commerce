@@ -5,39 +5,90 @@
 {% block dashboard %}
 <div class="sub-container">
     <div class="sub-heading">
-        <h1 class="title">{% trans "Customer Overview" %}</h1>
-        <p class="text">{% trans "View detailed insights into your customers' purchases and activities." %}</p>
+        <h1 class="title">{% trans 'Customers Billing Overview' %}</h1>
+        <p class="text">{% trans 'Review customer purchases, payment status, and outstanding balances.' %}</p>
     </div>
     <div class="content">
-        <div class="form-holder">
-
+        <div class="border-less-table-holder">
+            {% comment %} search form {% endcomment %}
+            <div class="search-form my-2">
+                <form action="{% url 'customer' %}" method="post">
+                    {% csrf_token %}
+                    <input type="search" class="input-field" name="phone" id="phone" placeholder="{% trans 'Enter your customer phone number' %}">
+                    <button type"submit" class="btn-teal absolute-btn">{% trans 'Search' %}</button>
+                </form>
+            </div>
+            {% comment %} search form {% endcomment %}
+            <fieldset class="border-less-table dashboard-table-width">
+                <legend>{% trans "Unpaid Category" %}</legend>
+                <table>
+                    <thead class="text-sm">
+                        <th>{% trans "Full Name" %}</th>
+                        <th>{% trans "Phone" %}</th>
+                        <th>{% trans "Address" %}</th>
+                        <th>{% trans "Number of Bills" %}</th>
+                        <th>{% trans "Total Amount" %}</th>
+                        <th>{% trans "Total Paid Amount" %}</th>
+                        <th>{% trans "Total Unpaid Amount" %}</th>
+                        <th>{% trans "Status" %}</th>
+                    </thead>
+                    <tbody>
+                        {% for data in customer_data  %}
+                        {% if data.total_unpaid > 0 %}
+                        <tr>
+                            <td>{{data.customer.name}}</td>
+                            <td>{{data.customer.phone}}</td>
+                            <td>{{data.customer.address}}</td>
+                            <td>{{data.bill_count}}</td>
+                            <td>{{data.total_amount}}</td>
+                            <td>{{data.total_paid}}</td>
+                            <td>{{data.total_unpaid}}</td>
+                            <td>
+                                <a href="{% url 'create-payment' data.customer.id %}" class="btn btn-teal text-sm">{% trans "Pay" %}</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </fieldset>
+            {% comment %} paid {% endcomment %}
+            
+            <fieldset class="border-less-table dashboard-table-width my-2">
+                <legend>{% trans "Paid Category" %}</legend>
+                <table>
+                    <thead class="text-sm">
+                        <th>{% trans "Full Name" %}</th>
+                        <th>{% trans "Phone" %}</th>
+                        <th>{% trans "Address" %}</th>
+                        <th>{% trans "Number of Bills" %}</th>
+                        <th>{% trans "Total Amount" %}</th>
+                        <th>{% trans "Total Paid Amount" %}</th>
+                        <th>{% trans "Total Unpaid Amount" %}</th>
+                        <th>{% trans "Status" %}</th>
+                    </thead>
+                    <tbody>
+                        {% for data in customer_data  %}
+                        {% if data.total_unpaid <= 0 %}
+                        <tr>
+                            <td>{{data.customer.name}}</td>
+                            <td>{{data.customer.phone}}</td>
+                            <td>{{data.customer.address}}</td>
+                            <td>{{data.bill_count}}</td>
+                            <td>{{data.total_amount}}</td>
+                            <td>{{data.total_paid}}</td>
+                            <td>{{data.total_unpaid}}</td>
+                            <td>
+                                <span class="text-gray text-sm">{% trans "Paid" %}</span>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </fieldset>
         </div>
-        <div class="table-holder">
-            <table class="table">
-                <thead>
-                    <th>{% trans "Full Name" %}</th>
-                    <th>{% trans "Phone" %}</th>
-                    <th>{% trans "Address" %}</th>
-                    <th>{% trans "Number of Bills" %}</th>
-                    <th>{% trans "Total Amount" %}</th>
-                    <th>{% trans "Total Paid Amount" %}</th>
-                    <th>{% trans "Total Unpaid Amount" %}</th>
-                </thead>
-                <tbody>
-                    {% for data in customer_data  %}
-                    <tr>
-                        <td>{{data.customer.name}}</td>
-                        <td>{{data.customer.phone}}</td>
-                        <td>{{data.customer.address}}</td>
-                        <td>{{data.bill_count}}</td>
-                        <td>{{data.total_amount}}</td>
-                        <td>{{data.total_paid}}</td>
-                        <td>{{data.total_unpaid}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        
     </div>
 </div>
 {% endblock dashboard %}

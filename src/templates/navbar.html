@@ -51,7 +51,7 @@
                         <a class="nav-link" href="{% url 'sign-out' %}">{% trans 'Sign Out' %}</a>
                     </li>
                     <li class="menu-item">
-                        <a href="{% url 'sales-dashboard' %}" class="nav-link">{% trans 'Dashboard' %}</a>
+                        <a href="{% url 'sales-dashboard' %}" class="nav-link">{% trans 'Management Page' %}</a>
                     </li>
                     {% if request.user.is_superuser %}
                     <li class="menu-item">

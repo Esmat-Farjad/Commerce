@@ -583,38 +583,6 @@ hr {
       .product-table-container .paginator .nav-btn:hover {
         background-color: #ddd; }
 
-.product-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  font-size: 12px;
-  border: 1px solid #ddd; }
-  .product-table thead {
-    background-color: #f2f2f2; }
-    .product-table thead th {
-      padding: 8px;
-      text-align: start;
-      border: 1px solid #ddd;
-      font-weight: 600;
-      font-size: 12px; }
-  .product-table tbody tr {
-    border-bottom: 1px solid #eee; }
-    .product-table tbody tr:nth-child(even) {
-      background-color: #fafafa; }
-    .product-table tbody tr:hover {
-      background-color: #f5f5f5; }
-    .product-table tbody tr td {
-      border: 1px solid #ddd;
-      vertical-align: middle; }
-    .product-table tbody tr .table-image {
-      width: 100%;
-      height: 30px;
-      object-fit: cover;
-      border-radius: 5px; }
-    .product-table tbody tr .action-icons {
-      display: flex;
-      gap: 5px; }
-
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -629,7 +597,9 @@ hr {
       text-align: left;
       border: 1px solid #ddd;
       font-size: 13px;
-      font-weight: bold; }
+      font-weight: bold;
+      text-align: center;
+      vertical-align: middle; }
   .table tbody tr {
     border-bottom: 1px solid #eee;
     transition: opacity 0.3s ease; }
@@ -640,7 +610,14 @@ hr {
     .table tbody tr td {
       padding: 10px;
       border: 1px solid #ddd;
+      vertical-align: middle;
+      text-align: center;
       vertical-align: middle; }
+    .table tbody tr .table-image {
+      width: 100%;
+      height: 30px;
+      object-fit: cover;
+      border-radius: 5px; }
 
 .border-less-table-holder {
   margin: 2rem 0rem; }
@@ -788,58 +765,5 @@ hr {
   padding-left: 5px; }
   .form-input-field:focus {
     border: 1px solid teal; }
-
-.sub-heading {
-  text-align: center; }
-  .sub-heading .title {
-    padding: 0px;
-    margin: 0px;
-    font-size: 24px;
-    font-weight: bold; }
-  .sub-heading .text {
-    padding: 0px;
-    margin: 0px;
-    color: gray;
-    font-weight: 400;
-    font-size: 12px; }
-
-.card-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 2rem 0rem; }
-  .card-container .card {
-    flex-basis: 10rem;
-    height: 6rem;
-    padding: 1rem;
-    text-align: center;
-    border: 1px solid orange;
-    border-radius: 5px;
-    transition: border 0.3s; }
-    .card-container .card .title {
-      padding: 5px 0px;
-      margin: 0px;
-      font-weight: bold;
-      font-size: 14px; }
-    .card-container .card .text {
-      padding: 0px;
-      margin: 0px;
-      font-weight: 600;
-      color: teal; }
-  .card-container .emphasis {
-    border: 2px solid orange; }
-
-.input-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px; }
-  .input-container > * {
-    flex-basis: 18rem; }
-  .input-container .form-group {
-    width: max-content; }
 
 /*# sourceMappingURL=style.css.map */

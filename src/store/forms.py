@@ -1,5 +1,5 @@
 from django import forms
-from .models import OtherIncome, Products, Customer
+from .models import BaseUnit, OtherIncome, Products, Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -103,4 +103,17 @@ class OtherIncomeForm(forms.ModelForm):
             })
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = "input-field"
+            visible.field.widget.attrs['placeholder'] = _(visible.field.label)
+
+
+class BaseUnitForm(forms.ModelForm):
+    class Meta:
+        model = BaseUnit
+        fields = "__all__"
+        exclude = ()
+
+    def __init__(self, *args, **kwargs):
+        super(BaseUnitForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'input-field'
             visible.field.widget.attrs['placeholder'] = _(visible.field.label)

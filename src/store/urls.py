@@ -104,6 +104,21 @@ urlpatterns = [
         name='customer',
     ),
     path(
+        'dashboard/base-unit',
+        views.base_unit,
+        name='base-unit',
+    ),
+    path(
+        'dashboard/unit/<str:unit_id>/update',
+        views.update_base_unit,
+        name='update-base-unit',
+    ),
+    path(
+        'dashboard/unit/<str:unit_id>/delete',
+        views.delete_base_unit,
+        name='delete-base-unit',
+    ),
+    path(
         'products/search',
         views.search_products,
         name='search-products',

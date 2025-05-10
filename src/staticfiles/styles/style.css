@@ -96,11 +96,13 @@ hr {
 
 .size-6 {
   width: 24px;
-  height: 24px; }
+  height: 24px;
+  vertical-align: middle; }
 
 .size-4 {
   width: 15px;
-  height: 15px; }
+  height: 15px;
+  vertical-align: middle; }
 
 .landing-page {
   margin: 2rem 8rem;
@@ -444,15 +446,18 @@ hr {
     padding: 0px;
     list-style-type: none; }
     .list-holder .unorder-list .active {
-      background-color: teal; }
+      background-color: teal;
+      color: white;
+      font-weight: 600; }
     .list-holder .unorder-list .list-item a {
-      color: black;
+      color: inherit;
       padding: 10px;
       font-size: 14px;
       cursor: pointer;
       display: block; }
     .list-holder .unorder-list .list-item:hover {
-      background-color: teal; }
+      background-color: teal;
+      color: white; }
 
 .footer-container {
   border: 1px solid #fcf3e3;
@@ -668,6 +673,15 @@ hr {
 .my-2 {
   margin: 2rem 0rem; }
 
+fieldset {
+  border: 1px solid lightgray;
+  padding: 10px;
+  border-radius: 5px; }
+  fieldset legend {
+    font-weight: 500;
+    font-size: 14px;
+    color: gray; }
+
 .input-field {
   width: 100%;
   height: 34px;
@@ -695,6 +709,16 @@ hr {
   transition: all 0.3s; }
   .btn-teal:hover {
     background-color: teal; }
+
+.btn-gray {
+  background-color: #eceaea;
+  color: inherit;
+  font-size: 12px;
+  border: 1px solid #eceaea;
+  padding: 4px 8px;
+  transition: all 0.3s; }
+  .btn-gray:hover {
+    background-color: lightgray; }
 
 .btn-link {
   background-color: teal;
@@ -765,5 +789,50 @@ hr {
   padding-left: 5px; }
   .form-input-field:focus {
     border: 1px solid teal; }
+
+.flex-box-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 5px; }
+  .flex-box-form .field-col {
+    text-align: start; }
+    .flex-box-form .field-col .lable {
+      font-size: 12px;
+      font-weight: 600; }
+
+.help-text {
+  padding: 0px;
+  margin: 0px;
+  font-weight: 600;
+  color: gray;
+  font-size: 10px; }
+
+.btn-holder {
+  text-align: center;
+  margin: 1.5rem auto; }
+
+.sub-container .card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+  align-items: center; }
+  .sub-container .card-container .card {
+    border: 1px solid #f8f7f7;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    padding: 15px 10px;
+    text-align: start;
+    height: 80px; }
+    .sub-container .card-container .card .title {
+      padding: 0px;
+      margin: 0px;
+      font-size: 14px;
+      font-weight: 600;
+      color: gray; }
+    .sub-container .card-container .card .text {
+      font-weight: 500;
+      color: teal; }
 
 /*# sourceMappingURL=style.css.map */

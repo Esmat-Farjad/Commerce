@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-import uuid
+from django.utils.translation import gettext_lazy as _
+
 # Create your models here.
 
 
@@ -11,12 +12,27 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+class BaseUnit(models.Model):
+    name = models.CharField(max_length=50)
+    is_weight_base = models.BooleanField(default=False)
+    conversion_to_base = models.FloatField(
+        null=True, blank=True,
+        help_text= _("Conversion factor to the base unit (e.g., 7 for Sir if base is KG). Leave blank if conversion is product-specific.")
+
+        )
+    
+    def __str__(self):
+        return self.name
+
+
 
 class Products(models.Model):
     NUMBER_CHOICES = [(i, str(i)) for i in range(1,201)]
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     code = models.IntegerField(null=True, default=0)
     name = models.CharField(max_length=100)
+    unit = models.ForeignKey(BaseUnit, on_delete=models.CASCADE, null=True, blank=True)
     package_contain = models.PositiveBigIntegerField(choices=NUMBER_CHOICES)
     package_purchase_price = models.IntegerField(default=0, null=True)
     total_package_price = models.IntegerField(default=0, null=True)     

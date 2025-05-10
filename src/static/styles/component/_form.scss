@@ -30,6 +30,17 @@
         background-color: teal;
     }
 }
+.btn-gray{
+    background-color: rgb(236, 234, 234);
+    color: inherit;
+    font-size: 12px;
+    border: 1px solid rgb(236, 234, 234);
+    padding: 4px 8px;
+    transition: all 0.3s;
+    &:hover{
+        background-color: lightgray;
+    }
+}
 .btn-link{
     background-color: teal;
     color:white;
@@ -111,4 +122,29 @@
     &:focus{
         border: 1px solid teal;
     }
+}
+
+.flex-box-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 5px;
+    .field-col{
+        text-align: start;
+        .lable{
+        font-size: 12px;
+        font-weight: 600;
+    }
+    }
+}
+.help-text{
+    padding: 0px;
+    margin: 0px;
+    font-weight: 600;
+    color: gray;
+    font-size: 10px;
+}
+.btn-holder{
+    text-align: center;
+    margin: 1.5rem auto;
 }

@@ -461,3 +461,6 @@ msgstr "شماره تلفن مشتری خود را وارد کنید"
 msgid "Go Back"
 msgstr "برگشت"
 
+msgid "Conversion factor to the base unit (e.g., 7 for Sir if base is KG). Leave blank if conversion is product-specific."
+msgstr "عامل تبدیل به واحد اصلی (مثلاً ۷ برای سیر اگر واحد اصلی کیلوگرام باشد). اگر تبدیل به واحد مخصوص محصول است، این قسمت را خالی بگذارید."
+

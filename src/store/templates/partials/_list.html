@@ -10,6 +10,9 @@
         <li class="list-item {% if request.path == '/dashboard/summary' %}active{% endif %}">
             <a href="{% url 'summary' %}">{% trans "Sales Overview" %}</a>
         </li>
+        <li class="list-item {% if request.path == '/dashboard/base-unit' %}active{% endif %}" >
+            <a href="{% url 'base-unit' %}">{% trans "Base Unit Settings" %}</a>
+        </li>
         <li class="list-item {% if request.path == '/dashboard/income' %}active{% endif %}" >
             <a href="{% url 'income' %}">{% trans "Income" %}</a>
         </li>

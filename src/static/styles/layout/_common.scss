@@ -98,10 +98,12 @@ hr{
 .size-6{
     width: 24px;
     height: 24px;
+    vertical-align: middle;
 }
 .size-4{
     width: 15px;
     height: 15px;
+    vertical-align: middle;
 }
 
 // landing page styling
@@ -531,10 +533,12 @@ hr{
         list-style-type: none;
         .active{
             background-color: teal;
+            color:white;
+            font-weight: 600;
         }
         .list-item{
             a{
-                color: black;
+                color: inherit;
                 padding: 10px;
                 font-size: 14px;
                 cursor: pointer;
@@ -542,6 +546,7 @@ hr{
             }
             &:hover{
                 background-color: teal;
+                color: white;
             }
         }
 

@@ -8,8 +8,8 @@ from django.db.models import Sum, Count
 
 
 from store.filters import ProductsFilter
-from .models import Category, Customer, OtherIncome, Products, SalesDetails, SalesProducts
-from .forms import CustomerForm, OtherIncomeForm, PurchaseForm, RegistrationForm
+from .models import BaseUnit, Category, Customer, OtherIncome, Products, SalesDetails, SalesProducts
+from .forms import BaseUnitForm, CustomerForm, OtherIncomeForm, PurchaseForm, RegistrationForm
 from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm, UpdateProductForm
 from django.utils.translation import gettext_lazy as _
@@ -527,6 +527,58 @@ def summary(request):
     return render(request, 'partials/management/_summary-view.html')
 def returned(request):
     return render(request, 'partials/management/_return-view.html')
+
+def base_unit(request):
+    form = BaseUnitForm()
+    base_units = BaseUnit.objects.all()
+    if request.method == 'POST':
+        form = BaseUnitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Unit has been saved successfully"))
+            return redirect('base-unit')
+        else:
+            messages.error(request, _("Something went wrong. Please try again"))
+    else:
+        form = form
+    context = {
+        'form':form,
+        'base_units':base_units
+    }
+    return render(request, 'partials/management/_base_unit-view.html',context)
+
+def update_base_unit(request, unit_id):
+    baseunit = get_object_or_404(BaseUnit, pk=unit_id)
+    base_units = BaseUnit.objects.all()
+    if request.method == 'POST':
+        form = BaseUnitForm(request.POST, instance=baseunit)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Unit has been updated successfully"))
+            return redirect('base-unit')
+        else:
+            messages.error(request, _("Something went wrong. Please try again"))
+    else:
+        form = BaseUnitForm(instance=baseunit)
+
+    context = {
+        'form': form,
+        'base_units': base_units
+    }
+    return render(request, 'partials/management/_base_unit-view.html', context)
+
+def delete_base_unit(request, unit_id):
+    baseunit = get_object_or_404(BaseUnit, pk=unit_id)
+    # Delete the object
+    deleted_count = baseunit.delete()  # delete() returns (number_of_deleted_objects, details)
+    # Check if the object was deleted successfully
+    if deleted_count:
+        messages.success(request, _("Unit has been deleted successfully"))
+    else:
+        messages.error(request, _("Unable to delete the unit"))
+    
+    # Redirect to the base-unit page
+    return redirect('base-unit')
 
 def customer(request):
     customers = Customer.objects.all()

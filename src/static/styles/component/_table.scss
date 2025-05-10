@@ -143,3 +143,14 @@
 .my-2{
     margin: 2rem 0rem;
 }
+
+fieldset{
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    legend{
+        font-weight: 500;
+        font-size: 14px;
+        color: gray;
+    }
+}

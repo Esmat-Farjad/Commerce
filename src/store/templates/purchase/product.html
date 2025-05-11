@@ -12,7 +12,9 @@
         <h2 class="title">{% trans 'Available Products List' %}</h2>
         <p class="text">{% trans 'Browse through the complete list of products available for purchase. You can view details, pricing, and availability for each item.' %}</p>
         <div class="action-button">
-            <a href="{% url 'purchase' %}" class="btn btn-teal add-btn"><i class="fa-solid fa-plus"></i>{% trans 'Purchase' %}</a>
+            <a href="{% url 'purchase' %}" class="btn btn-teal"></i>{% trans 'Purchase' %}</a>
+            <a href="#" class="btn btn-gray"></i>{% trans 'Doller Goods' %}</a>
+            <a href="#" class="btn btn-gray"></i>{% trans 'Afghani Goods' %}</a>
         </div>
     </div>
     {% include 'partials/product_list.html' %}

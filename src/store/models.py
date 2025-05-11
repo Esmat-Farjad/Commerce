@@ -23,8 +23,14 @@ class BaseUnit(models.Model):
         )
     
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.conversion_to_base}"
+    
+class PurchaseUnit(models.Model):
+    name = models.CharField(max_length=50)
+    code = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
 
 
 class Products(models.Model):
@@ -33,6 +39,7 @@ class Products(models.Model):
     code = models.IntegerField(null=True, default=0)
     name = models.CharField(max_length=100)
     unit = models.ForeignKey(BaseUnit, on_delete=models.CASCADE, null=True, blank=True)
+    purchase_unit = models.ForeignKey(PurchaseUnit, on_delete=models.CASCADE, null=True, blank=True)
     package_contain = models.PositiveBigIntegerField(choices=NUMBER_CHOICES)
     package_purchase_price = models.IntegerField(default=0, null=True)
     total_package_price = models.IntegerField(default=0, null=True)     

@@ -54,9 +54,14 @@ urlpatterns = [
         name='products_display'
     ),
     path (
-        'product/<str:action>/<int:pid>',
-        views.manage_product,
-        name = 'manage_product'
+        'product/<int:pid>/update',
+        views.update_products,
+        name='update-products',
+    ),
+    path (
+        'product/<int:pid>/delete',
+        views.delete_products,
+        name='delete-products',
     ),
     path(
         'product/sold',

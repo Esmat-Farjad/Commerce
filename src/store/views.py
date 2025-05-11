@@ -126,6 +126,7 @@ def purchase(request):
             purchase.save()
 
             messages.success(request, "Product added successfully !")
+            return redirect('purchase')
             # return redirect("product_list")
         else:
             messages.error(request, f"Something went wrong. Please fix the below errors.{form.errors}")
@@ -167,44 +168,45 @@ def products_display(request):
     context = {'page_obj':page_obj,'flag':'list'}
     return render(request, 'purchase/product.html', context)
 
-def manage_product(request, action, pid):
+def update_products(request, pid):
     product = get_object_or_404(Products, pk=pid)
-    
-    if action == 'edit':
-        form = UpdateProductForm(instance=product)
-        if request.method == 'POST':
-            form = UpdateProductForm(request.POST, request.FILES, instance=product)
-            if form.is_valid():
-                package_purchase_price = form.cleaned_data['package_purchase_price']
-                package_contain = form.cleaned_data.get('package_contain')
-                num_of_packages = form.cleaned_data.get('num_of_packages')
-                package_sale_price = form.cleaned_data.get('package_sale_price')
 
-                total_package_price = int(num_of_packages) * int(package_purchase_price)
-                total_items = int(package_contain) * int(num_of_packages)
-                item_sale_price = round((package_sale_price / package_contain), 3) if package_contain else 0
+    form = PurchaseForm(instance=product)
+    if request.method == 'POST':
+        form = PurchaseForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            package_purchase_price = form.cleaned_data['package_purchase_price']
+            package_contain = form.cleaned_data.get('package_contain')
+            num_of_packages = form.cleaned_data.get('num_of_packages')
+            package_sale_price = form.cleaned_data.get('package_sale_price')
 
-                product = form.save(commit=False)
-                product.total_items = total_items
-                product.item_sale_price = item_sale_price
-                product.total_package_price = total_package_price
-                product.save()
+            total_package_price = int(num_of_packages) * int(package_purchase_price)
+            total_items = int(package_contain) * int(num_of_packages)
+            item_sale_price = round((package_sale_price / package_contain), 3) if package_contain else 0
 
-                messages.success(request, "Product updated successfully.")
-                return redirect("products_display")
-            else:
-                messages.error(request, f"Form has error: {form.errors}")
+            product = form.save(commit=False)
+            product.total_items = total_items
+            product.item_sale_price = item_sale_price
+            product.total_package_price = total_package_price
+            product.save()
 
-        context = {
-            'product': product,
-            'form': form
-        }
-        return render(request, 'purchase/product_update.html', context)
-    
-    elif action == 'delete':
-        product.delete() 
-        messages.success(request, "Product deleted successfully.")
-        return redirect("products_display")
+            messages.success(request, "Product updated successfully.")
+            return redirect("products_display")
+        else:
+            messages.error(request, f"Form has error: {form.errors}")
+
+    context = {
+        'product': product,
+        'form': form
+    }
+    return render(request, 'purchase/purchase.html', context)
+
+def delete_products(request, pid):
+    product = get_object_or_404(Products, pk=pid)
+    if product:
+        product.delete()
+        messages.success(request, _("Product deleted successfully"))
+    return redirect("products_display")
 
 def products_view(request):
     categories = Category.objects.all()

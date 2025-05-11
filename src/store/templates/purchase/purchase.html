@@ -11,70 +11,95 @@
     <div class="heading">
         <p class="title">{% trans 'Purchase Page' %}</p>
         <p class="text">{% trans 'Please use the form below to accurately enter the details of your purchased inventory items' %}</p>
+        <div class="action-button" style="margin-bottom: 10px;">
+            <a href="{% url 'products_display' %}" class="btn btn-teal add-btn"></i>{% trans 'Available Products' %}</a>
+        </div>
     </div>
-    <div class="action-button">
-        <a href="{% url 'products_display' %}" class="btn btn-teal add-btn"></i>{% trans 'Available Products' %}</a>
-    </div>
-    <form action="{% url 'purchase' %}" method="POST" enctype="multipart/form-data" class="purchase-form">
+    
+    <fieldset class="purchase-form">
+        <legend>
+            {% if form.instance.id %}
+            {% trans 'Update Products' %}
+            {% else %}
+            {% trans 'Add Products' %}
+            {% endif %}
+        </legend>
+        <form 
+        action="{% if form.instance.id %}{% url 'update-products' pid=form.instance.id %}{% else %}{% url 'purchase' %}{% endif %}" 
+        method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="flex-container">
-            <div>
-                <div class="form-group">
-                    <label for="id_code">{% trans 'Code' %}</label>
-                    {{ form.code }}
-                </div>
-                <div class="form-group">
-                    <label for="id_description">{% trans 'Number of Items' %}</label>
-                    {{ form.num_items }}
-                </div>
-                
-                <div class="form-group">
-                    <label for="id_category">{% trans 'Category' %}</label>
-                    {{ form.category }}
-                </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label for="id_purchase_unit" >{% trans 'Purchase Unit' %}</label>
+            <p class="help-text">{{form.purchase_unit.help_text}}</p>
+            {{form.purchase_unit}}
+        </div>
+        <div class="grid-container">
+            <div class="form-group">
+                <label for="id_code">{% trans 'Code' %}</label>
+                <p class="help-text">{{form.code.help_text}}</p>
+                {{ form.code }}
             </div>
-            <div>
-                
-                <div class="form-group">
-                    <label for="id_name">{% trans 'Name' %}</label>
-                    {{ form.name }}
-                </div>
-                <div class="form-group">
-                    <label for="id_num_of_packages">{% trans 'Number of Packages' %}</label>
-                    {{ form.num_of_packages }}
-                </div>
-                <div class="form-group">
-                    <label for="id_package_contain">{% trans 'Package Contain' %}</label>
-                    {{ form.package_contain }}
-                </div>
+            <div class="form-group">
+                <label for="id_name">{% trans 'Name' %}</label>
+                <p class="help-text">{{form.name.help_text}}</p>
+                {{ form.name }}
             </div>
-            <div>
-                <div class="form-group">
-                    <label for="id_unit">{% trans 'Unit' %}</label>
-                    {{form.unit}}
-                </div>
-                
-                <div class="form-group">
-                    <label for="id_package_purchase_price">{% trans 'Package Purchase Price' %}</label>
-                    {{ form.package_purchase_price }}
-                </div>
-                <div class="form-group">
-                    <label for="id_package_sale_price">{% trans 'Package Sale Price' %}</label>
-                    {{ form.package_sale_price }}
-                </div>
-                <div class="form-group">
-                    <label for="id_image">{% trans 'Image' %}</label>
-                    {{ form.image }}
-                </div>
+            <div class="form-group">
+                <label for="id_unit">{% trans 'Unit' %}</label>
+                <p class="help-text">{{form.unit.help_text}}</p>
+                {{form.unit}}
+            </div>
+            <div class="form-group">
+                <label for="id_num_of_packages">{% trans 'Number of Packages' %}</label>
+                <p class="help-text">{{form.num_of_packages.help_text}}</p>
+                {{ form.num_of_packages }}
+            </div>
+            <div class="form-group">
+                <label for="id_description">{% trans 'Number of Items' %}</label>
+                <p class="help-text">{{form.num_items.help_text}}</p>
+                {{ form.num_items }}
+            </div>
+            <div class="form-group">
+                <label for="id_package_purchase_price">{% trans 'Package Purchase Price' %}</label>
+                <p class="help-text">{{form.package_purchase_price.help_text}}</p>
+                {{ form.package_purchase_price }}
+            </div>
+            <div class="form-group">
+                <label for="id_category">{% trans 'Category' %}</label>
+                <p class="help-text">{{form.category.help_text}}</p>
+                {{ form.category }}
+            </div>
+            <div class="form-group">
+                <label for="id_package_contain">{% trans 'Package Contain' %}</label>
+                <p class="help-text">{{form.package_contain.help_text}}</p>
+                {{ form.package_contain }}
+            </div>
+            <div class="form-group">
+                <label for="id_package_sale_price">{% trans 'Package Sale Price' %}</label>
+                <p class="help-text">{{form.package_sale_price.help_text}}</p>
+                {{ form.package_sale_price }}
+            </div>
+            <div class="form-group">
+                <label for="id_image">{% trans 'Image' %}</label>
+                <p class="help-text">{{form.image.help_text}}</p>
+                {{ form.image }}
             </div>
         </div>
         <div class="form-group">
             <label for="id_description">{% trans 'Description' %}</label>
+            <p class="help-text">{{form.description.help_text}}</p>
             {{ form.description }}
         </div>
         <div style="text-align:center;margin-top:1rem;">
-            <button type="submit" class="btn btn-link">{% trans 'Purchase' %}</button>
+            <button type="submit" class="btn btn-link">
+                {% if form.instance.id %}
+                {% trans 'Update' %}
+                {% else %}
+                {% trans 'Purchase' %}
+                {% endif %}
+            </button>
         </div>
     </form>
+    </fieldset>
 </div>
 {% endblock content %}

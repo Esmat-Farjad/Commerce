@@ -1,12 +1,12 @@
 .input-field{
     width: 100%;
     height: 34px;
-    border: 1px solid orange;
+    border: 1px solid lightgray;
     outline: none;
     border-radius: 5px;
     padding-left: 5px;
     &:focus{
-        border: 1px solid teal;
+        border: 1px solid #0abab5;
     }
 }
 
@@ -101,26 +101,18 @@
 
 // Purchase form code
 .purchase-form {
-    border-radius: 5px;
-    border: 1px solid lightgray;
     padding: 2rem;
-    margin: 3rem 0rem;
 }
-.flex-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-}
+
 .form-input-field{
     width: 100%;
     height: 34px;
-    border: 1px solid orange;
+    border: 1px solid lightgray;
     outline: none;
     border-radius: 5px;
     padding-left: 5px;
     &:focus{
-        border: 1px solid teal;
+        border: 1px solid #0abab5;
     }
 }
 
@@ -137,14 +129,23 @@
     }
     }
 }
+
 .help-text{
     padding: 0px;
     margin: 0px;
-    font-weight: 600;
+    font-weight: 400;
     color: gray;
     font-size: 10px;
+    display: inline-block;
 }
 .btn-holder{
     text-align: center;
     margin: 1.5rem auto;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 10px 0px;
 }

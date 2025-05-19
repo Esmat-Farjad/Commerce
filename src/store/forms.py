@@ -58,6 +58,7 @@ class RegistrationForm(UserCreationForm):
             visible.field.widget.attrs['class'] = 'input-field'
 
 class CustomerForm(forms.ModelForm):
+    code = forms.IntegerField()
     class Meta:
         model = Customer
         fields = "__all__"
@@ -65,19 +66,6 @@ class CustomerForm(forms.ModelForm):
         super(CustomerForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'input-field'
-class UpdateProductForm(forms.ModelForm):
-    class Meta:
-        model = Products
-        fields = "__all__"
-        exclude = ['user','total_items','total_package_price', 'item_sale_price']
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 2})
-        }
-    def __init__(self, *args, **kwargs):
-        super(UpdateProductForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = "form-input"
-            visible.field.widget.attrs['placeholder'] = _(visible.field.label)
 
 
 class OtherIncomeForm(forms.ModelForm):

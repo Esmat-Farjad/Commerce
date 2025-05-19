@@ -4,7 +4,7 @@
 {% load custom_filters %}
 {% block dashboard %}
 <div class="sub-container">
-    <div class="sub-heading">
+    <div class="heading">
         <h1 class="title">{% trans 'Customers Billing Overview' %}</h1>
         <p class="text">{% trans 'Review customer purchases, payment status, and outstanding balances.' %}</p>
     </div>
@@ -15,7 +15,7 @@
                 <form action="{% url 'customer' %}" method="post">
                     {% csrf_token %}
                     <input type="search" class="input-field" name="phone" id="phone" placeholder="{% trans 'Enter your customer phone number' %}">
-                    <button type"submit" class="btn-teal absolute-btn">{% trans 'Search' %}</button>
+                    <button type="submit" class="btn-teal absolute-btn">{% trans 'Search' %}</button>
                 </form>
             </div>
             {% comment %} search form {% endcomment %}

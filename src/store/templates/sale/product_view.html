@@ -90,9 +90,15 @@
             <h2 class="title">{% trans 'Customer Details' %}</h2>
             <h5 class="text">{% trans 'Please enter the customer details' %}</h5>
         </div>
-        <form action="{% url 'products-view' %}" method='post'>
+        
+        <form action="{% url 'products-view' %}" method='post' id="customer-details-form">
             {% csrf_token %}
-            <div class="horizontal-form modal-body">
+            <div style="width: 50%; margin: 0rem auto;">
+                <label for="code">{% trans 'Customer Code' %}</label>
+                {{form.code}}
+                <button type="submit" class="btn btn-gray my-2">{% trans "Search" %}</button>
+            </div>
+            <div class="horizontal-form modal-body" style="display: none;">
                 <div>
                     <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
                     {{form.name}}

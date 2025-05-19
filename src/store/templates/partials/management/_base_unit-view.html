@@ -20,13 +20,21 @@
             <form action="{% if form.instance.id %}{% url 'update-base-unit' unit_id=form.instance.id %}{% else %}{% url 'base-unit' %}{% endif %}" method="post">
             {% csrf_token %}
             <div class="flex-box-form">
-                {% for field in form %}
                 <div class="field-col">
-                    <label for="{{field.id}}_for_label" class="lable">{{field.label.title}}</label>
-                    {{field}}
-                    <p class="help-text">{{field.help_text}}</p>
+                    <label for="{{field.id}}_for_label" class="lable">{% trans 'Name' %}</label>
+                    {{form.name}}
+                    <p class="help-text">{{form.name.help_text}}</p>
                 </div>
-                {% endfor %}
+                <div class="field-col">
+                    <label for="{{field.id}}_for_label" class="lable">{% trans 'Is Weight Base' %}</label>
+                    {{form.is_weight_base}}
+                    <p class="help-text">{{form.is_weight_base.help_text}}</p>
+                </div>
+                <div class="field-col">
+                    <label for="{{field.id}}_for_label" class="lable">{% trans 'Conversion to Base Unit' %}</label>
+                    {{form.conversion_to_base}}
+                    <p class="help-text">{{form.conversion_to_base.help_text}}</p>
+                </div>
             </div>
             <div class="btn-holder">
                 <button type="submit" class="btn btn-teal">
@@ -48,7 +56,6 @@
                         <th>{% trans "Is Weight Base" %}</th>
                         <th>{% trans "Conversion to Base Unit" %}</th>
                         <th>{% trans "Action" %}</th>
-                       
                     </thead>
                     <tbody>
                         {% for data in base_units  %}

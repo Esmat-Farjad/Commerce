@@ -464,3 +464,48 @@ msgstr "برگشت"
 msgid "Conversion factor to the base unit (e.g., 7 for Sir if base is KG). Leave blank if conversion is product-specific."
 msgstr "عامل تبدیل به واحد اصلی (مثلاً ۷ برای سیر اگر واحد اصلی کیلوگرام باشد). اگر تبدیل به واحد مخصوص محصول است، این قسمت را خالی بگذارید."
 
+msgid "Purchase Unit"
+msgstr "واحد خرید"
+
+msgid "Update Products"
+msgstr "به‌روزرسانی محصولات"
+
+msgid "Add Products"
+msgstr "افزودن محصولات"
+
+msgid "Unit"
+msgstr "واحد"
+
+msgid "Base Unit Settings"
+msgstr "تنظیم واحد اصلی"
+
+msgid "Produts Base Unit Settings"
+msgstr "تنظیمات واحد اصلی محصولات"
+
+msgid "Set the inventory base unit for your products"
+msgstr "واحد اصلی موجودی برای محصولات خود را تنظیم کنید"
+
+msgid "Add System Base Unit"
+msgstr "افزودن واحد اصلی سیستم"
+
+msgid "Update System Base Unit"
+msgstr "به‌روزرسانی واحد اصلی سیستم"
+
+msgid "System Base Units"
+msgstr "واحدهای اصلی سیستم"
+
+msgid "Is Weight Base"
+msgstr "آیا مبنای وزن است"
+
+msgid "Conversion to Base Unit"
+msgstr "تبدیل به واحد مبنا"
+
+msgid "The Summary Page offers a quick overview of the store’s key metrics, including inventory levels, sales, recent transactions, and pending orders—all in a clear, easy-to-read dashboard."
+msgstr "صفحه خلاصه یک نمای سریع از شاخص‌های کلیدی فروشگاه، از جمله موجودی کالا، فروش، تراکنش‌های اخیر و سفارشات در انتظار را در قالب یک داشبورد واضح و قابل فهم ارائه می‌دهد."
+
+msgid "Store Dashboard"
+msgstr "داشبورد فروشگاه"
+
+msgid "Enter your customer code"
+msgstr "کد مشتری خود را وارد کنید"
+

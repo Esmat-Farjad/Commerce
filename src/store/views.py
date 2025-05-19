@@ -11,7 +11,7 @@ from store.filters import ProductsFilter
 from .models import BaseUnit, Category, Customer, OtherIncome, Products, SalesDetails, SalesProducts
 from .forms import BaseUnitForm, CustomerForm, OtherIncomeForm, PurchaseForm, RegistrationForm
 from .models import Category, Products
-from .forms import PurchaseForm, RegistrationForm, UpdateProductForm
+from .forms import PurchaseForm, RegistrationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
 from datetime import date, timedelta
@@ -220,38 +220,6 @@ def products_view(request):
         queryset=products_queryset
     )
 
-    # Handle customer form
-    customer_form = CustomerForm()
-    if request.method == 'POST':
-        customer_form = CustomerForm(request.POST)
-        if customer_form.is_valid():
-            phone = customer_form.cleaned_data.get('phone')
-
-            # Check if customer already exists
-            existing_customer = Customer.objects.filter(phone=phone).first()
-            if existing_customer:
-                # Initialize session dictionary if it doesn't exist
-                customer_session = request.session.get('customer', {})
-                customer_session[existing_customer.id] = existing_customer.name
-                request.session['customer'] = customer_session
-
-                # Notify user
-                messages.info(request, _("Customer already exists."))
-            else:
-                # Create a new customer
-                new_customer = customer_form.save()
-
-                # Add to session
-                customer_session = request.session.get('customer', {})
-                customer_session[new_customer.id] = new_customer.name
-                request.session['customer'] = customer_session
-
-                # Notify user
-                messages.success(request, _("Customer has been added successfully."))
-        else:
-            # If form is not valid, return appropriate error message
-            messages.error(request, _("There was an error in the form. Please fix the errors and try again."))
-
     # Handle session customer data
     if customer:  
         customer_list = list(customer.values())[0]
@@ -264,10 +232,47 @@ def products_view(request):
         'products': products_filter.qs,
         'categories': categories,
         'filter_form': products_filter,
-        'form': customer_form,
         'customer': customer_list
     }
     return render(request, 'sale/product_view.html', context)
+
+def create_customer(request):
+    # Handle customer form
+    customer_form = CustomerForm()
+    if request.method == 'POST':
+        customer_form = CustomerForm(request.POST)
+        if customer_form.is_valid():
+            code = customer_form.cleaned_data.get('code')
+            # Check if customer already exists
+            existing_customer = Customer.objects.filter(id=code)
+            if existing_customer:
+                # Initialize session dictionary if it doesn't exist
+                customer_session = request.session.get('customer', {})
+                customer_session[existing_customer.id] = existing_customer.name
+                request.session['customer'] = customer_session
+
+                # Notify user
+                messages.info(request, _("Customer already exists."))
+            else:
+                # Create a new customer
+                messages.info(request, _("Customer Dose not exists"))
+                new_customer = customer_form.save()
+
+                # Add to session
+                customer_session = request.session.get('customer', {})
+                customer_session[new_customer.id] = new_customer.name
+                request.session['customer'] = customer_session
+
+                # Notify user
+                messages.success(request, _("Customer has been added successfully."))
+        else:
+            # If form is not valid, return appropriate error message
+            messages.error(request, _("There was an error in the form. Please fix the errors and try again."))
+    form = customer_form
+    context = {
+        'form':form
+    }
+    return render(request, 'sale/customer_form.html', context)
 
 def search_products(request):
     search = request.GET.get('search')

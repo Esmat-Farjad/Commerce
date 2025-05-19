@@ -32,6 +32,11 @@ urlpatterns = [
         views.products_view,
         name='products-view'
     ),
+    path(
+        'sale/create/customer',
+        views.create_customer,
+        name='create-customer',
+    ),
     # Add product to cart
     path(
         'product/add',

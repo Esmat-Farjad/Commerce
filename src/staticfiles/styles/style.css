@@ -1,6 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&family=Vazirmatn:wght@100..900&display=swap");
+/* style.scss */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url("/static/fonts/Vazirmatn/Vazirmatn-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url("/static/fonts/Vazirmatn/Vazirmatn-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("/static/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("/static/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
+
 * {
-  font-family: "Vazirmatn", sans-serif;
+  font-family: 'Vazirmatn', sans-serif;
   font-optical-sizing: auto;
   font-style: normal; }
 
@@ -24,6 +48,9 @@ hr {
 
 .not-active {
   display: none; }
+
+.text-center {
+  text-align: center; }
 
 .sticky-notification {
   position: fixed;
@@ -330,7 +357,7 @@ hr {
     background-color: white;
     border-radius: 5px;
     width: 60%;
-    height: 250px;
+    height: 50%;
     margin: 10rem auto;
     padding: 1rem; }
     .modal-container .modal .modal-header {
@@ -708,6 +735,16 @@ fieldset {
   transition: all 0.3s; }
   .btn-teal:hover {
     background-color: teal; }
+
+.btn-red {
+  background-color: #df1008;
+  color: white;
+  font-size: 12px;
+  border: 1px solid #df1008;
+  padding: 4px 8px;
+  transition: all 0.3s; }
+  .btn-red:hover {
+    background-color: #a52824; }
 
 .btn-gray {
   background-color: #eceaea;

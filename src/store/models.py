@@ -57,12 +57,13 @@ class Products(models.Model):
         return self.name
     
 class Customer(models.Model):
-    name = models.CharField(max_length=200, null=True, blank=True)
-    phone = models.IntegerField(null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True, blank=True, default="متفرقه")
+    phone = models.IntegerField(null=True, blank=True, default=0000000)
+    address = models.CharField(max_length=200, null=True, blank=True,default="------")
 
     def __str__(self):
-        return self.name
+        return self.name or f"Customer #{self.id}"
+
 
 class BillNumberTracker(models.Model):
     current_number = models.PositiveIntegerField(default=1001)

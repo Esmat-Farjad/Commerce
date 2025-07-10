@@ -509,3 +509,9 @@ msgstr "داشبورد فروشگاه"
 msgid "Enter your customer code"
 msgstr "کد مشتری خود را وارد کنید"
 
+msgid "Ignore Customer"
+msgstr "رد کردن مشتری"
+
+msgid "Customer Code"
+msgstr "کد مشتری"
+

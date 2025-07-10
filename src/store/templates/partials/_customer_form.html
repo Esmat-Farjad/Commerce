@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load static %}
+{% if form.instance.id %}
+<p class="text-center">
+    <a href="{% url 'old-customer' form.instance.id %}" class="btn btn-teal">  {% trans 'Proceed to Sale' %}</a>
+</p>
+{% else %}
+<form action="{% url 'create-customer' %}" method='post'>
+    {% csrf_token %}
+    <div class="horizontal-form modal-body">
+        <div>
+            <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
+            {{form.name}}
+            {{form.name.errors}}
+        </div>
+        <div>
+            <label for="{{form.phone.id_for_label}}">{% trans 'Phone' %}</label>
+            {{form.phone}}
+            {{form.phone.errors}}
+        </div>
+        <div>
+            <label for="{{form.address.id_for_label}}">{% trans 'Adress' %}</label>
+            {{form.address}}
+            {{form.address.errors}}
+        </div>
+        <button type="submit" class="btn btn-teal">
+        
+        {% trans 'Add Customer & Proceed to Sale' %}
+        
+        </button>
+    </div>
+</form>
+{% endif %}

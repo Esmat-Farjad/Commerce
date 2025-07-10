@@ -58,7 +58,6 @@ class RegistrationForm(UserCreationForm):
             visible.field.widget.attrs['class'] = 'input-field'
 
 class CustomerForm(forms.ModelForm):
-    code = forms.IntegerField()
     class Meta:
         model = Customer
         fields = "__all__"

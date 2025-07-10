@@ -236,43 +236,65 @@ def products_view(request):
     }
     return render(request, 'sale/product_view.html', context)
 
+def check_customer(request):
+    code = request.GET.get("code")
+    try:
+        existing_customer = Customer.objects.get(id=code)
+        customer_session = request.session.get('customer', {})
+        customer_session[existing_customer.id] = existing_customer.name
+        request.session['customer'] = customer_session
+        form = CustomerForm(instance=existing_customer)
+    except Customer.DoesNotExist:
+        form = CustomerForm(initial={"code": code})
+    return render(request, "partials/_customer_form.html", {"form": form})
+
 def create_customer(request):
-    # Handle customer form
-    customer_form = CustomerForm()
+    form = CustomerForm()
     if request.method == 'POST':
-        customer_form = CustomerForm(request.POST)
-        if customer_form.is_valid():
-            code = customer_form.cleaned_data.get('code')
-            # Check if customer already exists
-            existing_customer = Customer.objects.filter(id=code)
-            if existing_customer:
-                # Initialize session dictionary if it doesn't exist
-                customer_session = request.session.get('customer', {})
-                customer_session[existing_customer.id] = existing_customer.name
-                request.session['customer'] = customer_session
+        if 'ignore' in request.POST:
+            customer, created = Customer.objects.get_or_create(
+            name="متفرقه",
+            phone="0000000",  # Put phone in quotes if it's a CharField
+            defaults={"address": "------"}
+            )
 
-                # Notify user
-                messages.info(request, _("Customer already exists."))
-            else:
-                # Create a new customer
-                messages.info(request, _("Customer Dose not exists"))
-                new_customer = customer_form.save()
-
+            existing_customer = get_object_or_404(Customer, pk=customer.id)
+            customer_session = request.session.get('customer', {})
+            customer_session[existing_customer.id] = existing_customer.name
+            request.session['customer'] = customer_session
+            return redirect('products-view')
+        else:
+            form = CustomerForm(request.POST)
+            if form.is_valid():
+                print("Form validation process................................................")
+                new_customer = form.save()
                 # Add to session
                 customer_session = request.session.get('customer', {})
                 customer_session[new_customer.id] = new_customer.name
                 request.session['customer'] = customer_session
-
                 # Notify user
                 messages.success(request, _("Customer has been added successfully."))
-        else:
-            # If form is not valid, return appropriate error message
-            messages.error(request, _("There was an error in the form. Please fix the errors and try again."))
-    form = customer_form
+                return redirect('products-view')
+            else:
+                messages.error(request, _("Something went wrong. Please fix the errors below."))
+                print(f"Form errors: {form.errors}")
+
+                
+    else:
+        form=CustomerForm()
+        
     context = {
         'form':form
     }
-    return render(request, 'sale/customer_form.html', context)
+    return render(request, 'sale/product_view.html', context)
+
+def old_customer(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    customer_session = request.session.get('customer', {})
+    customer_session[customer.id] = customer.name
+    request.session['customer'] = customer_session
+    messages.success(request, _("Customer has been selected successfully."))
+    return redirect('products-view')
 
 def search_products(request):
     search = request.GET.get('search')

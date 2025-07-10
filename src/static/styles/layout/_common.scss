@@ -16,6 +16,9 @@ hr{
 .not-active{
     display: none;
 }
+.text-center{
+    text-align: center;
+}
 .sticky-notification{
     position: fixed;
     top: 40%;
@@ -398,7 +401,7 @@ hr{
         background-color: white;
         border-radius: 5px;
         width: 60%;
-        height: 250px;
+        height: 50%;
         margin: 10rem auto;
         padding: 1rem;
         .modal-header{

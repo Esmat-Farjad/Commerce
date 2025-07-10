@@ -90,30 +90,33 @@
             <h2 class="title">{% trans 'Customer Details' %}</h2>
             <h5 class="text">{% trans 'Please enter the customer details' %}</h5>
         </div>
-        
-        <form action="{% url 'products-view' %}" method='post' id="customer-details-form">
+        <div style="width: 50%; margin: 0rem auto;">
+            <label for="code">{% trans 'Customer Code' %}</label>
+            <input 
+            type="number" 
+            name="code" 
+            id="code" 
+            class="input-field" 
+            placeholder="{% trans 'Enter your customer code' %}"
+            hx-get="{% url 'check-customer' %}"  
+            hx-target="#customer-form"
+            hx-trigger="input"  
+            hx-params="*"/>
+            
+        </div>
+        <form action="{% url 'create-customer' %}" method="POST">
             {% csrf_token %}
-            <div style="width: 50%; margin: 0rem auto;">
-                <label for="code">{% trans 'Customer Code' %}</label>
-                {{form.code}}
-                <button type="submit" class="btn btn-gray my-2">{% trans "Search" %}</button>
-            </div>
-            <div class="horizontal-form modal-body" style="display: none;">
-                <div>
-                    <label for="{{form.name.id_for_label}}">{% trans 'Full Name' %}</label>
-                    {{form.name}}
-                </div>
-                <div>
-                    <label for="{{form.phone.id_for_label}}">{% trans 'Phone' %}</label>
-                    {{form.phone}}
-                </div>
-                <div>
-                    <label for="{{form.address.id_for_label}}">{% trans 'Adress' %}</label>
-                    {{form.address}}
-                </div>
-                <button type="submit" class="btn btn-teal">{% trans 'Proceed to Sale' %}</button>
-            </div>
+            <p class="text-center">
+                <button type="submit" class="btn btn-red" name="ignore">{% trans 'Ignore Customer' %}</button>
+            </p>
         </form>
+        
+        
+        
+        <div id="customer-form" class="modal-body">
+
+        </div>
+        
     </div>
 </div>
 {% endif %}
@@ -121,5 +124,6 @@
     <strong id="notification">{{cart_length}}</strong>&nbsp;
     <span>{% trans 'Items added to Customer Cart' %}</span>
 </div>
+<script src="https://unpkg.com/htmx.org@1.9.2"></script>
 <script src="{% static 'js/cart.js' %}"></script>
 {% endblock content%}

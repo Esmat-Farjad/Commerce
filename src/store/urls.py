@@ -33,6 +33,16 @@ urlpatterns = [
         name='products-view'
     ),
     path(
+        'customer/check/',
+        views.check_customer,
+        name='check-customer',
+    ),
+    path(
+        'customer/exits/<str:pk>',
+        views.old_customer,
+        name='old-customer',
+    ),
+    path(
         'sale/create/customer',
         views.create_customer,
         name='create-customer',

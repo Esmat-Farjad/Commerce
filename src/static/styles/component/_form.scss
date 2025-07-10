@@ -30,6 +30,17 @@
         background-color: teal;
     }
 }
+.btn-red{
+    background-color: #df1008;
+    color: white;
+    font-size: 12px;
+    border: 1px solid #df1008;
+    padding: 4px 8px;
+    transition: all 0.3s;
+    &:hover{
+        background-color: #a52824;
+    }
+}
 .btn-gray{
     background-color: rgb(236, 234, 234);
     color: inherit;

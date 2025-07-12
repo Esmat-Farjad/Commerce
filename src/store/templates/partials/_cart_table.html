@@ -1,0 +1,110 @@
+
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+<div class="block-content" >
+    {% if cart_details %}
+    <div class="customer-field">
+        <div class=""><strong>{% trans 'Full Name' %}: </strong>{{customer.name}}</div>
+        <div class=""><strong>{% trans 'Phone' %}: </strong>{{customer.phone}}</div>
+        <div class=""><strong>{% trans 'Address' %}: </strong>{{customer.address}}</div>
+    </div>
+    <div class="table-holder">
+        
+        <table class="table-hover" id="product-cart-table">
+            <thead>
+                <th>{% trans 'Image' %}</th>
+                <th style="width:200px">{% trans 'Name' %}</th>
+                <th>{% trans 'Quantity' %}</th>
+                <th>{% trans 'Package' %}</th>
+                <th>{% trans 'Item Price' %}</th>
+                <th>{% trans 'Package Price' %}</th>
+                <th>{% trans 'Total' %}</th>
+                <th>{% trans 'Action' %}</th>
+            </thead>
+            <tbody>
+                {% for item in cart_details %}
+                <tr 
+                data-product-id={{item.product.id}}
+                data-end-point-url={% url 'add-to-cart' %} style="background-color: rgb(243, 243, 243);">
+                    <td>
+                        <img src="{{item.product.image.url}}" alt="image" class="tr-image">
+                    </td>
+                    <td style="width:200px">{{item.product.name}}</td>
+                    <td>
+                        <select name="quantity" class="select-input item-quantity">
+                            <option value="" selected>{% trans '--select--' %}</option>
+                            {% for i in item.product.package_contain|range_filter %}
+                                <option value="{{ i }}" {% if i == item.item_quantity %} selected {% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="package" class="select-input package-quantity">
+                            <option value="" selected>{% trans '--select--' %}</option>
+                            {% for i in item.product.num_of_packages|range_filter %}
+                                <option value="{{ i }}" {% if i == item.package_quantity %}selected{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td><input type="number" class="table-input item-price"value={{ item.item_price|default:item.product.item_sale_price }}></td>
+                    <td><input type="number" class="table-input package-price"value={{item.package_price|default:item.product.package_sale_price}}></td>
+                    
+                    <td>{{ item.sub_total|intcomma }}</td>
+                    <td>
+                        <a 
+                        href="{% url 'remove-cart-item' item.product.id %}"
+                        style="color:red;font-size:12px;">
+                            {% trans 'Delete' %}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr style="font-weight:bold; font-size:14px;background-color: white;">
+                    <td colspan="3">{% trans 'Grand Total' %}: </td>
+                    <td colspan="5">{{grand_total|intcomma}} {% trans 'AFN' %}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <div class="customer-form">
+            <form action="{% url 'cart-view' %}" method="post">
+                {% csrf_token %}
+                <div class="horizontal-form" style="margin:2rem 0rem;">
+                    <div>
+                        <label for="paid">{% trans 'Paid Amount' %}</label>
+                        <input type="number" class="input-field" id="paid" name="paid">
+                    </div>
+                    <div>
+                        <label for="unpaid">{% trans 'Unpaid Amount' %}</label>
+                        <input type="number" class="input-field" name="unpaid" id="unpaid">
+                    </div>
+                    <button type="submit" class="btn btn-link" >{% trans 'Sale' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="empty-content">
+        <img class="icon" src="{% static 'image/empty.jpg' %}" alt="">
+        <p class="title">{% trans 'Your Cart is Empty' %}</p>
+        <p class="text">{% trans "Looks like you haven’t added anything yet. " %}
+            <a href="{% url 'products-view' %}">{% trans "Let’s start shopping!" %}</a>
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<script src="{% static 'js/cart.js' %}"></script>
+<script>
+    document.querySelector('#paid').addEventListener("input", (e)=>{
+        let paid = e.target.value;
+        let total = {{grand_total}};
+        let unpaid = total - paid;
+        document.getElementById('unpaid').value=unpaid;
+    });
+</script>
+

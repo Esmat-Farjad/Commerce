@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import activate
@@ -5,6 +6,9 @@ from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.db.models import Sum, Count
+from django.views.decorators.csrf import csrf_exempt
+from django.template.loader import render_to_string
+
 
 
 from store.filters import ProductsFilter
@@ -14,10 +18,8 @@ from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login, logout
-from datetime import date, timedelta
-from django.utils import timezone
 
-import random
+
 import json
 from django.http import HttpResponse, JsonResponse
 
@@ -263,10 +265,11 @@ def create_customer(request):
             customer_session[existing_customer.id] = existing_customer.name
             request.session['customer'] = customer_session
             return redirect('products-view')
+            
         else:
             form = CustomerForm(request.POST)
             if form.is_valid():
-                print("Form validation process................................................")
+               
                 new_customer = form.save()
                 # Add to session
                 customer_session = request.session.get('customer', {})
@@ -643,3 +646,95 @@ def sales_dashboard(request):
 def create_payment(request, cid):
     customer = get_object_or_404(Customer, pk=cid)
     pass
+
+
+# Bar code scanner view
+@csrf_exempt
+def get_product_by_barcode(request):
+    if request.method == 'POST':
+        barcode = request.POST.get('barcode')
+        if not barcode:
+            return JsonResponse({'status': 'error', 'message': 'No barcode provided'}, status=400)
+
+        product = Products.objects.filter(code=barcode).first()
+        if not product:
+            return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+
+        return JsonResponse({
+            'status': 'success',
+            'product': {
+                'id': product.id,
+                'item_price': float(product.item_sale_price),
+                'package_price': float(product.package_sale_price),
+                'name': product.name,
+            }
+        })
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
+
+
+def scanner_view(request):
+    customer = request.session.get('customer', {})
+    customer_list = []
+    # Handle session customer data
+    if customer:  
+        customer_list = list(customer.values())[0]
+    context = {
+        'customer': customer_list
+    }
+    return render(request, 'sale/scanner_view.html',context)
+
+# cart fragment for cart view
+
+def cart_fragment(request):
+    cart = request.session.get('cart', {})
+    customer_session = request.session.get('customer', {})
+    cart_details = []
+    grand_total = 0
+
+    if not cart:
+        html = render_to_string('partials/cart_table.html', {
+            'cart_details': [],
+            'grand_total': 0,
+            'customer': None
+        }, request=request)
+        return JsonResponse({'html': html})
+
+    # Reuse logic from cart_view
+    product_ids = [item['product_id'] for item in cart.values()]
+    products = Products.objects.filter(pk__in=product_ids)
+    product_mapping = {product.id: product for product in products}
+
+    for item in cart.values():
+        product = product_mapping.get(safe_int(item.get('product_id')))
+        if not product:
+            continue
+
+        item_quantity = safe_int(item.get('item_quantity'))
+        package_quantity = safe_int(item.get('package_quantity'))
+        item_price = safe_int(item.get('item_price'), 0)
+        package_price = safe_int(item.get('package_price'), 0)
+
+        sub_total = (item_quantity * item_price) + (package_quantity * package_price)
+        grand_total += sub_total
+        cart_details.append({
+            'product': product,
+            'item_quantity': item_quantity,
+            'package_quantity': package_quantity,
+            'item_price': item_price,
+            'package_price': package_price,
+            'sub_total': sub_total,
+        })
+
+    customer_instance = None
+    if customer_session:
+        customer_pk = list(customer_session.keys())[0]
+        customer_instance = Customer.objects.filter(pk=customer_pk).first()
+
+    html = render_to_string('partials/_cart_table.html', {
+        'cart_details': cart_details,
+        'grand_total': grand_total,
+        'customer': customer_instance
+    }, request=request)
+
+    return JsonResponse({'html': html})

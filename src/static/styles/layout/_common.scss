@@ -209,10 +209,9 @@ hr{
             justify-content: space-around;
             font-size: 12px;
             align-items: center;
-            margin: 2rem 0rem 0.5rem 0rem;
             padding: 5px;
             border: 1px solid lightgray;
-            background-color: #F8F8F8;
+            border-radius: 5px;
         }
         .search-box{
             display: flex;
@@ -242,8 +241,9 @@ hr{
 }
 .table-hover{
     width: 100%;
-    background-color: #F8F8F8;
+    
     border: 1px solid lightgray;
+    
     border-collapse: collapse ;
     thead{
         font-size: 14px;
@@ -256,6 +256,7 @@ hr{
         font-size: 12px;
         tr{
             height: 60px;
+            background-color: rgb(247, 247, 247);
             border-bottom: 1px solid lightgray;
             td{
                 padding: 5px;
@@ -264,6 +265,7 @@ hr{
                     outline: none;
                     padding: 5px;
                     width: fit-content;
+                    border-radius: 5px;
                     border: 1px solid lightgray;
                     &:focus{
                         border: 1px solid teal;
@@ -386,9 +388,9 @@ hr{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
-    align-items: center;
+    align-items:last baseline;
 }
 .modal-container{
     background-color: rgba(0,0,0, 0.7);

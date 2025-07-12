@@ -153,4 +153,22 @@ urlpatterns = [
         views.create_payment,
         name='create-payment',
     ),
+    # Bar code scanner url
+    path(
+        'sale/get-product-by-barcode',
+        views.get_product_by_barcode,
+        name='get-product-by-barcode',
+    ),
+    
+    path(
+        'sale/scanner',
+        views.scanner_view,
+        name='scanner-view',
+    ),
+    path(
+        'sale/cart/fragment',
+        views.cart_fragment,
+        name='cart-fragment',
+    ),
+    
 ]

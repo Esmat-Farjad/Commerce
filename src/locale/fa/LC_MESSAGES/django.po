@@ -515,3 +515,21 @@ msgstr "رد کردن مشتری"
 msgid "Customer Code"
 msgstr "کد مشتری"
 
+msgid "Scan or Enter Barcode"
+msgstr "بارکد را اسکن یا بارکد وارد کنید"
+
+msgid "To add a product to the shopping cart, scan its barcode or enter it in the input box"
+msgstr "برای افزودن یک محصول به سبد خرید، بارکد آن را اسکن کنید یا در کادر ورودی وارد نمایید"
+
+msgid "Use Product Search"
+msgstr "جستجوی محصول را استفاده کنید"
+
+msgid "Use Barcode Scanner"
+msgstr "از بارکود اسکنر استفاده کنید"
+
+msgid "Search product by its name of category"
+msgstr "محصول را بر اساس نام یا دسته‌بندی جستجو کنید"
+
+msgid "Enter product barcode"
+msgstr "بارکود محصول را وارد کنید"
+

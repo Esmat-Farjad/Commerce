@@ -25,5 +25,8 @@
         <li class="list-item {% if request.path == '/dashboard/customer' %}active{% endif %}">
             <a href="{% url 'customer' %}">{% trans "Customer Overview" %}</a>
         </li>
+        <li class="list-item {% if request.path == '/dashboard/stock' %}active{% endif %}">
+            <a href="{% url 'stock-management' %}">{% trans "Stock Management" %}</a>
+        </li>
     </ul>
 </div>

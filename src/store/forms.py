@@ -1,21 +1,28 @@
 from django import forms
-from .models import BaseUnit, OtherIncome, Products, Customer
+from .models import BaseUnit, ExchangeRate, OtherIncome, Products, Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
+# forms.py
 class PurchaseForm(forms.ModelForm):
     class Meta:
         model = Products
-        fields = "__all__"
-        exclude = ['stock','total_package_price', 'item_sale_price']
-        
+        exclude = ['stock', 'total_package_price', 'item_sale_price', 'usd_package_sale_price']
+    
     def __init__(self, *args, **kwargs):
         super(PurchaseForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class']="form-input-field"
-            visible.field.widget.attrs['placeholder']=_(visible.field.label)
+            visible.field.widget.attrs['class'] = "form-input-field"
+            visible.field.widget.attrs['placeholder'] = _(visible.field.label)
 
+class ExchangeRateForm(forms.ModelForm):
+    class Meta:
+        model = ExchangeRate
+        fields = "__all__"
+        widgets = {
+            'usd_to_afn': forms.NumberInput(attrs={'step': '0.01', 'class': 'input-field'}),
+        }
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = User

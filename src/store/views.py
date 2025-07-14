@@ -9,11 +9,13 @@ from django.db.models import Sum, Count
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import render_to_string
 
+from decimal import Decimal
+
 
 
 from store.filters import ProductsFilter
-from .models import BaseUnit, Category, Customer, OtherIncome, Products, SalesDetails, SalesProducts
-from .forms import BaseUnitForm, CustomerForm, OtherIncomeForm, PurchaseForm, RegistrationForm
+from .models import BaseUnit, Category, Customer, ExchangeRate, OtherIncome, Products, SalesDetails, SalesProducts
+from .forms import BaseUnitForm, CustomerForm, ExchangeRateForm, OtherIncomeForm, PurchaseForm, RegistrationForm
 from .models import Category, Products
 from .forms import PurchaseForm, RegistrationForm
 from django.utils.translation import gettext_lazy as _
@@ -105,56 +107,64 @@ def signout(request):
     logout(request) 
     return redirect('sign-in') 
 
+# views.py
+
+
 def purchase(request):
     form = PurchaseForm()
     if request.method == 'POST':
         form = PurchaseForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            package_purchase_price = form.cleaned_data['package_purchase_price']
-            package_contain = form.cleaned_data.get('package_contain')
-            num_of_packages = form.cleaned_data.get('num_of_packages')
-            total_package_price = form.cleaned_data.get('total_package_price')
-            package_sale_price = form.cleaned_data.get('package_sale_price')
-            total_package_price = int(num_of_packages) * int(package_purchase_price)
-            stock = int(package_contain) * int(num_of_packages)
-            item_sale_price = round((package_sale_price / package_contain), 3) if package_contain else 0
-            # print(f"total_price: {total_package_price} || total_items: {stock} || item_sale_price: {item_sale_price}")
-            purchase = form.save(commit=False)
-            purchase.stock = stock
-            purchase.item_sale_price = item_sale_price
-            purchase.total_package_price= total_package_price
-            purchase.user = request.user
-            purchase.save()
 
-            messages.success(request, "Product added successfully !")
+        if form.is_valid():
+            cd = form.cleaned_data
+            package_contain = cd['package_contain']
+            package_purchase_price = cd['package_purchase_price']
+            num_of_packages = cd['num_of_packages']
+            package_sale_price_afn = cd['package_sale_price']
+            purchase_unit = cd['purchase_unit']
+
+            # Calculate USD equivalent of AFN sale price (for USD products)
+            usd_package_sale_price = None
+            rate = ExchangeRate.objects.last()
+            usd_rate = rate.usd_to_afn if rate else Decimal('1')
+
+            if purchase_unit and purchase_unit.code.lower() == 'usd':
+                usd_package_sale_price = round(Decimal(package_sale_price_afn) / usd_rate, 2)
+
+            # Basic calculations
+            total_package_price = Decimal(package_purchase_price) * num_of_packages
+            stock = package_contain * num_of_packages
+            item_sale_price = round(Decimal(package_sale_price_afn) / package_contain, 2)
+
+            product = form.save(commit=False)
+            product.total_package_price = total_package_price
+            product.stock = stock
+            product.item_sale_price = item_sale_price
+            product.usd_package_sale_price = usd_package_sale_price
+            product.user = request.user
+            product.save()
+
+            messages.success(request, "Product added successfully!")
             return redirect('purchase')
-            # return redirect("product_list")
         else:
-            messages.error(request, f"Something went wrong. Please fix the below errors.{form.errors}")
-        
+            messages.error(request, f"Something went wrong. Please fix the below errors: {form.errors}")
+
     purchase = Products.objects.all().order_by('-id')
-    #Paginator start
-    p = Paginator(purchase, 14 )
+
+    # Pagination
+    p = Paginator(purchase, 14)
     page_number = request.GET.get('page')
-    try:
-        page_obj = p.get_page(page_number)
-    except PageNotAnInteger:
-        page_obj = p.page(1)
-    except EmptyPage:
-        page_obj = p.page(p.num_pages)
-    #Paginator end
-    number = []
-    for x in range(1, 100,1):
-        number.append(x)
-    cat = Category.objects.all()
+    page_obj = p.get_page(page_number or 1)
+
     context = {
-        'category':cat,
-        'page_obj':page_obj,
-        'num':number,
-        'form':form
-        }
+        'category': Category.objects.all(),
+        'page_obj': page_obj,
+        'num': range(1, 100),
+        'form': form
+    }
     return render(request, 'purchase/purchase.html', context)
+
+
 
 def products_display(request):
     product = Products.objects.all().order_by('-id')
@@ -611,6 +621,52 @@ def delete_base_unit(request, unit_id):
     
     # Redirect to the base-unit page
     return redirect('base-unit')
+
+# stock management view
+
+def stock_management(request):
+    currency_filter = request.GET.get('currency')
+
+    products = Products.objects.all().order_by('-id')
+
+    if currency_filter == 'usd':
+        products = products.filter(purchase_unit__code__iexact='usd')
+    elif currency_filter == 'afn':
+        products = products.exclude(purchase_unit__code__iexact='usd')
+    else:
+        products = products.all()  # No filter applied
+
+    # Apply pagination
+
+    p = Paginator(products, 14)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = p.page(1)
+    except EmptyPage:
+        page_obj = p.page(p.num_pages)
+    exchange_rate = ExchangeRate.objects.last()
+    exchange_form = ExchangeRateForm(instance=exchange_rate)
+    if request.method == 'POST':
+        exchange_form = ExchangeRateForm(request.POST, instance=exchange_rate)
+        if exchange_form.is_valid():
+            exchange_form.save()
+            messages.success(request, _("Exchange rate has been updated successfully"))
+        else:
+            messages.error(request, _("Something went wrong. Please try again"))
+            exchange_form= ExchangeRateForm(instance=exchange_rate)
+    
+
+    context = {
+        'page_obj': page_obj,
+        'flag': 'list',
+        'currency_filter': currency_filter,
+        'exchange_form': exchange_form,
+    }
+    return render(request, 'partials/management/_stock_management.html', context)
+
+
 
 def customer(request):
     customers = Customer.objects.all()

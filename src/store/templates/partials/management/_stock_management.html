@@ -1,0 +1,45 @@
+{% extends 'dashboard/dashboard-view.html' %}
+{% load i18n %}
+{% load static %}
+{% load custom_filters %}
+{% block dashboard %}
+<div class="sub-container">
+    <div class="heading" style="display: flex; justify-content: space-between;align-items: center;">
+        <div>
+            <h1 class="title">{% trans "Stock Management" %}</h1>
+            <p class="text">{% trans "Manage your Stock" %}</p>
+        </div>
+        <div>
+            <a href="" style="margin-right: 10px;"
+            class="btn {% if not currency_filter %}btn-teal{% else %}btn-gray{% endif %}">
+            {% trans 'All Goods' %}
+            </a>
+
+            <a href="?currency=usd" style="margin-right: 10px;"
+            class="btn {% if currency_filter == 'usd' %}btn-teal{% else %}btn-gray{% endif %}">
+            {% trans 'Dollar Goods' %}
+            </a>
+
+            <a href="?currency=afn" style="margin-right: 10px;"
+            class="btn {% if currency_filter == 'afn' %}btn-teal{% else %}btn-gray{% endif %}">
+            {% trans 'Afghani Goods' %}
+            </a>
+        </div>
+    </div>
+    {% if currency_filter == 'usd' %}
+    <fieldset>
+        <legend>{% trans 'Update the US Dollar rate to Afghani' %}</legend>
+        <form action="" method="post" style="display: flex;flex-direction: row;gap: 10px; justify-content: center;align-items:last baseline;">
+        {% csrf_token %}
+        <div>
+            <label for="{{form.id_for_label}}">{% trans 'Today Rate' %}</label>
+            {{ exchange_form.usd_to_afn }}
+            {{exchange_form.usd_to_afn.errors }}
+        </div>
+        <button type="submit" class="btn btn-red">{% trans 'Update' %}</button>
+    </form>
+    </fieldset>
+    {% endif %}
+    {% include 'partials/product_list.html' %}
+</div>
+{% endblock dashboard %}

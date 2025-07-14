@@ -153,6 +153,11 @@ urlpatterns = [
         views.create_payment,
         name='create-payment',
     ),
+    path(
+        'dashboard/stock',
+        views.stock_management,
+        name='stock-management',
+    ),
     # Bar code scanner url
     path(
         'sale/get-product-by-barcode',

@@ -1,6 +1,7 @@
 {% extends 'dashboard/dashboard-view.html' %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% load custom_filters %}
 {% block dashboard %}
 <div class="sub-container">
@@ -8,20 +9,29 @@
         <h1 class="title">{% trans "Store Dashboard" %}</h1>
         <p class="text">{% trans "The Summary Page offers a quick overview of the store’s key metrics, including inventory levels, sales, recent transactions, and pending orders—all in a clear, easy-to-read dashboard." %}</p>
     </div>
+    <form method="get">
+        <label>{% trans 'From' %}</label>
+        <input type="text" name="from_date" class="datepicker-jalali" placeholder="مثلاً 1403-04-25">
+        
+        <label>{% trans 'To' %}</label>
+        <input type="text" name="to_date" class="datepicker-jalali" placeholder="مثلاً 1403-04-30">
+        
+        <button type="submit" class="btn btn-gray">{% trans 'Filter' %}</button>
+    </form>
     <hr>
     <div class="card-container">
         <!-- Stat Cards -->
         <div class="card">
             <p class="title">{% trans "Today's Sales Amount" %}</p>
-            <p class="text">{{ sales_details.total_sale|default:"0" }} {% trans 'AFN' %}</p>
+            <p class="text">{{ total_value|intcomma}} {% trans 'AFN' %}</p>
         </div>
         <div class="card emphasis">
             <p class="title">{% trans "Total Paid Amount" %}</p>
-            <p class="text">{{ sales_details.total_paid|default:"0" }} {% trans 'AFN' %}</p>
+            <p class="text">{{total_paid|intcomma}} {% trans 'AFN' %}</p>
         </div>
         <div class="card">
             <p class="title">{% trans "Total Unpaid Amount" %}</p>
-            <p class="text">{{ sales_details.total_unpaid|default:"0" }} {% trans 'AFN' %}</p>
+            <p class="text">{{total_unpaid|intcomma }} {% trans 'AFN' %}</p>
         </div>
         <div class="card">
             <p class="title">{% trans "Today's Customers Count" %}</p>

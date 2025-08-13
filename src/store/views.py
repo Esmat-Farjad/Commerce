@@ -1,11 +1,12 @@
 from datetime import date
+import math
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import activate
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count,F, ExpressionWrapper, DecimalField
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import render_to_string
 
@@ -13,7 +14,7 @@ from decimal import Decimal
 
 
 
-from store.filters import ProductsFilter
+from store.filters import ProductsFilter, SalesDetailsFilter
 from .models import BaseUnit, Category, Customer, ExchangeRate, OtherIncome, Products, SalesDetails, SalesProducts
 from .forms import BaseUnitForm, CustomerForm, ExchangeRateForm, OtherIncomeForm, PurchaseForm, RegistrationForm
 from .models import Category, Products
@@ -401,6 +402,8 @@ def cart_view(request):
     cart_details = []
     product_update_stock = []
     grand_total = 0
+    pre_unpaid_amount = 0
+    total = 0
 
     if not cart:
         return render(request, 'sale/cart_view.html', {'cart_details': [], 'grand_total': 0, 'customer': None})
@@ -418,8 +421,8 @@ def cart_view(request):
 
         item_quantity = safe_int(item.get('item_quantity'))
         package_quantity = safe_int(item.get('package_quantity'))
-        item_price = safe_int(item.get('item_price'), 0)
-        package_price = safe_int(item.get('package_price'), 0)
+        item_price = float(item.get('item_price'))
+        package_price = float(item.get('package_price'))
 
         # Calculate stock updates
         package_contain = safe_int(product.package_contain, 1)  # Default to 1 to avoid division by zero
@@ -431,8 +434,8 @@ def cart_view(request):
         product_update_stock.append(product)
 
         # Calculate subtotal and cart details
-        sub_total = (item_quantity * item_price) + (package_quantity * package_price)
-        grand_total += sub_total
+        sub_total = round((item_quantity * item_price) + (package_quantity * package_price),2)
+        grand_total = math.ceil(grand_total + sub_total)
         cart_details.append({
             'product': product,
             'item_quantity': item_quantity,
@@ -446,14 +449,21 @@ def cart_view(request):
     customer_instance = None
     if customer_session:
         customer_pk = list(customer_session.keys())[0]
-        customer_instance = Customer.objects.filter(pk=customer_pk).first()
-
+        customer_instance = Customer.objects.filter(pk=customer_pk).first() 
+        if customer_instance:
+            pre_unpaid = SalesDetails.objects.filter(customer=customer_instance).aggregate(
+                total_unpaid=Sum('unpaid_amount')
+            )
+            pre_unpaid_amount = pre_unpaid['total_unpaid'] or 0
+    total = grand_total
+    grand_total = grand_total + pre_unpaid_amount
     # Handle sale submission
     if request.method == 'POST':
         try:
             paid_amount = safe_int(request.POST.get('paid', 0))
             unpaid_amount = grand_total - paid_amount
-
+           
+            SalesDetails.objects.filter(customer=customer_instance, unpaid_amount__gt=0).update(unpaid_amount=0)
             # Create SalesDetails instance
             with transaction.atomic():
                 sales_details = SalesDetails.objects.create(
@@ -463,7 +473,7 @@ def cart_view(request):
                     paid_amount=paid_amount,
                     unpaid_amount=unpaid_amount,
                 )
-
+                
                 # Bulk update product stock
                 Products.objects.bulk_update(product_update_stock, ['stock', 'num_of_packages', 'num_items'])
 
@@ -493,7 +503,9 @@ def cart_view(request):
     context = {
         'cart_details': cart_details,
         'grand_total': grand_total,
+        'pre_unpaid_amount':pre_unpaid_amount,
         'customer': customer_instance,
+        'total':total
     }
     return render(request, 'sale/cart_view.html', context)
 
@@ -566,7 +578,32 @@ def expense(request):
     return render(request, 'partials/management/_expense-view.html')
 
 def summary(request):
-    return render(request, 'partials/management/_summary-view.html')
+    sales = SalesDetails.objects.all().order_by('-created_at')
+    sales_filter = SalesDetailsFilter(request.GET, queryset=sales)
+    print(request.GET)
+    totals = sales.aggregate(
+    total_paid_amount=Sum('paid_amount'),
+    total_unpaid_amount=Sum('unpaid_amount'),
+    total_sale_value=Sum(
+            ExpressionWrapper(
+                F('paid_amount') + F('unpaid_amount'),
+                output_field=DecimalField()
+            )
+        )
+    )
+
+    # Access values
+    total_paid = totals['total_paid_amount'] or 0
+    total_unpaid = totals['total_unpaid_amount'] or 0
+    total_value = totals['total_sale_value'] or 0
+    context= {
+        "sales":sales,
+        "filter":sales_filter,
+        "total_paid": total_paid,
+        "total_unpaid": total_unpaid,
+        "total_value" :total_value
+    }
+    return render(request, 'partials/management/_summary-view.html',context)
 def returned(request):
     return render(request, 'partials/management/_return-view.html')
 

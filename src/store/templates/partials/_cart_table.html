@@ -62,6 +62,19 @@
                     </td>
                 </tr>
                 {% endfor %}
+                <tr style="font-size:12px;background-color: white">
+                    <td colspan="3">
+                        <p style="padding: 0;margin: 0;">
+                            {% trans 'Total' %}: <b>{{total|intcomma}} {% trans 'AFN' %}</b>
+                        </p>
+                        <p style="padding: 0;margin: 0;">
+                            {% trans 'Pre Unpaid Amound' %}: <b>{{pre_unpaid_amount|intcomma}} {% trans 'AFN' %}</b>
+                        </p>
+                    </td>
+                    <td colspan="5">
+                        
+                    </td>
+                </tr>
                 <tr style="font-weight:bold; font-size:14px;background-color: white;">
                     <td colspan="3">{% trans 'Grand Total' %}: </td>
                     <td colspan="5">{{grand_total|intcomma}} {% trans 'AFN' %}</td>
